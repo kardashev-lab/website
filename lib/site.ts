@@ -3,7 +3,7 @@ export const GITHUB_URL = 'https://github.com/kardashev-lab';
 export const SITE_URL = 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Open-source software for US energy grid intelligence — real-time grid demand monitoring across 15 balancing authorities and unified interconnection queue tracking across all 7 major US ISO/RTOs. Built for the energy transition.';
+  'Open-source software for US energy grid intelligence — real-time grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, and daily solar & wind curtailment data. Built for the energy transition.';
 
 export const TOOLS = [
   {
@@ -40,6 +40,25 @@ export const TOOLS = [
       'US power grid monitoring',
       'electricity consumption',
       'grid load',
+    ],
+  },
+  {
+    id: 'curtailment-tracker',
+    name: 'Curtailment Tracker',
+    url: 'https://curtailment-tracker.kardashevlabs.org/',
+    description:
+      'Daily solar and wind curtailment across CAISO (California), SPP (Southwest Power Pool), and ERCOT (Texas). 90-day rolling history. Shows where the grid is congested and where storage is needed most.',
+    keywords: [
+      'solar curtailment',
+      'wind curtailment',
+      'CAISO curtailment',
+      'SPP curtailment',
+      'ERCOT curtailment',
+      'renewable curtailment',
+      'duck curve',
+      'grid congestion',
+      'energy storage',
+      'US grid curtailment',
     ],
   },
 ];
