@@ -15,9 +15,9 @@ export default function HomePage() {
         <ToolsShowcase />
 
         {/* Vision */}
-        <section id="vision" className="py-32 px-4">
+        <section id="vision" className="py-16 lg:py-32 px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               <div>
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
                   Vision

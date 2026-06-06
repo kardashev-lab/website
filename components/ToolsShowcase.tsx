@@ -81,21 +81,21 @@ const ToolCard = ({
       />
 
       {/* Inner core */}
-      <div className="relative h-full flex flex-col rounded-[calc(2rem-1px)] bg-white/[0.025] overflow-hidden p-8 lg:p-10">
+      <div className="relative h-full flex flex-col rounded-[calc(2rem-1px)] bg-white/[0.025] overflow-hidden p-6 sm:p-8 lg:p-10">
         {/* Top gradient accent */}
         <div
           className={`pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${tool.accent}`}
         />
 
         {/* Live badge */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-6 sm:mb-8 min-w-0">
           <span
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium ring-1 ${tool.badge}`}
+            className={`flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium ring-1 ${tool.badge}`}
           >
             <span className={`w-1.5 h-1.5 rounded-full ${tool.dot} animate-pulse-slow`} />
             Live
           </span>
-          <span className="text-[11px] uppercase tracking-[0.12em] text-white/25 font-medium font-mono">
+          <span className="text-[11px] uppercase tracking-[0.12em] text-white/25 font-medium font-mono truncate min-w-0">
             {tool.eyebrow}
           </span>
         </div>
@@ -123,7 +123,7 @@ const ToolCard = ({
         </p>
 
         {/* Stats strip */}
-        <div className="flex gap-6 mb-8 pb-8 border-b border-white/[0.06]">
+        <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 pb-8 border-b border-white/[0.06]">
           {tool.stats.map((stat) => (
             <div key={stat.label}>
               <div className="font-mono text-lg font-semibold text-white">
@@ -162,7 +162,7 @@ const ToolCard = ({
 );
 
 const ToolsShowcase = () => (
-  <section id="tools" className="py-32 px-4">
+  <section id="tools" className="py-16 lg:py-32 px-4">
     <div className="max-w-6xl mx-auto">
       {/* Section header */}
       <motion.div
@@ -170,7 +170,7 @@ const ToolsShowcase = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-16"
+        className="mb-10 lg:mb-16"
       >
         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
           Live tools

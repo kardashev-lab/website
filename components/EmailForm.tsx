@@ -41,7 +41,7 @@ const EmailForm = () => {
   };
 
   return (
-    <section id="notes" className="py-32 px-4">
+    <section id="notes" className="py-16 lg:py-32 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -51,7 +51,7 @@ const EmailForm = () => {
         >
           {/* Outer shell */}
           <div className="p-px rounded-[2rem] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]">
-            <div className="rounded-[calc(2rem-1px)] bg-white/[0.02] p-10 lg:p-16">
+            <div className="rounded-[calc(2rem-1px)] bg-white/[0.02] p-6 sm:p-10 lg:p-16">
               <div className="max-w-xl">
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
                   Lab Notes

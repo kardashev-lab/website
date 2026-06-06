@@ -31,14 +31,14 @@ const approaches = [
 ];
 
 const ApproachCards = () => (
-  <div id="approach" className="py-32 px-4">
+  <div id="approach" className="py-16 lg:py-32 px-4">
     <div className="max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-16"
+        className="mb-10 lg:mb-16"
       >
         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
           How we build
