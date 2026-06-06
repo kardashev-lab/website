@@ -54,7 +54,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 max-w-4xl mx-auto text-center pt-20 md:pt-0">
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
