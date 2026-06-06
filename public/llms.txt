@@ -1,0 +1,30 @@
+# Kardashev Labs
+
+> Open-source software for US energy grid intelligence — real-time grid demand monitoring and interconnection queue tracking. Built for the energy transition.
+
+Kardashev Labs builds free, open-source tools that give energy professionals access to US grid data that was previously scattered across multiple government and ISO/RTO sources. The mission: accelerate humanity toward Kardashev Type I by making energy infrastructure data universally accessible.
+
+## Live Tools
+
+- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Unified search across all 7 major US ISO/RTO interconnection queues — ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily via automated GitHub Actions pipelines.
+
+- [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Real-time US electricity demand monitoring across 15 balancing authorities, covering approximately 95% of the continental United States (CONUS). Sources data from the US Energy Information Administration (EIA) via a microservices pipeline using Redis Streams, Postgres, and Kubernetes.
+
+## Key Facts
+
+- All tools are free and open source (MIT license)
+- Source code available at github.com/kardashev-lab
+- Interconnection Queue Tracker covers: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE (7 ISO/RTOs)
+- Grid Demand Dashboard covers 15 US balancing authorities, ~95% CONUS electricity
+- Grid data sourced from the US Energy Information Administration (EIA)
+- Interconnection queue data sourced directly from each ISO/RTO
+- Site: kardashevlabs.org
+- Contact: contact@kardashevlabs.org
+
+## Approach
+
+Kardashev Labs follows three principles: Plan (concrete schedules and policies, evidence-first), Prove (baselines and measured deltas — "if we can't explain it, we don't deploy it"), and Scale (automation only where data supports it).
+
+## About the Name
+
+The Kardashev scale is a method for measuring a civilization's technological advancement based on energy use. A Kardashev Type I civilization can harness all energy available on its planet. Kardashev Labs works toward that goal by building tools that improve how humanity understands and manages its energy systems.
