@@ -1,43 +1,56 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/next';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  weight: ['400', '500'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Kardashev Labs - Accelerating humanity toward Kardashev Type I',
-  description: 'We build explainable, open-source software that helps teams plan, prove, and scale efficient use of energy and compute.',
-  keywords: ['energy efficiency', 'compute optimization', 'open source', 'sustainability', 'Kardashev scale'],
+  title: 'Kardashev Labs — Energy & Grid Intelligence Tools',
+  description:
+    'Open-source tools for US grid demand monitoring and interconnection queue tracking. Accelerating humanity toward Kardashev Type I.',
+  keywords: [
+    'energy data',
+    'grid demand',
+    'interconnection queue',
+    'ISO',
+    'balancing authority',
+    'EIA',
+    'open source',
+    'Kardashev',
+  ],
   authors: [{ name: 'Kardashev Labs' }],
   creator: 'Kardashev Labs',
-  publisher: 'Kardashev Labs',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kardashevlabs.org'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://kardashevlabs.org'
+  ),
   openGraph: {
-    title: 'Kardashev Labs - Accelerating humanity toward Kardashev Type I',
-    description: 'We build explainable, open-source software that helps teams plan, prove, and scale efficient use of energy and compute.',
+    title: 'Kardashev Labs — Energy & Grid Intelligence Tools',
+    description:
+      'Open-source tools for US grid demand monitoring and interconnection queue tracking.',
     url: '/',
     siteName: 'Kardashev Labs',
-    images: [
-      {
-        url: '/og.png',
-        width: 1200,
-        height: 630,
-        alt: 'Kardashev Labs - Coming Soon',
-      },
-    ],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Kardashev Labs' }],
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kardashev Labs - Accelerating humanity toward Kardashev Type I',
-    description: 'We build explainable, open-source software that helps teams plan, prove, and scale efficient use of energy and compute.',
+    title: 'Kardashev Labs — Energy & Grid Intelligence Tools',
+    description:
+      'Open-source tools for US grid demand monitoring and interconnection queue tracking.',
     images: ['/og.png'],
   },
   robots: {
@@ -51,18 +64,14 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
-  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
       <Analytics />
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}

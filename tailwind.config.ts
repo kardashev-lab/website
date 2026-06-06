@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+        sans: ['var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'Consolas', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -34,25 +34,32 @@ const config: Config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
       },
       animation: {
-        'fade-in': 'fadeIn 0.4s ease-out',
-        'slide-up': 'slideUp 0.4s ease-out',
-        'shimmer': 'shimmer 2s linear infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'orb-drift': 'orbDrift 20s ease-in-out infinite alternate',
       },
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(12px)' },
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        shimmer: {
-          '0%': { transform: 'translateX(-100%)' },
-          '100%': { transform: 'translateX(100%)' },
+        orbDrift: {
+          '0%': { transform: 'translate(0, 0) scale(1)' },
+          '100%': { transform: 'translate(40px, -30px) scale(1.05)' },
         },
+      },
+      backgroundImage: {
+        'dot-grid':
+          'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
+      },
+      backgroundSize: {
+        'dot-sm': '28px 28px',
       },
     },
   },

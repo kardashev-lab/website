@@ -1,111 +1,142 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
+import GitHubIcon from '@/components/GitHubIcon';
+import { GITHUB_URL } from '@/lib/site';
+
+const navLinks = [
+  { label: 'Tools', href: '#tools' },
+  { label: 'Vision', href: '#vision' },
+  { label: 'Approach', href: '#approach' },
+  { label: 'Notes', href: '#notes' },
+];
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setIsScrolled(latest > 24);
-  });
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollTo = (href: string) => {
+    setMenuOpen(false);
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-background/80 backdrop-blur-md shadow-sm border-b border-border'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+    <>
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-5 left-0 right-0 z-40 flex justify-center px-4"
+      >
+        <div
+          className={`flex items-center gap-8 px-5 py-2.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            scrolled
+              ? 'bg-black/70 backdrop-blur-xl ring-1 ring-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+              : 'bg-black/30 backdrop-blur-md ring-1 ring-white/8'
+          }`}
+        >
+          <Link
+            href="/"
+            className="text-sm font-semibold text-white tracking-tight hover:text-white/80 transition-colors duration-300"
+          >
+            Kardashev<span className="text-blue-400">Labs</span>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <button
+                key={link.label}
+                onClick={() => scrollTo(link.href)}
+                className="text-[13px] text-white/50 hover:text-white/90 transition-colors duration-300 font-medium"
+              >
+                {link.label}
+              </button>
+            ))}
+          </nav>
+
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[13px] font-semibold text-white bg-white/8 hover:bg-white/12 ring-1 ring-white/12 hover:ring-white/20 active:scale-[0.98] transition-all duration-300"
+          >
+            <GitHubIcon className="w-4 h-4" />
+            GitHub
+          </a>
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-[5px] relative"
+            aria-label="Toggle menu"
+          >
+            <motion.span
+              animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+              className="block w-4 h-px bg-white/70 origin-center"
+            />
+            <motion.span
+              animate={menuOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+              className="block w-4 h-px bg-white/70 origin-center"
+            />
+          </button>
+        </div>
+      </motion.header>
+
+      <AnimatePresence>
+        {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <Link
-              href="/"
-              className="flex items-center"
-            >
-              <Image
-                src="/logo.png"
-                alt="Kardashev Labs"
-                width={180}
-                height={60}
-                priority
-                className="h-12 w-auto hover:opacity-80 transition-opacity"
-              />
-            </Link>
-          </motion.div>
-
-          {/* Navigation */}
-          <motion.nav
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="hidden md:flex items-center space-x-8"
-          >
-            <button
-              onClick={() => scrollToSection('vision')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Vision
-            </button>
-            <button
-              onClick={() => scrollToSection('approach')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Approach
-            </button>
-            <button
-              onClick={() => scrollToSection('notes')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Notes
-            </button>
-          </motion.nav>
-
-          {/* Mobile menu button */}
-          <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors focus-visible"
-            aria-label="Open mobile menu"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-30 bg-black/90 backdrop-blur-2xl flex flex-col items-center justify-center gap-8"
+            onClick={() => setMenuOpen(false)}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            {navLinks.map((link, i) => (
+              <motion.button
+                key={link.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  scrollTo(link.href);
+                }}
+                className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
+              >
+                {link.label}
+              </motion.button>
+            ))}
+            <motion.a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ delay: navLinks.length * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-3 text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </motion.button>
-        </div>
-      </div>
-    </motion.header>
+              <GitHubIcon className="w-8 h-8" />
+              GitHub
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

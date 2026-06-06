@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { fadeInUp } from '@/lib/motion';
 
 const EmailForm = () => {
   const [email, setEmail] = useState('');
@@ -11,16 +10,10 @@ const EmailForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email) {
-      setStatus('error');
-      setMessage('Please enter your email address');
-      return;
-    }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('error');
-      setMessage('Please enter a valid email address');
+      setMessage('Enter a valid email address.');
       return;
     }
 
@@ -28,104 +21,98 @@ const EmailForm = () => {
     setMessage('');
 
     try {
-      const formAction = process.env.NEXT_PUBLIC_FORM_ACTION;
-      
-      if (!formAction) {
-        throw new Error('Form action not configured');
-      }
-
-      const response = await fetch(formAction, {
+      const res = await fetch('/api/subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          message: 'New subscription from Kardashev Labs website',
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
       });
 
-      if (response.ok) {
+      if (res.ok) {
         setStatus('success');
-        setMessage('Thank you! You\'ll receive lab notes soon.');
+        setMessage("You're in. Lab notes incoming.");
         setEmail('');
       } else {
-        throw new Error('Failed to submit');
+        throw new Error();
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
-      setMessage('Something went wrong. Please try again.');
+      setMessage('Something went wrong. Try again.');
     }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="py-16 px-4 sm:px-6 lg:px-8"
-    >
-      <div className="container mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-          Lab Notes
-        </h2>
-        <p className="text-lg text-muted-foreground mb-8">
-          Get occasional notes from the lab - no spam; opt out anytime.
-        </p>
+    <section id="notes" className="py-32 px-4">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Outer shell */}
+          <div className="p-px rounded-[2rem] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]">
+            <div className="rounded-[calc(2rem-1px)] bg-white/[0.02] p-10 lg:p-16">
+              <div className="max-w-xl">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
+                  Lab Notes
+                </span>
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                  Stay close to the work.
+                </h2>
+                <p className="text-[0.9rem] text-white/38 mb-10 leading-relaxed">
+                  Occasional notes on what we&apos;re building, what the data
+                  shows, and where we&apos;re going. No spam. Unsubscribe
+                  anytime.
+                </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-                disabled={status === 'loading'}
-                required
-              />
+                <form onSubmit={handleSubmit}>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    {/* Input outer shell */}
+                    <div className="flex-1 p-px rounded-full bg-white/8">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="your@email.com"
+                        disabled={status === 'loading'}
+                        className="w-full px-5 py-3 rounded-full bg-white/[0.04] text-white placeholder:text-white/25 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300 disabled:opacity-40"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={status === 'loading'}
+                      className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-blue-500 hover:bg-blue-400 text-white text-sm font-semibold active:scale-[0.98] disabled:opacity-40 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_0_24px_rgba(59,130,246,0.25)] whitespace-nowrap"
+                    >
+                      {status === 'loading' ? 'Subscribing…' : 'Get notes'}
+                      {status !== 'loading' && (
+                        <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                            <path d="M2 8L8 2M8 2H4M8 2V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                      )}
+                    </button>
+                  </div>
+
+                  {message && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`mt-4 text-sm ${
+                        status === 'success' ? 'text-emerald-400' : 'text-red-400'
+                      }`}
+                    >
+                      {message}
+                    </motion.p>
+                  )}
+                </form>
+              </div>
             </div>
-            <motion.button
-              type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              disabled={status === 'loading'}
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors focus-visible disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
-            </motion.button>
           </div>
-
-          {/* Status message */}
-          {message && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`text-sm ${
-                status === 'success' 
-                  ? 'text-green-600 dark:text-green-400' 
-                  : 'text-red-600 dark:text-red-400'
-              }`}
-              role="status"
-              aria-live="polite"
-            >
-              {message}
-            </motion.div>
-          )}
-
-          {/* Privacy note */}
-          <p className="text-xs text-muted-foreground mt-4">
-            We respect your privacy. Unsubscribe at any time.
-          </p>
-        </form>
+        </motion.div>
       </div>
-    </motion.div>
+    </section>
   );
 };
 

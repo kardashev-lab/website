@@ -1,83 +1,91 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem } from '@/lib/motion';
 
-const ApproachCards = () => {
-  const approaches = [
-    {
-      title: 'Plan',
-      description: 'Concrete schedules and policies - advisory first.',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-        </svg>
-      ),
-    },
-    {
-      title: 'Prove',
-      description: 'Baselines, assumptions, and measured deltas.',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      ),
-    },
-    {
-      title: 'Scale',
-      description: 'Automation only where data supports it.',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ),
-    },
-  ];
+const approaches = [
+  {
+    number: '01',
+    title: 'Plan',
+    description:
+      'Concrete schedules and policies. Evidence first, assumptions labeled, advisory before automation.',
+    image: '/images/approach-plan.png',
+    imageAlt: 'Abstract planning and routing visualization',
+  },
+  {
+    number: '02',
+    title: 'Prove',
+    description:
+      'Baselines, assumptions, and measured deltas. If we can\'t explain it, we don\'t deploy it.',
+    image: '/images/approach-prove.png',
+    imageAlt: 'Abstract metrics and validation visualization',
+  },
+  {
+    number: '03',
+    title: 'Scale',
+    description:
+      'Automation only where data supports it. Systems that compound without compounding risk.',
+    image: '/images/approach-scale.png',
+    imageAlt: 'Abstract scaling and modular growth visualization',
+  },
+];
 
-  return (
-    <motion.div
-      variants={staggerContainer}
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true, margin: '-100px' }}
-      className="py-16 px-4 sm:px-6 lg:px-8"
-    >
-      <div className="container mx-auto max-w-6xl">
-        <motion.div
-          variants={staggerItem}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Our Approach
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Three pillars that guide everything we build
-          </p>
-        </motion.div>
+const ApproachCards = () => (
+  <div id="approach" className="py-32 px-4">
+    <div className="max-w-6xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-16"
+      >
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
+          How we build
+        </span>
+        <h2 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
+          Three pillars.
+        </h2>
+      </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {approaches.map((approach, index) => (
-            <motion.div
-              key={approach.title}
-              variants={staggerItem}
-              whileHover={{ y: -4 }}
-              className="group p-8 rounded-xl border border-border bg-card hover:bg-accent/50 transition-all duration-300 hover:shadow-lg"
-            >
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                {approach.icon}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {approaches.map((item, i) => (
+          <motion.div
+            key={item.number}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Outer shell */}
+            <div className="group h-full p-px rounded-[1.5rem] bg-gradient-to-b from-white/8 to-white/[0.02] hover:from-white/12 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
+              {/* Inner core */}
+              <div className="h-full rounded-[calc(1.5rem-1px)] bg-white/[0.02] group-hover:bg-white/[0.04] transition-colors duration-500 p-7">
+                <div className="relative mb-6 aspect-[16/10] rounded-xl overflow-hidden ring-1 ring-white/8">
+                  <Image
+                    src={item.image}
+                    alt={item.imageAlt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="font-mono text-[11px] text-white/20 uppercase tracking-widest mb-6">
+                  {item.number}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-[0.875rem] text-white/38 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-4 text-center">
-                {approach.title}
-              </h3>
-              <p className="text-muted-foreground text-center leading-relaxed">
-                {approach.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </motion.div>
-  );
-};
+    </div>
+  </div>
+);
 
 export default ApproachCards;

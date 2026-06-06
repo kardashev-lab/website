@@ -1,97 +1,106 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
-import { fadeInUp } from '@/lib/motion';
+import { motion } from 'framer-motion';
+import GitHubIcon from '@/components/GitHubIcon';
+import { GITHUB_URL } from '@/lib/site';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <motion.footer
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="border-t border-border bg-muted/30"
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <Image
-                src="/logo.png"
-                alt="Kardashev Labs"
-                width={140}
-                height={46}
-                className="h-10 w-auto hover:opacity-80 transition-opacity"
-              />
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              Explainable systems, weekly progress.
-            </p>
+const Footer = () => (
+  <motion.footer
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.7 }}
+    className="border-t border-white/[0.06] px-4 py-12"
+  >
+    <div className="max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+        {/* Brand */}
+        <div className="md:col-span-2 space-y-3">
+          <div className="text-sm font-semibold text-white tracking-tight">
+            Kardashev<span className="text-blue-400">Labs</span>
           </div>
+          <p className="text-[13px] text-white/25 leading-relaxed max-w-xs">
+            Open-source tools for the energy transition. Accelerating humanity
+            toward Kardashev Type I.
+          </p>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold text-white bg-white/8 hover:bg-white/12 ring-1 ring-white/12 hover:ring-white/20 transition-all duration-300"
+          >
+            <GitHubIcon className="w-4 h-4" />
+            github.com/kardashev-lab
+          </a>
+        </div>
 
-          {/* Links */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-foreground">
-              Connect
-            </h4>
-            <div className="space-y-2">
-              <Link
-                href="mailto:contact@kardashevlabs.org"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Email
-              </Link>
-              <Link
-                href="https://github.com/kardashev-lab"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                GitHub
-              </Link>
-              <Link
-                href="https://linkedin.com/company/kardashev-labs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                LinkedIn
-              </Link>
-            </div>
-          </div>
-
-          {/* Legal */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-foreground">
-              Legal
-            </h4>
-            <div className="space-y-2">
-              <Link
-                href="/privacy"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Privacy
-              </Link>
-            </div>
+        {/* Tools */}
+        <div className="space-y-3">
+          <h4 className="text-[11px] uppercase tracking-[0.15em] text-white/25 font-medium">
+            Tools
+          </h4>
+          <div className="space-y-2">
+            <a
+              href="https://interconnection-queue.kardashevlabs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Interconnection Queue
+            </a>
+            <a
+              href="https://grid-demand.kardashevlabs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Grid Demand Dashboard
+            </a>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-8 pt-8 border-t border-border">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <p className="text-sm text-muted-foreground">
-              © {currentYear} Kardashev Labs. All rights reserved.
-            </p>
+        {/* Connect */}
+        <div className="space-y-3">
+          <h4 className="text-[11px] uppercase tracking-[0.15em] text-white/25 font-medium">
+            Connect
+          </h4>
+          <div className="space-y-2">
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[13px] text-white/50 hover:text-white/80 transition-colors duration-200"
+            >
+              <GitHubIcon className="w-3.5 h-3.5" />
+              GitHub
+            </a>
+            <Link
+              href="mailto:contact@kardashevlabs.org"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Email
+            </Link>
+            <Link
+              href="/privacy"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Privacy
+            </Link>
           </div>
         </div>
       </div>
-    </motion.footer>
-  );
-};
+
+      <div className="pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p className="text-[12px] text-white/18 font-mono">
+          © {new Date().getFullYear()} Kardashev Labs
+        </p>
+        <p className="text-[12px] text-white/18 font-mono">
+          kardashevlabs.org
+        </p>
+      </div>
+    </div>
+  </motion.footer>
+);
 
 export default Footer;
