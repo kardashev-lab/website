@@ -90,8 +90,8 @@ const tools = [
     badge: 'bg-violet-500/10 text-violet-400 ring-violet-500/20',
     dot: 'bg-violet-400',
     button: 'bg-violet-500 hover:bg-violet-400 shadow-[0_0_24px_rgba(139,92,246,0.25)]',
-    image: null,
-    imageAlt: '',
+    image: '/images/tool-lmp.png',
+    imageAlt: 'LMP dashboard preview showing CAISO real-time prices',
     wide: true,
   },
 ];
