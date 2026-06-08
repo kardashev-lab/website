@@ -36,7 +36,7 @@ const Header = () => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-5 left-0 right-0 z-40 flex justify-center px-4"
+        className="fixed left-0 right-0 z-40 flex justify-center px-4 pt-[max(1.25rem,env(safe-area-inset-top))]"
       >
         <div
           className={`flex items-center gap-8 px-5 py-2.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
@@ -76,7 +76,7 @@ const Header = () => {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-[5px] relative"
+            className="md:hidden min-w-11 min-h-11 flex flex-col items-center justify-center gap-[5px] relative"
             aria-label="Toggle menu"
           >
             <motion.span

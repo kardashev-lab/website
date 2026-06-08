@@ -86,8 +86,9 @@ const EmailForm = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@email.com"
+                        autoComplete="email"
                         disabled={status === 'loading'}
-                        className="w-full px-5 py-3 rounded-full bg-white/[0.04] text-white placeholder:text-white/25 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300 disabled:opacity-40"
+                        className="w-full px-5 py-3 rounded-full bg-white/[0.04] text-white placeholder:text-white/25 text-base sm:text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300 disabled:opacity-40"
                       />
                     </div>
 

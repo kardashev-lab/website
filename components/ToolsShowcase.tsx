@@ -265,7 +265,7 @@ const ToolsShowcase = () => (
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-white/10 hover:bg-white/15 ring-1 ring-white/15 hover:ring-white/25 active:scale-[0.98] transition-all duration-300 whitespace-nowrap self-start sm:self-auto"
+            className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-white/10 hover:bg-white/15 ring-1 ring-white/15 hover:ring-white/25 active:scale-[0.98] transition-all duration-300 sm:whitespace-nowrap self-start sm:self-auto"
           >
             github.com/kardashev-lab
             <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300">
