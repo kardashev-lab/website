@@ -1,4 +1,6 @@
 export const GITHUB_URL = 'https://github.com/kardashev-lab';
+export const CONTACT_EMAIL = 'ashutosh@kardashevlabs.org';
+export const LINKEDIN_URL = 'https://www.linkedin.com/company/kardashev-labs';
 
 export const SITE_URL = 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';

@@ -19,7 +19,8 @@ Kardashev Labs builds free, open-source tools that give energy professionals acc
 - Grid data sourced from the US Energy Information Administration (EIA)
 - Interconnection queue data sourced directly from each ISO/RTO
 - Site: kardashevlabs.org
-- Contact: contact@kardashevlabs.org
+- Contact: ashutosh@kardashevlabs.org
+- LinkedIn: https://www.linkedin.com/company/kardashev-labs
 
 ## Approach
 

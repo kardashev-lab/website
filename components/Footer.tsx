@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import GitHubIcon from '@/components/GitHubIcon';
-import { GITHUB_URL } from '@/lib/site';
+import LinkedInIcon from '@/components/LinkedInIcon';
+import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL, TOOLS } from '@/lib/site';
 
 const Footer = () => (
   <motion.footer
@@ -41,22 +42,17 @@ const Footer = () => (
             Tools
           </h4>
           <div className="space-y-2">
-            <a
-              href="https://interconnection-queue.kardashevlabs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
-            >
-              Interconnection Queue
-            </a>
-            <a
-              href="https://grid-demand.kardashevlabs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
-            >
-              Grid Demand Dashboard
-            </a>
+            {TOOLS.map((tool) => (
+              <a
+                key={tool.id}
+                href={tool.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+              >
+                {tool.name}
+              </a>
+            ))}
           </div>
         </div>
 
@@ -75,12 +71,21 @@ const Footer = () => (
               <GitHubIcon className="w-3.5 h-3.5" />
               GitHub
             </a>
-            <Link
-              href="mailto:contact@kardashevlabs.org"
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[13px] text-white/50 hover:text-white/80 transition-colors duration-200"
+            >
+              <LinkedInIcon className="w-3.5 h-3.5" />
+              LinkedIn
+            </a>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
               className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
             >
-              Email
-            </Link>
+              {CONTACT_EMAIL}
+            </a>
             <Link
               href="/privacy"
               className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"

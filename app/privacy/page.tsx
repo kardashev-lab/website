@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { CONTACT_EMAIL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Kardashev Labs',
@@ -78,10 +79,10 @@ export default function PrivacyPage() {
               <p className="text-muted-foreground leading-relaxed">
                 If you have any questions about this privacy policy, please contact us at{' '}
                 <a 
-                  href="mailto:contact@kardashevlabs.org" 
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="text-primary hover:text-primary/80 transition-colors"
                 >
-                  contact@kardashevlabs.org
+                  {CONTACT_EMAIL}
                 </a>
               </p>
             </section>
