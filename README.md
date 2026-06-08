@@ -1,4 +1,4 @@
-# Kardashev Labs — Website
+# Kardashev Labs
 
 The marketing and landing site for [kardashevlabs.org](https://kardashevlabs.org) — home of open-source tools for the energy transition.
 
