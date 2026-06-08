@@ -24,7 +24,10 @@ const EmailForm = () => {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          website: (e.target as HTMLFormElement).website?.value ?? '',
+        }),
       });
 
       if (res.ok) {
@@ -65,7 +68,16 @@ const EmailForm = () => {
                   anytime.
                 </p>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="relative">
+                  {/* Honeypot — hidden from users, catches bots */}
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute opacity-0 h-0 w-0 pointer-events-none"
+                  />
                   <div className="flex flex-col sm:flex-row gap-3">
                     {/* Input outer shell */}
                     <div className="flex-1 p-px rounded-full bg-white/8">

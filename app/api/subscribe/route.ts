@@ -1,21 +1,32 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { clientIp, rateLimit, validateEmail } from '@/lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const body = await req.json().catch(() => null);
-  const email: string | undefined = body?.email?.trim();
+  const ip = clientIp(req);
+  const rl = rateLimit(`subscribe:${ip}`, 5, 60_000);
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests. Try again later.' },
+      { status: 429, headers: { 'Retry-After': String(rl.retryAfter) } },
+    );
+  }
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  const body = await req.json().catch(() => null);
+  const email = validateEmail(body?.email);
+
+  if (!email) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
-  console.log('[subscribe] RESEND_API_KEY set:', !!process.env.RESEND_API_KEY);
-  console.log('[subscribe] RESEND_NOTIFY_TO:', process.env.RESEND_NOTIFY_TO);
+  // Honeypot — bots that fill hidden fields get a silent success
+  if (body?.website) {
+    return NextResponse.json({ ok: true });
+  }
 
   try {
-    // Add to audience if configured
     if (process.env.RESEND_AUDIENCE_ID) {
       await resend.contacts.create({
         email,
@@ -24,7 +35,6 @@ export async function POST(req: Request) {
       });
     }
 
-    // Notify owner
     if (process.env.RESEND_NOTIFY_TO) {
       const from = process.env.RESEND_FROM_EMAIL
         ? `Kardashev Labs <${process.env.RESEND_FROM_EMAIL}>`
@@ -33,21 +43,19 @@ export async function POST(req: Request) {
       const result = await resend.emails.send({
         from,
         to: process.env.RESEND_NOTIFY_TO,
-        subject: `New lab notes subscriber: ${email}`,
-        text: `${email} just subscribed to Kardashev Labs lab notes.`,
+        subject: 'New lab notes subscriber',
+        text: `A new subscriber joined Kardashev Labs lab notes.`,
       });
 
-      console.log('[subscribe] resend result:', JSON.stringify(result));
-
       if (result.error) {
-        console.error('[subscribe] resend error:', result.error);
-        return NextResponse.json({ error: result.error.message }, { status: 500 });
+        console.error('[subscribe] resend error');
+        return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 });
       }
     }
 
     return NextResponse.json({ ok: true });
-  } catch (err) {
-    console.error('[subscribe] caught:', err);
+  } catch {
+    console.error('[subscribe] request failed');
     return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 });
   }
 }
