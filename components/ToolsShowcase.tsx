@@ -72,13 +72,37 @@ const tools = [
     imageAlt: 'US curtailment tracker dashboard preview',
     wide: true,
   },
+  {
+    id: 'lmp',
+    live: true,
+    eyebrow: 'LMP Dashboard',
+    headline: 'Electricity spot prices across the US grid — every 5 minutes.',
+    description:
+      'Real-time and day-ahead locational marginal prices across NYISO, PJM, CAISO, and SPP. Energy, congestion, and loss components per hub node. Fuel mix by source, Henry Hub gas prices, grid temperatures, renewable curtailment, and battery storage — all in one terminal.',
+    stats: [
+      { value: '4', label: 'ISOs covered' },
+      { value: '5-min', label: 'RT price refresh' },
+      { value: 'RT + DA', label: 'market depth' },
+    ],
+    url: 'https://lmp.kardashevlabs.org',
+    accent: 'from-violet-500/20 to-violet-500/0',
+    glow: 'rgba(139,92,246,0.12)',
+    badge: 'bg-violet-500/10 text-violet-400 ring-violet-500/20',
+    dot: 'bg-violet-400',
+    button: 'bg-violet-500 hover:bg-violet-400 shadow-[0_0_24px_rgba(139,92,246,0.25)]',
+    image: null,
+    imageAlt: '',
+    wide: true,
+  },
 ];
+
+type Tool = Omit<(typeof tools)[0], 'image'> & { image: string | null };
 
 const ToolCard = ({
   tool,
   index,
 }: {
-  tool: (typeof tools)[0];
+  tool: Tool;
   index: number;
 }) => {
   const motionProps = {
@@ -166,22 +190,24 @@ const ToolCard = ({
             />
 
             {/* Content */}
-            <div className="flex flex-col flex-1 p-6 sm:p-8 lg:p-10">
+            <div className={`flex flex-col flex-1 p-6 sm:p-8 lg:p-10 ${!tool.image ? 'lg:max-w-3xl' : ''}`}>
               {content}
             </div>
 
-            {/* Image panel */}
-            <div className="relative lg:w-[42%] min-h-[220px] lg:min-h-0 shrink-0">
-              <Image
-                src={tool.image}
-                alt={tool.imageAlt}
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 42vw"
-              />
-              {/* Fade from content on desktop, fade from bottom on mobile */}
-              <div className="absolute inset-0 lg:bg-gradient-to-r bg-gradient-to-t from-[#030712]/70 via-[#030712]/20 to-transparent lg:from-[#030712]/60 lg:via-[#030712]/10 lg:to-transparent" />
-            </div>
+            {/* Image panel — only if image provided */}
+            {tool.image && (
+              <div className="relative lg:w-[42%] min-h-[220px] lg:min-h-0 shrink-0">
+                <Image
+                  src={tool.image}
+                  alt={tool.imageAlt}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                />
+                {/* Fade from content on desktop, fade from bottom on mobile */}
+                <div className="absolute inset-0 lg:bg-gradient-to-r bg-gradient-to-t from-[#030712]/70 via-[#030712]/20 to-transparent lg:from-[#030712]/60 lg:via-[#030712]/10 lg:to-transparent" />
+              </div>
+            )}
           </div>
         </div>
       </motion.div>
@@ -203,16 +229,18 @@ const ToolCard = ({
           />
 
           {/* Preview image */}
-          <div className="relative mb-8 aspect-[16/10] rounded-xl overflow-hidden ring-1 ring-white/10">
-            <Image
-              src={tool.image}
-              alt={tool.imageAlt}
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/60 via-transparent to-transparent" />
-          </div>
+          {tool.image && (
+            <div className="relative mb-8 aspect-[16/10] rounded-xl overflow-hidden ring-1 ring-white/10">
+              <Image
+                src={tool.image}
+                alt={tool.imageAlt}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/60 via-transparent to-transparent" />
+            </div>
+          )}
 
           {content}
         </div>
@@ -251,6 +279,10 @@ const ToolsShowcase = () => (
         {/* Curtailment tracker — full-width horizontal card */}
         <div className="lg:col-span-12">
           <ToolCard tool={tools[2]} index={2} />
+        </div>
+        {/* LMP Dashboard — full-width horizontal card */}
+        <div className="lg:col-span-12">
+          <ToolCard tool={tools[3]} index={3} />
         </div>
       </div>
 
