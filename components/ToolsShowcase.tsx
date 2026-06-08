@@ -26,7 +26,6 @@ const tools = [
     button: 'bg-blue-500 hover:bg-blue-400 shadow-[0_0_24px_rgba(59,130,246,0.25)]',
     image: '/images/tool-interconnection.png',
     imageAlt: 'US interconnection queue dashboard preview',
-    wide: false,
   },
   {
     id: 'grid-demand',
@@ -48,7 +47,6 @@ const tools = [
     button: 'bg-emerald-500 hover:bg-emerald-400 shadow-[0_0_24px_rgba(16,185,129,0.25)]',
     image: '/images/tool-grid-demand.png',
     imageAlt: 'Real-time grid demand dashboard preview',
-    wide: false,
   },
   {
     id: 'curtailment',
@@ -70,7 +68,6 @@ const tools = [
     button: 'bg-rose-500 hover:bg-rose-400 shadow-[0_0_24px_rgba(251,113,133,0.25)]',
     image: '/images/tool-curtailment.png',
     imageAlt: 'US curtailment tracker dashboard preview',
-    wide: true,
   },
   {
     id: 'lmp',
@@ -92,7 +89,6 @@ const tools = [
     button: 'bg-violet-500 hover:bg-violet-400 shadow-[0_0_24px_rgba(139,92,246,0.25)]',
     image: '/images/tool-lmp.png',
     imageAlt: 'LMP dashboard preview showing CAISO real-time prices',
-    wide: true,
   },
 ];
 
@@ -172,48 +168,6 @@ const ToolCard = ({
     </>
   );
 
-  if (tool.wide) {
-    return (
-      <motion.div className="h-full" {...motionProps}>
-        <div className="relative h-full p-px rounded-[2rem] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]">
-          <div
-            className="pointer-events-none absolute inset-0 rounded-[2rem] opacity-60"
-            style={{
-              background: `radial-gradient(ellipse at 20% 50%, ${tool.glow} 0%, transparent 60%)`,
-            }}
-          />
-          {/* Horizontal inner core */}
-          <div className="relative h-full flex flex-col lg:flex-row rounded-[calc(2rem-1px)] bg-white/[0.025] overflow-hidden">
-            {/* Top gradient accent */}
-            <div
-              className={`pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${tool.accent}`}
-            />
-
-            {/* Content */}
-            <div className={`flex flex-col flex-1 p-6 sm:p-8 lg:p-10 ${!tool.image ? 'lg:max-w-3xl' : ''}`}>
-              {content}
-            </div>
-
-            {/* Image panel — only if image provided */}
-            {tool.image && (
-              <div className="relative lg:w-[42%] min-h-[220px] lg:min-h-0 shrink-0">
-                <Image
-                  src={tool.image}
-                  alt={tool.imageAlt}
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 1024px) 100vw, 42vw"
-                />
-                {/* Fade from content on desktop, fade from bottom on mobile */}
-                <div className="absolute inset-0 lg:bg-gradient-to-r bg-gradient-to-t from-[#030712]/70 via-[#030712]/20 to-transparent lg:from-[#030712]/60 lg:via-[#030712]/10 lg:to-transparent" />
-              </div>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.div className="h-full" {...motionProps}>
       <div className="relative h-full p-px rounded-[2rem] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]">
@@ -276,12 +230,10 @@ const ToolsShowcase = () => (
         <div className="lg:col-span-5">
           <ToolCard tool={tools[1]} index={1} />
         </div>
-        {/* Curtailment tracker — full-width horizontal card */}
-        <div className="lg:col-span-12">
+        <div className="lg:col-span-6">
           <ToolCard tool={tools[2]} index={2} />
         </div>
-        {/* LMP Dashboard — full-width horizontal card */}
-        <div className="lg:col-span-12">
+        <div className="lg:col-span-6">
           <ToolCard tool={tools[3]} index={3} />
         </div>
       </div>
