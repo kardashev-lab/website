@@ -10,7 +10,7 @@ Kardashev Labs builds free, open-source tools that give energy professionals acc
 
 - [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Real-time US electricity demand monitoring across 15 balancing authorities, covering approximately 95% of the continental United States (CONUS). Sources data from the US Energy Information Administration (EIA) via a microservices pipeline using Redis Streams, Postgres, and Kubernetes.
 
-- [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org): Daily solar and wind curtailment across CAISO, SPP, and ERCOT with a 90-day rolling history. Highlights grid congestion and storage opportunities using data served by Kardashev Labs.
+- [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org/): Daily solar and wind curtailment across CAISO, SPP, and ERCOT with a 90-day rolling history. Highlights grid congestion and storage opportunities using data served by Kardashev Labs.
 
 - [LMP Dashboard](https://lmp.kardashevlabs.org): Real-time and day-ahead locational marginal prices across NYISO, PJM, CAISO, and SPP, including energy, congestion, and loss components plus fuel and market context.
 
