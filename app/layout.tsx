@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import MotionProvider from '@/components/MotionProvider';
 import './globals.css';
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, TOOLS } from '@/lib/site';
 
@@ -251,7 +252,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
       </body>
     </html>
