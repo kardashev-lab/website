@@ -56,6 +56,7 @@ const ApproachCards = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className={i === 1 ? 'md:mt-12' : i === 2 ? 'md:mt-24' : ''}
           >
             {/* Outer shell */}
             <div className="group h-full p-px rounded-[1.5rem] bg-gradient-to-b from-white/8 to-white/[0.02] hover:from-white/12 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">

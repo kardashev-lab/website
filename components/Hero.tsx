@@ -19,10 +19,11 @@ const Hero = () => {
           alt=""
           fill
           priority
-          className="object-cover object-center opacity-25"
+          className="object-cover object-center opacity-45"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/90 via-[#030712]/70 to-[#030712]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/80 via-[#030712]/50 to-[#030712]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/70 via-transparent to-transparent" />
       </div>
 
       {/* Radial orb — blue, top right */}
@@ -54,7 +55,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center pt-20 md:pt-0">
+      <div className="relative z-10 w-full max-w-6xl mx-auto text-left pt-20 md:pt-0">
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -73,7 +74,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="text-[clamp(2.4rem,6vw,4.5rem)] font-bold leading-[1.08] tracking-tight text-white mb-6"
+          className="max-w-4xl text-[clamp(2.4rem,6vw,4.5rem)] font-bold leading-[1.08] tracking-tight text-white mb-6"
         >
           Building tools that{' '}
           <span
@@ -94,7 +95,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.32 }}
-          className="text-[1.1rem] text-white/45 max-w-2xl mx-auto leading-relaxed mb-12"
+          className="text-[1.1rem] text-white/55 max-w-2xl leading-relaxed mb-12"
         >
           Open-source software for real-time grid demand, interconnection
           queues, wholesale electricity prices, and renewable curtailment —
@@ -106,7 +107,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.44 }}
-          className="flex flex-col sm:flex-row gap-3 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-3 justify-start items-stretch sm:items-center"
         >
           {/* Primary */}
           <button
@@ -146,7 +147,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="mt-20 flex justify-center"
+          className="mt-20 flex justify-start"
         >
           <div className="flex flex-col items-center gap-2 text-white/20">
             <span className="text-[10px] uppercase tracking-widest font-mono">Scroll</span>
