@@ -2,7 +2,12 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { clientIp, rateLimit, validateEmail } from '@/lib/rate-limit';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy — the Resend constructor throws without an API key, which would
+// break `next build` in environments where the secret isn't set.
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  return key ? new Resend(key) : null;
+}
 
 export async function POST(req: Request) {
   const ip = clientIp(req);
@@ -24,6 +29,12 @@ export async function POST(req: Request) {
   // Honeypot — bots that fill hidden fields get a silent success
   if (body?.website) {
     return NextResponse.json({ ok: true });
+  }
+
+  const resend = getResend();
+  if (!resend) {
+    console.error('[subscribe] RESEND_API_KEY not configured');
+    return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 });
   }
 
   try {

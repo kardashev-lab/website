@@ -96,9 +96,9 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.32 }}
           className="text-[1.1rem] text-white/45 max-w-2xl mx-auto leading-relaxed mb-12"
         >
-          Open-source software for real-time grid demand intelligence and
-          interconnection queue tracking — built for the humans working on the
-          energy transition.
+          Open-source software for real-time grid demand, interconnection
+          queues, wholesale electricity prices, and renewable curtailment —
+          built for the humans working on the energy transition.
         </motion.p>
 
         {/* CTAs */}

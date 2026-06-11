@@ -126,10 +126,12 @@ export default async function Image() {
         </div>
 
         {/* Bottom: tool pills */}
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           {[
             { label: 'Interconnection Queue Tracker', color: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.3)', dot: '#60a5fa' },
             { label: 'Grid Demand Dashboard', color: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', dot: '#34d399' },
+            { label: 'Curtailment Tracker', color: 'rgba(251,113,133,0.12)', border: 'rgba(251,113,133,0.3)', dot: '#fb7185' },
+            { label: 'LMP Dashboard', color: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.3)', dot: '#a78bfa' },
           ].map((tool) => (
             <div
               key={tool.label}

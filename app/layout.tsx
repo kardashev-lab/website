@@ -51,6 +51,15 @@ export const metadata: Metadata = {
     'CONUS grid monitoring',
     'grid load monitoring',
     'electricity consumption dashboard',
+    // Curtailment
+    'solar curtailment',
+    'wind curtailment',
+    'renewable curtailment data',
+    'duck curve',
+    // LMP / prices
+    'LMP dashboard',
+    'locational marginal price',
+    'wholesale electricity prices',
     // General
     'energy data tools',
     'grid intelligence',
@@ -131,6 +140,8 @@ const jsonLd = {
         'US electricity grid',
         'ISO/RTO interconnection queues',
         'real-time grid demand monitoring',
+        'renewable energy curtailment',
+        'locational marginal prices',
         'energy transition',
         'open-source energy software',
         'EIA electricity data',
@@ -146,12 +157,12 @@ const jsonLd = {
       publisher: { '@id': `${SITE_URL}/#organization` },
       inLanguage: 'en-US',
     },
-    {
+    ...TOOLS.map((tool) => ({
       '@type': 'WebApplication',
-      '@id': `${TOOLS[0].url}/#app`,
-      name: TOOLS[0].name,
-      url: TOOLS[0].url,
-      description: TOOLS[0].description,
+      '@id': `${tool.url}/#app`,
+      name: tool.name,
+      url: tool.url,
+      description: tool.description,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Any',
       offers: {
@@ -160,36 +171,9 @@ const jsonLd = {
         priceCurrency: 'USD',
       },
       author: { '@id': `${SITE_URL}/#organization` },
-      featureList: [
-        'Search across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE queues',
-        'Daily data refresh via GitHub Actions',
-        'Filter by fuel type, capacity, and project status',
-        'Download queue data as CSV',
-      ],
-      keywords: TOOLS[0].keywords.join(', '),
-    },
-    {
-      '@type': 'WebApplication',
-      '@id': `${TOOLS[1].url}/#app`,
-      name: TOOLS[1].name,
-      url: TOOLS[1].url,
-      description: TOOLS[1].description,
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Any',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-      author: { '@id': `${SITE_URL}/#organization` },
-      featureList: [
-        'Real-time demand across 15 balancing authorities',
-        '95% CONUS electricity coverage',
-        'EIA data integration',
-        'Historical demand comparison',
-      ],
-      keywords: TOOLS[1].keywords.join(', '),
-    },
+      featureList: tool.features,
+      keywords: tool.keywords.join(', '),
+    })),
     {
       '@type': 'FAQPage',
       mainEntity: [
@@ -198,7 +182,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs and a real-time grid demand dashboard covering 95% of the continental US.',
+            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs, a real-time grid demand dashboard covering 95% of the continental US, a daily renewable curtailment tracker, and a wholesale electricity price (LMP) dashboard.',
           },
         },
         {
@@ -223,6 +207,22 @@ const jsonLd = {
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'The tracker covers all 7 major US ISO/RTOs: ERCOT (Texas), MISO (Midcontinent), PJM (Mid-Atlantic/Midwest), CAISO (California), SPP (Southwest Power Pool), NYISO (New York), and ISO-NE (New England).',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the Curtailment Tracker?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The Curtailment Tracker is a free web tool showing how much solar and wind energy is curtailed (wasted) every day across CAISO, SPP, and ERCOT, with a 90-day rolling history. High curtailment signals grid congestion and where battery storage is needed most.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the LMP Dashboard?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The LMP Dashboard is a free real-time view of wholesale electricity prices — locational marginal prices across NYISO, PJM, CAISO, and SPP, broken into energy, congestion, and loss components, alongside fuel mix, natural gas prices, weather, and battery storage data.',
           },
         },
         {

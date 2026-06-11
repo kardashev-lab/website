@@ -1,6 +1,6 @@
 # Kardashev Labs
 
-The marketing and landing site for [kardashevlabs.org](https://www.kardashevlabs.org) — home of open-source tools for US grid intelligence.
+The marketing and landing site for [kardashevlabs.org](https://kardashevlabs.org) — home of open-source tools for US grid intelligence.
 
 ## What is Kardashev Labs?
 
