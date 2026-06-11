@@ -103,7 +103,7 @@ export const TOOLS: Tool[] = [
       { value: '95%', label: 'CONUS coverage' },
       { value: '23ms', label: 'chaos recovery' },
     ],
-    image: '/images/tool-grid-demand.png',
+    image: '/images/tool-grid-demand.webp',
     imageAlt: 'Real-time grid demand dashboard preview',
     theme: {
       accent: 'from-emerald-500/20 to-emerald-500/0',
@@ -187,7 +187,7 @@ export const TOOLS: Tool[] = [
       { value: '5-min', label: 'RT price refresh' },
       { value: 'RT + DA', label: 'market depth' },
     ],
-    image: '/images/tool-lmp.png',
+    image: '/images/tool-lmp.webp',
     imageAlt: 'LMP dashboard preview showing CAISO real-time prices',
     theme: {
       accent: 'from-violet-500/20 to-violet-500/0',
