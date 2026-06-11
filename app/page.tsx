@@ -37,7 +37,7 @@ export default function HomePage() {
                 <div className="p-px rounded-[2rem] bg-gradient-to-br from-white/8 to-white/[0.02]">
                   <div className="relative aspect-[4/3] rounded-[calc(2rem-1px)] overflow-hidden">
                     <Image
-                      src="/images/vision-energy-future.png"
+                      src="/images/vision-energy-future.webp"
                       alt="Planetary-scale energy and civilization visualization"
                       fill
                       className="object-cover"

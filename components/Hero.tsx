@@ -15,7 +15,7 @@ const Hero = () => {
       {/* Hero background */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Image
-          src="/images/hero-energy-grid.png"
+          src="/images/hero-energy-grid.webp"
           alt=""
           fill
           priority

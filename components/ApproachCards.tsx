@@ -9,7 +9,7 @@ const approaches = [
     title: 'Plan',
     description:
       'Concrete schedules and policies. Evidence first, assumptions labeled, advisory before automation.',
-    image: '/images/approach-plan.png',
+    image: '/images/approach-plan.webp',
     imageAlt: 'Abstract planning and routing visualization',
   },
   {
@@ -17,7 +17,7 @@ const approaches = [
     title: 'Prove',
     description:
       'Baselines, assumptions, and measured deltas. If we can\'t explain it, we don\'t deploy it.',
-    image: '/images/approach-prove.png',
+    image: '/images/approach-prove.webp',
     imageAlt: 'Abstract metrics and validation visualization',
   },
   {
@@ -25,7 +25,7 @@ const approaches = [
     title: 'Scale',
     description:
       'Automation only where data supports it. Systems that compound without compounding risk.',
-    image: '/images/approach-scale.png',
+    image: '/images/approach-scale.webp',
     imageAlt: 'Abstract scaling and modular growth visualization',
   },
 ];

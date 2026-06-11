@@ -63,7 +63,7 @@ export const TOOLS: Tool[] = [
       { value: 'Daily', label: 'data refresh' },
       { value: 'GW+', label: 'queue capacity tracked' },
     ],
-    image: '/images/tool-interconnection.png',
+    image: '/images/tool-interconnection.webp',
     imageAlt: 'US interconnection queue dashboard preview',
     theme: {
       accent: 'from-blue-500/20 to-blue-500/0',
@@ -145,7 +145,7 @@ export const TOOLS: Tool[] = [
       { value: '90d', label: 'rolling history' },
       { value: 'Daily', label: 'data refresh' },
     ],
-    image: '/images/tool-curtailment.png',
+    image: '/images/tool-curtailment.webp',
     imageAlt: 'US curtailment tracker dashboard preview',
     theme: {
       accent: 'from-rose-500/20 to-rose-500/0',
