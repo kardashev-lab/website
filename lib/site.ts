@@ -6,7 +6,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Open-source software for US energy grid intelligence — real-time grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
+  'Open-source software for US energy grid intelligence — real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
 
 export type Tool = {
   id: string;
@@ -31,6 +31,48 @@ export type Tool = {
 };
 
 export const TOOLS: Tool[] = [
+  {
+    id: 'carbon-intensity',
+    name: 'Carbon Intensity Dashboard',
+    url: 'https://carbon.kardashevlabs.org',
+    description:
+      'Real-time CO2 intensity (lbs CO2/MWh) for all 7 primary US ISOs plus 20+ smaller balancing authorities via EIA-930. Weighted average of live fuel mix using EPA eGRID 2023 emission factors. 24-hour history chart, fuel mix breakdown, and staleness indicators.',
+    keywords: [
+      'carbon intensity',
+      'CO2 emissions',
+      'grid carbon',
+      'clean electricity',
+      'EPA eGRID',
+      'CAISO carbon',
+      'ERCOT carbon',
+      'lbs CO2 per MWh',
+      'US grid emissions',
+      'carbon tracking',
+    ],
+    features: [
+      'All 7 primary ISOs plus 20+ smaller BAs via EIA-930',
+      'EPA eGRID 2023 emission factors',
+      '24-hour carbon intensity history per ISO',
+      'Live fuel mix breakdown with staleness indicators',
+    ],
+    headline: 'Real-time CO₂ intensity across every US grid region.',
+    blurb:
+      'Weighted average lbs CO₂/MWh from live fuel mix data. Covers all 7 primary ISOs (CAISO, ERCOT, MISO, PJM, NYISO, ISONE, SPP) plus 20+ smaller balancing authorities via EIA-930. EPA eGRID 2023 emission factors. 60-second polling.',
+    stats: [
+      { value: '27+', label: 'regions covered' },
+      { value: '60s', label: 'polling interval' },
+      { value: 'eGRID 2023', label: 'emission factors' },
+    ],
+    image: '',
+    imageAlt: 'US carbon intensity dashboard preview',
+    theme: {
+      accent: 'from-amber-500/20 to-amber-500/0',
+      glow: 'rgba(245,158,11,0.12)',
+      badge: 'bg-amber-500/10 text-amber-400 ring-amber-500/20',
+      dot: 'bg-amber-400',
+      button: 'bg-amber-500 hover:bg-amber-400 shadow-[0_0_24px_rgba(245,158,11,0.25)]',
+    },
+  },
   {
     id: 'interconnection-queue',
     name: 'Interconnection Queue Tracker',

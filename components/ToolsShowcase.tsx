@@ -135,17 +135,20 @@ const ToolsShowcase = () => (
 
       {/* Bento grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5">
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-12">
           <ToolCard tool={TOOLS[0]} index={0} />
         </div>
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-7">
           <ToolCard tool={TOOLS[1]} index={1} />
         </div>
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-5">
           <ToolCard tool={TOOLS[2]} index={2} />
         </div>
         <div className="lg:col-span-6">
           <ToolCard tool={TOOLS[3]} index={3} />
+        </div>
+        <div className="lg:col-span-6">
+          <ToolCard tool={TOOLS[4]} index={4} />
         </div>
       </div>
 
