@@ -34,7 +34,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'carbon-intensity',
     name: 'Carbon Intensity Dashboard',
-    url: 'https://carbon.kardashevlabs.org',
+    url: 'https://carbon-dashboard.kardashevlabs.org',
     description:
       'Real-time CO2 intensity (lbs CO2/MWh) for all 7 primary US ISOs plus 20+ smaller balancing authorities via EIA-930. Weighted average of live fuel mix using EPA eGRID 2023 emission factors. 24-hour history chart, fuel mix breakdown, and staleness indicators.',
     keywords: [
