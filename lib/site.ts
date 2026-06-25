@@ -63,7 +63,7 @@ export const TOOLS: Tool[] = [
       { value: '60s', label: 'polling interval' },
       { value: 'eGRID 2023', label: 'emission factors' },
     ],
-    image: '',
+    image: '/images/tool-carbon.webp',
     imageAlt: 'US carbon intensity dashboard preview',
     theme: {
       accent: 'from-amber-500/20 to-amber-500/0',
