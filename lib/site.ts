@@ -198,6 +198,48 @@ export const TOOLS: Tool[] = [
     },
   },
   {
+    id: 'lmp-map',
+    name: 'Nodal LMP Price Map',
+    url: 'https://lmp-map.kardashevlabs.org',
+    description:
+      'Interactive full-screen map of real-time locational marginal prices at pricing nodes across US ISOs — NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded by price, click any node for 14-day price history with energy, congestion, and loss components.',
+    keywords: [
+      'nodal LMP map',
+      'locational marginal price map',
+      'real-time electricity price map',
+      'NYISO nodal prices',
+      'ERCOT settlement points',
+      'MISO hub prices',
+      'SPP hub prices',
+      'CAISO trading hub',
+      'US grid price visualization',
+      'electricity price geography',
+    ],
+    features: [
+      'Live nodal prices across NYISO, ERCOT, MISO, SPP, and CAISO',
+      'Color-coded map from green (low) to red (high price)',
+      'Click any node for 14-day LMP history chart',
+      'RT and DA market toggle, 60-second refresh',
+    ],
+    headline: 'Live electricity prices on a map — every pricing node, every ISO.',
+    blurb:
+      'Full-screen nodal price map across NYISO, ERCOT, MISO, SPP, and CAISO. Every node color-coded from green to red by real-time LMP. Click any node for 14-day history: energy, congestion, and loss breakdown. RT and DA markets. Auto-refreshes every 60 seconds.',
+    stats: [
+      { value: '5', label: 'ISOs live' },
+      { value: '60s', label: 'auto-refresh' },
+      { value: 'RT + DA', label: 'market depth' },
+    ],
+    image: '',
+    imageAlt: 'US nodal LMP price map',
+    theme: {
+      accent: 'from-cyan-500/20 to-cyan-500/0',
+      glow: 'rgba(6,182,212,0.12)',
+      badge: 'bg-cyan-500/10 text-cyan-400 ring-cyan-500/20',
+      dot: 'bg-cyan-400',
+      button: 'bg-cyan-500 hover:bg-cyan-400 shadow-[0_0_24px_rgba(6,182,212,0.25)]',
+    },
+  },
+  {
     id: 'lmp-dashboard',
     name: 'LMP Dashboard',
     url: 'https://lmp.kardashevlabs.org',
