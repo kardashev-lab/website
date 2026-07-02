@@ -229,7 +229,7 @@ export const TOOLS: Tool[] = [
       { value: '60s', label: 'auto-refresh' },
       { value: 'RT + DA', label: 'market depth' },
     ],
-    image: '',
+    image: '/images/tool-lmp-map.webp',
     imageAlt: 'US nodal LMP price map',
     theme: {
       accent: 'from-cyan-500/20 to-cyan-500/0',
