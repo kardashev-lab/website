@@ -1,10 +1,10 @@
 # Kardashev Labs
 
-The marketing and landing site for [kardashevlabs.org](https://kardashevlabs.org) — home of open-source tools for US grid intelligence.
+The marketing and landing site for [kardashevlabs.org](https://kardashevlabs.org), home of open-source tools for US grid intelligence.
 
 ## What is Kardashev Labs?
 
-Kardashev Labs builds open-source software for US energy grid intelligence — real-time demand monitoring, interconnection queue search, renewable curtailment tracking, and locational marginal prices. The goal: accelerate humanity toward Kardashev Type I by giving energy professionals the data tooling they've been missing.
+Kardashev Labs builds open-source software for US energy grid intelligence: real-time demand monitoring, interconnection queue search, renewable curtailment tracking, and locational marginal prices. The goal: accelerate humanity toward Kardashev Type I by giving energy professionals the data tooling they've been missing.
 
 Source code and data pipelines live at [github.com/kardashev-lab](https://github.com/kardashev-lab). Shared grid datasets are served by [data.kardashevlabs.org](https://data.kardashevlabs.org) via the [kardashev-data](https://github.com/kardashev-lab/kardashev-data) ingest service.
 
@@ -12,7 +12,7 @@ Source code and data pipelines live at [github.com/kardashev-lab](https://github
 
 | Tool | URL | Description |
 |------|-----|-------------|
-| Interconnection Queue Tracker | [interconnection-queue.kardashevlabs.org](https://interconnection-queue.kardashevlabs.org) | Unified search across all 7 US ISO/RTO interconnection queues — ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE. Daily refresh via GitHub Actions. |
+| Interconnection Queue Tracker | [interconnection-queue.kardashevlabs.org](https://interconnection-queue.kardashevlabs.org) | Unified search across all 7 US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE. Daily refresh via GitHub Actions. |
 | Grid Demand Dashboard | [grid-demand.kardashevlabs.org](https://grid-demand.kardashevlabs.org) | Real-time US electricity demand across 15 balancing authorities (~95% CONUS). Microservices pipeline with Redis Streams, Postgres, and Kubernetes. EIA data. |
 | Curtailment Tracker | [curtailment-tracker.kardashevlabs.org](https://curtailment-tracker.kardashevlabs.org/) | Daily solar and wind curtailment across CAISO, SPP, and ERCOT. 90-day rolling history. Data from [kardashev-data](https://github.com/kardashev-lab/kardashev-data), refreshed each morning. |
 | LMP Dashboard | [lmp.kardashevlabs.org](https://lmp.kardashevlabs.org) | Real-time and day-ahead locational marginal prices across NYISO, PJM, CAISO, and SPP. Energy, congestion, and loss components; fuel mix, gas prices, and market signals. 5-minute RT refresh. |
@@ -67,10 +67,10 @@ If Git-triggered deploys do not run, trigger a redeploy from the Vercel dashboar
 
 ```
 app/
-  layout.tsx          # Root layout — fonts, metadata
+  layout.tsx          # Root layout: fonts, metadata
   page.tsx            # Home page (Hero → Tools → Vision → Approach → Notes)
   privacy/page.tsx    # Privacy policy
-  api/subscribe/      # POST /api/subscribe — Resend email integration (rate-limited)
+  api/subscribe/      # POST /api/subscribe: Resend email integration (rate-limited)
   globals.css         # Dark-only CSS variables and base styles
   sitemap.ts          # Sitemap generation
   robots.txt          # Crawler rules
@@ -99,4 +99,4 @@ public/
 
 ## License
 
-MIT — source code is open. Tools and data pipelines live at [github.com/kardashev-lab](https://github.com/kardashev-lab).
+MIT. Source code is open. Tools and data pipelines live at [github.com/kardashev-lab](https://github.com/kardashev-lab).

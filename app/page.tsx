@@ -28,7 +28,7 @@ export default function HomePage() {
                 <p className="text-[0.9rem] text-white/40 leading-relaxed">
                   Evidence replaces guesswork. Efficiency becomes the default
                   interface to power. We build the tools that help teams make
-                  data-driven decisions that scale — toward a civilization that
+                  data-driven decisions that scale, toward a civilization that
                   uses every joule and every FLOP with intention.
                 </p>
               </div>

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { clientIp, rateLimit, validateEmail } from '@/lib/rate-limit';
 
-// Lazy — the Resend constructor throws without an API key, which would
+// Lazy: the Resend constructor throws without an API key, which would
 // break `next build` in environments where the secret isn't set.
 function getResend(): Resend | null {
   const key = process.env.RESEND_API_KEY;
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
-  // Honeypot — bots that fill hidden fields get a silent success
+  // Honeypot: bots that fill hidden fields get a silent success
   if (body?.website) {
     return NextResponse.json({ ok: true });
   }

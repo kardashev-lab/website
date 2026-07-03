@@ -26,7 +26,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/70 via-transparent to-transparent" />
       </div>
 
-      {/* Radial orb — blue, top right */}
+      {/* Radial orb: blue, top right */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full animate-orb-drift"
@@ -35,7 +35,7 @@ const Hero = () => {
             'radial-gradient(circle at center, rgba(59,130,246,0.13) 0%, transparent 70%)',
         }}
       />
-      {/* Radial orb — emerald, bottom left */}
+      {/* Radial orb: emerald, bottom left */}
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full"
@@ -98,7 +98,7 @@ const Hero = () => {
           className="text-[1.1rem] text-white/55 max-w-2xl leading-relaxed mb-12"
         >
           Open-source software for real-time grid demand, interconnection
-          queues, wholesale electricity prices, and renewable curtailment —
+          queues, wholesale electricity prices, and renewable curtailment,
           built for the humans working on the energy transition.
         </motion.p>
 

@@ -3,7 +3,7 @@ import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/site';
 
 export const runtime = 'edge';
 
-export const alt = `${SITE_NAME} — Open-source tools for US grid intelligence`;
+export const alt = `${SITE_NAME} - Open-source tools for US grid intelligence`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Energy & Grid Intelligence Tools`,
+    default: `${SITE_NAME} | Energy & Grid Intelligence Tools`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: `${SITE_NAME} — Energy & Grid Intelligence Tools`,
+    title: `${SITE_NAME} | Energy & Grid Intelligence Tools`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: `${SITE_NAME} — Open-source tools for US grid intelligence`,
+        alt: `${SITE_NAME} - Open-source tools for US grid intelligence`,
       },
     ],
     locale: 'en_US',
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} — Energy & Grid Intelligence Tools`,
+    title: `${SITE_NAME} | Energy & Grid Intelligence Tools`,
     description: SITE_DESCRIPTION,
     images: ['/og.png'],
     creator: '@kardashevlabs',
@@ -223,7 +223,7 @@ const jsonLd = {
           name: 'What is the LMP Dashboard?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The LMP Dashboard is a free real-time view of wholesale electricity prices — locational marginal prices across NYISO, PJM, CAISO, and SPP, broken into energy, congestion, and loss components, alongside fuel mix, natural gas prices, weather, and battery storage data.',
+            text: 'The LMP Dashboard is a free real-time view of wholesale electricity prices: locational marginal prices across NYISO, PJM, CAISO, and SPP, broken into energy, congestion, and loss components, alongside fuel mix, natural gas prices, weather, and battery storage data.',
           },
         },
         {

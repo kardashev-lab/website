@@ -6,7 +6,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Open-source software for US energy grid intelligence — real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
+  'Open-source software for US energy grid intelligence: real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
 
 export type Tool = {
   id: string;
@@ -78,7 +78,7 @@ export const TOOLS: Tool[] = [
     name: 'Interconnection Queue Tracker',
     url: 'https://interconnection-queue.kardashevlabs.org',
     description:
-      'Unified search across all 7 major US ISO/RTO interconnection queues — ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily via GitHub Actions.',
+      'Unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily via GitHub Actions.',
     keywords: [
       'interconnection queue',
       'ERCOT queue',
@@ -99,7 +99,7 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Every US power project waiting to connect to the grid.',
     blurb:
-      'Unified search across all 7 major ISO/RTO interconnection queues — ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE. Daily refresh via GitHub Actions. One interface for the data that used to require 7 browser tabs.',
+      'Unified search across all 7 major ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE. Daily refresh via GitHub Actions. One interface for the data that used to require 7 browser tabs.',
     stats: [
       { value: '7', label: 'ISOs covered' },
       { value: 'Daily', label: 'data refresh' },
@@ -139,7 +139,7 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Real-time US electricity demand across 15 balancing authorities.',
     blurb:
-      'Microservices pipeline — Redis Streams, Postgres, Kubernetes with 17 HPAs. 95% CONUS coverage. 23ms chaos recovery, 215 req/s under load.',
+      'Microservices pipeline: Redis Streams, Postgres, Kubernetes with 17 HPAs. 95% CONUS coverage. 23ms chaos recovery, 215 req/s under load.',
     stats: [
       { value: '15', label: 'balancing authorities' },
       { value: '95%', label: 'CONUS coverage' },
@@ -179,7 +179,7 @@ export const TOOLS: Tool[] = [
       '90-day rolling history with trend charts',
       'Duck curve and congestion context',
     ],
-    headline: 'How much clean energy gets thrown away — every day, by ISO.',
+    headline: 'How much clean energy gets thrown away. Every day, by ISO.',
     blurb:
       'Daily solar and wind curtailment across CAISO (California), SPP (Great Plains), and ERCOT (Texas). 90-day rolling history. Reveals where the grid is congested and where storage is needed most. Refreshed each morning.',
     stats: [
@@ -202,7 +202,7 @@ export const TOOLS: Tool[] = [
     name: 'Nodal LMP Price Map',
     url: 'https://lmp-map.kardashevlabs.org',
     description:
-      'Interactive full-screen map of real-time locational marginal prices at pricing nodes across US ISOs — NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded by price, click any node for 14-day price history with energy, congestion, and loss components.',
+      'Interactive full-screen map of real-time locational marginal prices at pricing nodes across US ISOs: NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded by price, click any node for 14-day price history with energy, congestion, and loss components.',
     keywords: [
       'nodal LMP map',
       'locational marginal price map',
@@ -221,7 +221,7 @@ export const TOOLS: Tool[] = [
       'Click any node for 14-day LMP history chart',
       'RT and DA market toggle, 60-second refresh',
     ],
-    headline: 'Live electricity prices on a map — every pricing node, every ISO.',
+    headline: 'Live electricity prices on a map. Every pricing node, every ISO.',
     blurb:
       'Full-screen nodal price map across NYISO, ERCOT, MISO, SPP, and CAISO. Every node color-coded from green to red by real-time LMP. Click any node for 14-day history: energy, congestion, and loss breakdown. RT and DA markets. Auto-refreshes every 60 seconds.',
     stats: [
@@ -244,7 +244,7 @@ export const TOOLS: Tool[] = [
     name: 'LMP Dashboard',
     url: 'https://lmp.kardashevlabs.org',
     description:
-      'Real-time and day-ahead locational marginal prices (LMP) across NYISO, PJM, CAISO, and SPP — energy, congestion, and loss components per hub, plus fuel mix, gas prices, weather, curtailment, and battery storage in one terminal.',
+      'Real-time and day-ahead locational marginal prices (LMP) across NYISO, PJM, CAISO, and SPP: energy, congestion, and loss components per hub, plus fuel mix, gas prices, weather, curtailment, and battery storage in one terminal.',
     keywords: [
       'LMP',
       'locational marginal price',
@@ -263,9 +263,9 @@ export const TOOLS: Tool[] = [
       'Fuel mix, gas prices, weather, and battery storage context',
       '5-minute price refresh',
     ],
-    headline: 'Electricity spot prices across the US grid — every 5 minutes.',
+    headline: 'Electricity spot prices across the US grid. Every 5 minutes.',
     blurb:
-      'Real-time and day-ahead locational marginal prices across NYISO, PJM, CAISO, and SPP. Energy, congestion, and loss components per hub node. Fuel mix by source, Henry Hub gas prices, grid temperatures, renewable curtailment, and battery storage — all in one terminal.',
+      'Real-time and day-ahead locational marginal prices across NYISO, PJM, CAISO, and SPP. Energy, congestion, and loss components per hub node. Fuel mix by source, Henry Hub gas prices, grid temperatures, renewable curtailment, and battery storage, all in one terminal.',
     stats: [
       { value: '4', label: 'ISOs covered' },
       { value: '5-min', label: 'RT price refresh' },

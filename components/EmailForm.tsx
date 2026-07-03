@@ -69,7 +69,7 @@ const EmailForm = () => {
                 </p>
 
                 <form onSubmit={handleSubmit} className="relative">
-                  {/* Honeypot — hidden from users, catches bots */}
+                  {/* Honeypot: hidden from users, catches bots */}
                   <input
                     type="text"
                     name="website"

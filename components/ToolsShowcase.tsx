@@ -133,7 +133,7 @@ const ToolsShowcase = () => (
         </h2>
       </motion.div>
 
-      {/* Tools grid — 2 per row, last card spans full width if count is odd */}
+      {/* Tools grid: 2 per row, last card spans full width if count is odd */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
         {TOOLS.map((tool, i) => (
           <div
@@ -167,7 +167,7 @@ const ToolsShowcase = () => (
                 Open source on GitHub
               </p>
               <p className="text-[13px] text-white/35 leading-relaxed">
-                Source code, data pipelines, and infrastructure — all public
+                Source code, data pipelines, and infrastructure, all public
                 under kardashev-lab.
               </p>
             </div>
