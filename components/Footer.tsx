@@ -57,7 +57,7 @@ const Footer = () => (
               href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[13px] text-white/50 hover:text-white/80 transition-colors duration-200"
+              className="flex items-center gap-2 text-[13px] text-white/50 hover:text-white/80 transition-colors duration-200"
             >
               <GitHubIcon className="w-3.5 h-3.5" />
               GitHub
@@ -66,7 +66,7 @@ const Footer = () => (
               href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[13px] text-white/50 hover:text-white/80 transition-colors duration-200"
+              className="flex items-center gap-2 text-[13px] text-white/50 hover:text-white/80 transition-colors duration-200"
             >
               <LinkedInIcon className="w-3.5 h-3.5" />
               LinkedIn
