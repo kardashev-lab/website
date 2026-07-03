@@ -1,38 +1,41 @@
 # Kardashev Labs
 
-> Open-source software for US energy grid intelligence — real-time grid demand monitoring, interconnection queue tracking, wholesale electricity prices (LMP), and daily renewable curtailment data. Built for the energy transition.
+> Open-source software for US energy grid intelligence: real-time grid demand monitoring, interconnection queue tracking, wholesale electricity prices (LMP), nodal price maps, carbon intensity, and daily renewable curtailment data. Built for the energy transition.
 
 Kardashev Labs builds free, open-source tools that give energy professionals access to US grid data that was previously scattered across multiple government and ISO/RTO sources. The mission: accelerate humanity toward Kardashev Type I by making energy infrastructure data universally accessible.
 
 ## Live Tools
 
-- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Unified search across all 7 major US ISO/RTO interconnection queues — ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily via automated GitHub Actions pipelines.
+- [Nodal LMP Price Map](https://lmp-map.kardashevlabs.org): Interactive map of live electricity prices at every pricing node across US ISOs. NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded by price, click any node for 14-day price history. Updates every 60 seconds.
+
+- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily.
+
+- [Carbon Intensity Dashboard](https://carbon-dashboard.kardashevlabs.org): Real-time CO2 intensity for all 7 US ISOs and 20+ balancing authorities, computed from live fuel mix and EPA eGRID emission factors. Updates every 5 minutes.
 
 - [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Real-time US electricity demand monitoring across 15 balancing authorities, covering approximately 95% of the continental United States (CONUS). EIA and ISO data served via the kardashev-data platform.
 
 - [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org): Daily solar and wind curtailment across CAISO (California), SPP (Southwest Power Pool), and ERCOT (Texas), with a 90-day rolling history. Shows where the grid is congested and where battery storage is needed most.
 
-- [LMP Dashboard](https://lmp.kardashevlabs.org): Real-time and day-ahead locational marginal prices (wholesale electricity prices) across NYISO, PJM, CAISO, and SPP — energy, congestion, and loss components per hub, plus fuel mix, natural gas prices, weather, and battery storage.
+- [LMP Dashboard](https://lmp.kardashevlabs.org): Real-time and day-ahead locational marginal prices (wholesale electricity prices) across NYISO, PJM, CAISO, and SPP: energy, congestion, and loss components per hub, plus fuel mix, natural gas prices, weather, and battery storage.
 
-- [Data API](https://data.kardashevlabs.org): The shared data layer (kardashev-data) — a read-only API serving fuel mix, carbon intensity, curtailment, LMP, load, gas, weather, and interconnection queue data ingested from ISO/RTO and EIA sources.
+- [Data API](https://data.kardashevlabs.org): The shared data layer (kardashev-data): a read-only API serving fuel mix, carbon intensity, curtailment, LMP, load, gas, weather, and interconnection queue data ingested from ISO/RTO and EIA sources.
 
 ## Key Facts
 
 - All tools are free and open source (MIT license)
 - Source code available at https://github.com/kardashev-lab
 - Shared datasets available at https://data.kardashevlabs.org via [kardashev-data](https://github.com/kardashev-lab/kardashev-data)
+- Python package for direct ISO data access: `pip install kardashev` (https://pypi.org/project/kardashev/)
+- Nodal LMP Map covers NYISO, ERCOT, MISO, SPP, CAISO with 60-second refresh
 - Interconnection Queue Tracker covers: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE (7 ISO/RTOs)
 - Grid Demand Dashboard covers 15 US balancing authorities, ~95% CONUS electricity
 - Curtailment Tracker covers CAISO, SPP, and ERCOT with daily refresh
 - LMP Dashboard covers NYISO, PJM, CAISO, and SPP with 5-minute real-time prices
+- Carbon Intensity Dashboard covers all 7 US ISOs and 20+ EIA balancing authorities
 - Grid data sourced from ISO/RTO public feeds and the US Energy Information Administration (EIA)
 - Site: https://kardashevlabs.org
 - Contact: ashutosh@kardashevlabs.org
 - LinkedIn: https://www.linkedin.com/company/kardashev-labs
-
-## Approach
-
-Kardashev Labs follows three principles: Plan (concrete schedules and policies, evidence-first), Prove (baselines and measured deltas — "if we can't explain it, we don't deploy it"), and Scale (automation only where data supports it).
 
 ## About the Name
 
