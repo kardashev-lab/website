@@ -23,7 +23,8 @@ const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
     setMenuOpen(false);
     const id = href.replace('#', '');
     const el = document.getElementById(id);
@@ -54,13 +55,14 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.label}
-                onClick={() => scrollTo(link.href)}
+                href={link.href}
+                onClick={(e) => scrollTo(e, link.href)}
                 className="text-[13px] text-white/50 hover:text-white/90 transition-colors duration-300 font-medium"
               >
                 {link.label}
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -104,20 +106,21 @@ const Header = () => {
             onClick={() => setMenuOpen(false)}
           >
             {navLinks.map((link, i) => (
-              <motion.button
+              <motion.a
                 key={link.label}
+                href={link.href}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  scrollTo(link.href);
+                  scrollTo(e, link.href);
                 }}
                 className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
               >
                 {link.label}
-              </motion.button>
+              </motion.a>
             ))}
             <motion.a
               href={GITHUB_URL}

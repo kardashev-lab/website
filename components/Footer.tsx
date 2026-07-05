@@ -12,7 +12,7 @@ const Footer = () => (
           <div className="text-sm font-semibold text-white tracking-tight">
             Kardashev<span className="text-blue-400">Labs</span>
           </div>
-          <p className="text-[13px] text-white/25 leading-relaxed max-w-xs">
+          <p className="text-[13px] text-white/50 leading-relaxed max-w-xs">
             Open-source tools for the energy transition. Accelerating humanity
             toward Kardashev Type I.
           </p>
@@ -29,7 +29,7 @@ const Footer = () => (
 
         {/* Tools */}
         <div className="space-y-3">
-          <h4 className="text-[11px] uppercase tracking-[0.15em] text-white/25 font-medium">
+          <h4 className="text-[11px] uppercase tracking-[0.15em] text-white/50 font-medium">
             Tools
           </h4>
           <div className="space-y-2">
@@ -49,7 +49,7 @@ const Footer = () => (
 
         {/* Connect */}
         <div className="space-y-3">
-          <h4 className="text-[11px] uppercase tracking-[0.15em] text-white/25 font-medium">
+          <h4 className="text-[11px] uppercase tracking-[0.15em] text-white/50 font-medium">
             Connect
           </h4>
           <div className="space-y-2">
@@ -88,10 +88,10 @@ const Footer = () => (
       </div>
 
       <div className="pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p className="text-[12px] text-white/18 font-mono">
+        <p className="text-[12px] text-white/45 font-mono">
           © {new Date().getFullYear()} Kardashev Labs
         </p>
-        <p className="text-[12px] text-white/18 font-mono">
+        <p className="text-[12px] text-white/45 font-mono">
           kardashevlabs.org
         </p>
       </div>

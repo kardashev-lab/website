@@ -149,7 +149,7 @@ const Hero = () => {
           transition={{ delay: 1.2, duration: 1 }}
           className="mt-20 flex justify-start"
         >
-          <div className="flex flex-col items-center gap-2 text-white/20">
+          <div className="flex flex-col items-center gap-2 text-white/45">
             <span className="text-[10px] uppercase tracking-widest font-mono">Scroll</span>
             <motion.div
               animate={{ y: [0, 6, 0] }}
