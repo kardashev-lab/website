@@ -20,6 +20,35 @@ Kardashev Labs builds free, open-source tools that give energy professionals acc
 
 - [Data API](https://data.kardashevlabs.org): The shared data layer (kardashev-data): a read-only API serving fuel mix, carbon intensity, curtailment, LMP, load, gas, weather, and interconnection queue data ingested from ISO/RTO and EIA sources.
 
+## Python Library
+
+`pip install kardashev` - free, open-source Python client for US ISO/RTO energy data. No API key or signup required for direct ISO access. Positioned as a free alternative to `gridstatus`/`gridstatusio`.
+
+```python
+from kardashev import CAISO, ERCOT, MISO, NYISO, ISONE, SPP
+
+caiso = CAISO()
+df = caiso.get_fuel_mix()        # live generation by fuel type
+df = caiso.get_load()            # actual grid load
+df = caiso.get_lmp(market="RT")  # real-time LMP
+df = caiso.get_curtailment()     # solar + wind curtailment
+```
+
+Also ships a `Client` for the full hosted API (25+ endpoints: carbon intensity, LMP history, interconnection queues, weather, gas prices):
+
+```python
+from kardashev import Client
+
+kl = Client()
+fuel = kl.fuel_mix(iso="CAISO")
+carbon = kl.carbon(iso="ERCOT")
+```
+
+- PyPI: https://pypi.org/project/kardashev/
+- Source + full endpoint list: https://github.com/kardashev-lab/kardashev-py
+- Supports: CAISO, ERCOT, ISONE, MISO, NYISO, PJM, SPP
+- License: MIT
+
 ## Key Facts
 
 - All tools are free and open source (MIT license)
