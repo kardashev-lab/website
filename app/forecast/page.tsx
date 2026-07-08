@@ -117,7 +117,7 @@ export default async function ForecastPage() {
             <br />
             Scored in public, every day.
           </h1>
-          <p className="text-[0.95rem] text-white/40 leading-relaxed max-w-2xl mb-12">
+          <p className="text-[0.95rem] text-white/40 leading-relaxed max-w-2xl mb-10">
             Each day, before delivery, our model publishes P10/P50/P90 forecasts of the
             RT&minus;DA price spread for the next 24 hours across 15 ERCOT hubs and load
             zones. Forecasts are written once and never revised. After the hours settle,
@@ -125,30 +125,74 @@ export default async function ForecastPage() {
             computed from that immutable log.
           </p>
 
+          {/* Plain-language explainer */}
+          <details className="mb-12 rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06] open:pb-2">
+            <summary className="cursor-pointer px-6 py-4 text-[0.9rem] font-medium text-white/70 select-none">
+              New to energy markets? How to read this page
+            </summary>
+            <div className="px-6 pb-4 grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 text-[0.85rem] text-white/40 leading-relaxed">
+              <div>
+                <span className="text-white/60 font-medium">What&apos;s being predicted.</span>{' '}
+                Texas electricity is priced twice: a price locked the day before
+                (day-ahead) and the live price during the actual hour (real-time).
+                They never quite match. We predict the gap — will the live price come
+                in above or below the locked one, and by how much, for every hour,
+                at 15 locations.
+              </div>
+              <div>
+                <span className="text-white/60 font-medium">&quot;Our miss vs market&apos;s miss.&quot;</span>{' '}
+                The locked day-ahead price is itself the market&apos;s best guess of
+                real-time. So it&apos;s our benchmark: if our average error is smaller
+                than the market&apos;s, the model adds real information. Both numbers
+                are averages in dollars per megawatt-hour.
+              </div>
+              <div>
+                <span className="text-white/60 font-medium">&quot;Promise kept&quot; (coverage).</span>{' '}
+                Every prediction is a range, like a circle drawn before throwing a
+                dart: &quot;80% of outcomes will land inside.&quot; This tile counts how
+                often reality actually landed inside our ranges. Near 80% = the model
+                knows exactly how uncertain it is. Well below = overconfident; well
+                above = uselessly cautious.
+              </div>
+              <div>
+                <span className="text-white/60 font-medium">Paper trading.</span>{' '}
+                A simulated bet, only placed when the model&apos;s entire range clears
+                zero — i.e., even its pessimistic case agrees on direction. Most calm
+                days that never happens and no bet is placed; that discipline is a
+                feature. Results shown are after estimated fees, with no real money
+                at stake.
+              </div>
+            </div>
+          </details>
+
           {/* Track record */}
           <h2 className="text-xl font-semibold text-white mb-5">Live track record</h2>
           {hasScores ? (
             <>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <Stat
-                  label="Scored node-hours"
+                  label="Predictions scored"
                   value={Number(s!.node_hours).toLocaleString()}
-                  sub={`${day(s!.first_hour!)} → ${day(s!.last_hour!)}`}
+                  sub={`one per hour per location · ${day(s!.first_hour!)} → ${day(s!.last_hour!)}`}
                 />
                 <Stat
-                  label="Forecast MAE vs DA"
+                  label="Our miss vs market's miss"
                   value={`${fmt(s!.mae_model)} / ${fmt(s!.mae_da)}`}
-                  sub="$/MWh — lower is better; DA = market baseline"
+                  sub="avg error in $/MWh — ours first. Smaller than the market's number = we forecast better than the price the market locked in"
                 />
                 <Stat
-                  label="P10–P90 coverage"
+                  label="Promise kept?"
                   value={pct(s!.coverage)}
-                  sub="target 80%"
+                  sub="every forecast is a range we claim catches the real outcome 80% of the time — this is how often it actually did"
                 />
                 <Stat
-                  label="Paper P&L (net)"
-                  value={usd(s!.total_pnl)}
-                  sub={`${Number(s!.hours_traded).toLocaleString()} node-hours traded · ${pct(s!.hit_rate)} hit rate · $0.75/MWh fee`}
+                  label="Paper trading P&L"
+                  value={Number(s!.hours_traded) === 0 ? 'no trades yet' : usd(s!.total_pnl)}
+                  sub={
+                    Number(s!.hours_traded) === 0
+                      ? 'the model only bets when its entire range clears zero — calm days = no bet, by design'
+                      : `${Number(s!.hours_traded).toLocaleString()} hours traded · ${pct(s!.hit_rate)} winners · after $0.75/MWh fees`
+                  }
                 />
               </div>
               <PnlSpark daily={daily} />
