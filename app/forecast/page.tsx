@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 
 const API = (process.env.KARDASHEV_API_URL ?? 'https://data.kardashevlabs.org').replace(/\/$/, '');
 
-type Summary = {
+type ModelSummary = {
+  model: string;
   first_hour: string | null;
   last_hour: string | null;
   node_hours: number;
@@ -22,6 +23,7 @@ type Summary = {
   hours_traded: number;
   hit_rate: number | null;
   total_pnl: number | null;
+  daily: Daily[];
 };
 
 type Daily = { day: string; pnl: number | null; hours_traded: number; coverage: number | null };
@@ -34,6 +36,7 @@ type ForecastRow = {
   p50: number;
   p90: number;
   da: number;
+  model: string;
 };
 
 async function getJSON<T>(path: string): Promise<T | null> {
@@ -54,6 +57,13 @@ const usd = (v: number | null | undefined) =>
   v == null ? '—' : `${v < 0 ? '-' : ''}$${Math.abs(Number(v)).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 const day = (s: string) => s.slice(0, 10);
 
+// short human label for a model tag, e.g. "tft-v2-2026q3" -> "v2"
+function modelLabel(model: string): string {
+  const m = model.match(/-v(\d+)-/);
+  if (m) return `v${m[1]}`;
+  return model.includes('-v2-') ? 'v2' : 'v1';
+}
+
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="p-5 rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06]">
@@ -63,6 +73,14 @@ function Stat({ label, value, sub }: { label: string; value: string; sub?: strin
       <div className="font-mono text-2xl font-semibold text-white">{value}</div>
       {sub && <div className="text-[0.78rem] text-white/35 mt-1">{sub}</div>}
     </div>
+  );
+}
+
+function ModelBadge({ model }: { model: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/[0.06] text-white/50 ring-1 ring-white/10">
+      {modelLabel(model)}
+    </span>
   );
 }
 
@@ -86,15 +104,89 @@ function PnlSpark({ daily }: { daily: Daily[] }) {
   );
 }
 
+function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean }) {
+  const daily = (m.daily ?? []).slice(-30);
+  return (
+    <div className={isActive ? '' : 'opacity-70'}>
+      <div className="flex items-center gap-3 mb-4">
+        <ModelBadge model={m.model} />
+        <span className="text-[0.78rem] text-white/35 font-mono">
+          {m.first_hour ? day(m.first_hour) : '—'} → {m.last_hour ? day(m.last_hour) : '—'}
+        </span>
+        {isActive && (
+          <span className="text-[10px] uppercase tracking-wider text-emerald-400/80 font-medium">
+            current model
+          </span>
+        )}
+      </div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Stat
+          label="Predictions scored"
+          value={Number(m.node_hours).toLocaleString()}
+          sub="one per hour per location"
+        />
+        <Stat
+          label="Our miss vs market's miss"
+          value={`${fmt(m.mae_model)} / ${fmt(m.mae_da)}`}
+          sub="avg error in $/MWh — ours first. Smaller than the market's number = we forecast better than the price the market locked in"
+        />
+        <Stat
+          label="Promise kept?"
+          value={pct(m.coverage)}
+          sub="every forecast is a range we claim catches the real outcome 80% of the time — this is how often it actually did"
+        />
+        <Stat
+          label="Paper trading P&L"
+          value={Number(m.hours_traded) === 0 ? 'no trades yet' : usd(m.total_pnl)}
+          sub={
+            Number(m.hours_traded) === 0
+              ? 'the model only bets when its entire range clears zero — calm days = no bet, by design'
+              : `${Number(m.hours_traded).toLocaleString()} hours traded · ${pct(m.hit_rate)} winners · after $0.75/MWh fees`
+          }
+        />
+      </div>
+      <PnlSpark daily={daily} />
+      {daily.length > 0 && (
+        <div className="mt-8 overflow-x-auto rounded-2xl ring-1 ring-white/[0.06]">
+          <table className="w-full text-[0.82rem] font-mono">
+            <thead>
+              <tr className="text-white/30 text-left uppercase tracking-wider text-[10px]">
+                <th className="px-4 py-3">Day (UTC)</th>
+                <th className="px-4 py-3 text-right">Node-hours traded</th>
+                <th className="px-4 py-3 text-right">Net P&L</th>
+                <th className="px-4 py-3 text-right">Coverage</th>
+              </tr>
+            </thead>
+            <tbody className="text-white/70">
+              {[...daily].reverse().map((d) => (
+                <tr key={d.day} className="border-t border-white/[0.05]">
+                  <td className="px-4 py-2.5">{day(d.day)}</td>
+                  <td className="px-4 py-2.5 text-right">{d.hours_traded}</td>
+                  <td className={`px-4 py-2.5 text-right ${Number(d.pnl) >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {usd(d.pnl)}
+                  </td>
+                  <td className="px-4 py-2.5 text-right">{pct(d.coverage)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default async function ForecastPage() {
   const [track, latest] = await Promise.all([
-    getJSON<{ summary: Summary; daily: Daily[] }>('/forecast/track-record'),
+    getJSON<{ models: ModelSummary[]; overall: ModelSummary | null }>('/forecast/track-record'),
     getJSON<ForecastRow[]>('/forecast/spread/latest'),
   ]);
 
-  const s = track?.summary;
-  const hasScores = !!s && Number(s.node_hours) > 0;
-  const daily = (track?.daily ?? []).slice(-30);
+  const models = (track?.models ?? []).filter((m) => Number(m.node_hours) > 0);
+  const hasScores = models.length > 0;
+  // newest-first; the API orders by first_hour ascending
+  const modelsNewestFirst = [...models].reverse();
+  const activeModel = modelsNewestFirst[0]?.model;
 
   // condense the latest issuance to one row per node
   const byNode = new Map<string, ForecastRow[]>();
@@ -102,6 +194,7 @@ export default async function ForecastPage() {
     byNode.set(r.node_id, [...(byNode.get(r.node_id) ?? []), r]);
   }
   const issuedAt = latest?.[0]?.issued_at;
+  const issuingModel = latest?.[0]?.model;
 
   return (
     <>
@@ -122,7 +215,8 @@ export default async function ForecastPage() {
             RT&minus;DA price spread for the next 24 hours across 15 ERCOT hubs and load
             zones. Forecasts are written once and never revised. After the hours settle,
             they are scored against realized real-time prices. Everything below is
-            computed from that immutable log.
+            computed from that immutable log. When the model changes, the old model&apos;s
+            scored history stays exactly as it was — nothing is ever merged or hidden.
           </p>
 
           {/* Plain-language explainer */}
@@ -162,67 +256,24 @@ export default async function ForecastPage() {
                 feature. Results shown are after estimated fees, with no real money
                 at stake.
               </div>
+              <div className="lg:col-span-2">
+                <span className="text-white/60 font-medium">Model versions.</span>{' '}
+                The model is retrained periodically as we add better data. Each version
+                gets its own scored track record below, tagged v1, v2, etc — an older
+                version&apos;s numbers are never revised or folded into the new one, so
+                you can see exactly how each version performed on its own.
+              </div>
             </div>
           </details>
 
           {/* Track record */}
           <h2 className="text-xl font-semibold text-white mb-5">Live track record</h2>
           {hasScores ? (
-            <>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <Stat
-                  label="Predictions scored"
-                  value={Number(s!.node_hours).toLocaleString()}
-                  sub={`one per hour per location · ${day(s!.first_hour!)} → ${day(s!.last_hour!)}`}
-                />
-                <Stat
-                  label="Our miss vs market's miss"
-                  value={`${fmt(s!.mae_model)} / ${fmt(s!.mae_da)}`}
-                  sub="avg error in $/MWh — ours first. Smaller than the market's number = we forecast better than the price the market locked in"
-                />
-                <Stat
-                  label="Promise kept?"
-                  value={pct(s!.coverage)}
-                  sub="every forecast is a range we claim catches the real outcome 80% of the time — this is how often it actually did"
-                />
-                <Stat
-                  label="Paper trading P&L"
-                  value={Number(s!.hours_traded) === 0 ? 'no trades yet' : usd(s!.total_pnl)}
-                  sub={
-                    Number(s!.hours_traded) === 0
-                      ? 'the model only bets when its entire range clears zero — calm days = no bet, by design'
-                      : `${Number(s!.hours_traded).toLocaleString()} hours traded · ${pct(s!.hit_rate)} winners · after $0.75/MWh fees`
-                  }
-                />
-              </div>
-              <PnlSpark daily={daily} />
-              {daily.length > 0 && (
-                <div className="mt-8 overflow-x-auto rounded-2xl ring-1 ring-white/[0.06]">
-                  <table className="w-full text-[0.82rem] font-mono">
-                    <thead>
-                      <tr className="text-white/30 text-left uppercase tracking-wider text-[10px]">
-                        <th className="px-4 py-3">Day (UTC)</th>
-                        <th className="px-4 py-3 text-right">Node-hours traded</th>
-                        <th className="px-4 py-3 text-right">Net P&L</th>
-                        <th className="px-4 py-3 text-right">Coverage</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-white/70">
-                      {[...daily].reverse().map((d) => (
-                        <tr key={d.day} className="border-t border-white/[0.05]">
-                          <td className="px-4 py-2.5">{day(d.day)}</td>
-                          <td className="px-4 py-2.5 text-right">{d.hours_traded}</td>
-                          <td className={`px-4 py-2.5 text-right ${Number(d.pnl) >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                            {usd(d.pnl)}
-                          </td>
-                          <td className="px-4 py-2.5 text-right">{pct(d.coverage)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </>
+            <div className="space-y-14">
+              {modelsNewestFirst.map((m) => (
+                <ModelTrackRecord key={m.model} m={m} isActive={m.model === activeModel} />
+              ))}
+            </div>
           ) : (
             <div className="p-6 rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06] text-white/40 text-[0.9rem]">
               The forward test is live. The first issued forecasts are maturing now —
@@ -233,7 +284,10 @@ export default async function ForecastPage() {
           {/* Latest issuance */}
           {issuedAt && (
             <>
-              <h2 className="text-xl font-semibold text-white mt-14 mb-2">Latest issued forecast</h2>
+              <div className="flex items-center gap-3 mt-14 mb-2">
+                <h2 className="text-xl font-semibold text-white">Latest issued forecast</h2>
+                {issuingModel && <ModelBadge model={issuingModel} />}
+              </div>
               <p className="text-[0.82rem] text-white/35 mb-5 font-mono">
                 issued {issuedAt.replace('T', ' ').slice(0, 16)} UTC · next 24 delivery hours ·
                 values are mean RT&minus;DA spread, $/MWh
@@ -275,22 +329,24 @@ export default async function ForecastPage() {
                 The model is a global temporal fusion transformer trained on hourly ERCOT
                 settlement prices from 2019 onward (self-collected from ERCOT MIS archives)
                 plus ERCOT load, day-ahead load forecast, wind and solar generation from
-                EIA-930. It forecasts the distribution of the next 24 hours&apos; RT&minus;DA
-                spread per node and is retrained quarterly.
+                EIA-930. The current version (v2) adds ERCOT&apos;s own day-ahead wind/solar
+                forecasts, planned outage capacity, ancillary clearing prices and natural
+                gas price as further leak-free inputs. It forecasts the distribution of the
+                next 24 hours&apos; RT&minus;DA spread per node and is retrained quarterly.
               </p>
               <p>
                 The setup is leak-free: at issuance the model sees only information available
-                before delivery — the cleared day-ahead price, the day-ahead load forecast,
-                and real-time history through the last settled hour.
+                before delivery — the cleared day-ahead price, published forecasts, and
+                real-time history through the last settled hour.
               </p>
             </div>
             <div className="space-y-4">
               <p>
                 The paper trading rule is deliberately simple: long the spread when P10 &gt; 0,
                 short when P90 &lt; 0, flat otherwise, 1&nbsp;MWh per node-hour, haircut
-                $0.75/MWh for fees. In a 13-month holdout backtest (Jul 2025 – Jul 2026) this
-                beat the day-ahead price as a forecaster by 11% MAE and produced a positive
-                month 13 of 13 times.
+                $0.75/MWh for fees. In backtest v2 beat v1 on both accuracy (MAE, RMSE) and
+                trading P&amp;L on the same held-out year, with uncertainty bands calibrated
+                using a conformal widening fit on a separate calibration window.
               </p>
               <p>
                 Backtests can flatter; that is what this page is for. Paper fills at hub
