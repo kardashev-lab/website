@@ -4,13 +4,13 @@ import LinkedInIcon from '@/components/LinkedInIcon';
 import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL, TOOLS } from '@/lib/site';
 
 const Footer = () => (
-  <footer className="border-t border-white/[0.06] px-4 py-12">
+  <footer className="border-t border-white/10 px-4 py-12">
     <div className="max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
         {/* Brand */}
         <div className="md:col-span-2 space-y-3">
-          <div className="text-sm font-semibold text-white tracking-tight">
-            Kardashev<span className="text-blue-400">Labs</span>
+          <div className="text-sm font-semibold text-foreground tracking-tight">
+            Kardashev<span className="text-primary">Labs</span>
           </div>
           <p className="text-[13px] text-white/50 leading-relaxed max-w-xs">
             Open-source tools for the energy transition. Accelerating humanity
@@ -20,7 +20,7 @@ const Footer = () => (
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold text-white bg-white/8 hover:bg-white/12 ring-1 ring-white/12 hover:ring-white/20 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-semibold text-foreground border border-white/15 hover:border-white/30 hover:bg-white/5 transition-all duration-200"
           >
             <GitHubIcon className="w-4 h-4" />
             github.com/kardashev-lab

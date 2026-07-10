@@ -34,32 +34,30 @@ const Header = () => {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed left-0 right-0 z-40 flex justify-center px-4 pt-[max(1.25rem,env(safe-area-inset-top))]"
+        className={`fixed left-0 right-0 z-40 border-b transition-colors duration-500 pt-[env(safe-area-inset-top)] ${
+          scrolled
+            ? 'bg-background/85 backdrop-blur-md border-white/10'
+            : 'bg-background/40 backdrop-blur-sm border-white/0'
+        }`}
       >
-        <div
-          className={`flex items-center gap-8 px-5 py-2.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-            scrolled
-              ? 'bg-black/70 backdrop-blur-xl ring-1 ring-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-              : 'bg-black/30 backdrop-blur-md ring-1 ring-white/8'
-          }`}
-        >
+        <div className="max-w-6xl mx-auto flex items-center gap-8 px-4 py-4">
           <Link
             href="/"
-            className="text-sm font-semibold text-white tracking-tight hover:text-white/80 transition-colors duration-300"
+            className="text-sm font-semibold text-foreground tracking-tight hover:text-white/80 transition-colors duration-300"
           >
-            Kardashev<span className="text-blue-400">Labs</span>
+            Kardashev<span className="text-primary">Labs</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6 ml-auto">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => scrollTo(e, link.href)}
-                className="text-[13px] text-white/50 hover:text-white/90 transition-colors duration-300 font-medium"
+                className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
               >
                 {link.label}
               </a>
@@ -70,7 +68,7 @@ const Header = () => {
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[13px] font-semibold text-white bg-white/8 hover:bg-white/12 ring-1 ring-white/12 hover:ring-white/20 active:scale-[0.98] transition-all duration-300"
+            className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 text-[13px] font-semibold text-foreground border border-white/15 hover:border-white/30 hover:bg-white/5 active:scale-[0.98] transition-all duration-200"
           >
             <GitHubIcon className="w-4 h-4" />
             GitHub
@@ -78,7 +76,7 @@ const Header = () => {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden min-w-11 min-h-11 flex flex-col items-center justify-center gap-[5px] relative"
+            className="md:hidden ml-auto min-w-11 min-h-11 flex flex-col items-center justify-center gap-[5px] relative"
             aria-label="Toggle menu"
           >
             <motion.span

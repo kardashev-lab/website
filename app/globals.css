@@ -3,21 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 2%;
-  --foreground: 0 0% 96%;
-  --primary: 217 91% 60%;
-  --primary-foreground: 0 0% 2%;
+  /* Substation Black / Paper White / Signal Amber / Conduit Gray / Hairline */
+  --background: 0 0% 4%;
+  --foreground: 60 6% 93%;
+  --primary: 39 100% 56%;
+  --primary-foreground: 0 0% 4%;
   --secondary: 0 0% 7%;
   --secondary-foreground: 0 0% 65%;
   --muted: 0 0% 6%;
-  --muted-foreground: 0 0% 42%;
+  --muted-foreground: 220 6% 51%;
   --accent: 0 0% 8%;
   --accent-foreground: 0 0% 96%;
-  --border: 0 0% 11%;
+  --border: 216 8% 12%;
   --input: 0 0% 8%;
-  --ring: 217 91% 60%;
+  --ring: 39 100% 56%;
   --card: 0 0% 3%;
   --card-foreground: 0 0% 96%;
+  --signal-red: 4 100% 66%;
 }
 
 *,

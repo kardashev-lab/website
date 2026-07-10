@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/site';
+import { SITE_NAME } from '@/lib/site';
 
 export const runtime = 'edge';
 
@@ -8,149 +8,104 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const bg = await fetch(
+    new URL('./network-schematic.png', import.meta.url)
+  ).then((res) => res.arrayBuffer());
+  const bgSrc = `data:image/png;base64,${Buffer.from(bg).toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #030712 0%, #0c1829 50%, #030712 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '64px',
           position: 'relative',
+          background: '#0A0A0A',
         }}
       >
-        {/* Glow orb top-right */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={bgSrc}
+          alt=""
+          width={1200}
+          height={630}
+          style={{ position: 'absolute', inset: 0, objectFit: 'cover' }}
+        />
+
+        {/* Legibility scrim for text over the schematic */}
         <div
           style={{
             position: 'absolute',
-            top: '-120px',
-            right: '-120px',
-            width: '480px',
-            height: '480px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%)',
+            inset: 0,
+            background:
+              'linear-gradient(180deg, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.92) 100%)',
+            display: 'flex',
           }}
         />
-        {/* Glow orb bottom-left */}
+
         <div
           style={{
-            position: 'absolute',
-            bottom: '-80px',
-            left: '-80px',
-            width: '320px',
-            height: '320px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)',
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            padding: '56px',
           }}
-        />
-
-        {/* Top: brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span
-            style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              color: '#ffffff',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Kardashev
-          </span>
-          <span style={{ fontSize: '18px', fontWeight: '600', color: '#60a5fa' }}>
-            Labs
-          </span>
-          <div
-            style={{
-              marginLeft: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '4px 12px',
-              borderRadius: '999px',
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
-          >
-            <div
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                background: '#60a5fa',
-              }}
-            />
-            <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Open Source · Kardashev Type I
-            </span>
-          </div>
-        </div>
-
-        {/* Center: headline */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div
-            style={{
-              fontSize: '56px',
-              fontWeight: '700',
-              color: '#ffffff',
-              lineHeight: 1.08,
-              letterSpacing: '-0.03em',
-            }}
-          >
-            Building tools that{' '}
+        >
+          {/* Top: wordmark */}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <span
               style={{
-                background: 'linear-gradient(135deg, #60a5fa 0%, #34d399 100%)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#EEEDE8',
+                letterSpacing: '-0.01em',
               }}
             >
-              accelerate
+              Kardashev
             </span>
-            <br />
-            humanity&apos;s energy future
+            <span style={{ fontSize: '20px', fontWeight: 700, color: '#FFB020' }}>
+              Labs
+            </span>
           </div>
-          <p
-            style={{
-              fontSize: '20px',
-              color: 'rgba(255,255,255,0.45)',
-              lineHeight: 1.5,
-              maxWidth: '680px',
-              margin: '0',
-            }}
-          >
-            {SITE_DESCRIPTION}
-          </p>
-        </div>
 
-        {/* Bottom: tool pills */}
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          {[
-            { label: 'Interconnection Queue Tracker', color: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.3)', dot: '#60a5fa' },
-            { label: 'Grid Demand Dashboard', color: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', dot: '#34d399' },
-            { label: 'Curtailment Tracker', color: 'rgba(251,113,133,0.12)', border: 'rgba(251,113,133,0.3)', dot: '#fb7185' },
-            { label: 'LMP Dashboard', color: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.3)', dot: '#a78bfa' },
-          ].map((tool) => (
+          {/* Bottom: headline + status line */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div
-              key={tool.label}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '8px 16px',
-                borderRadius: '999px',
-                background: tool.color,
-                border: `1px solid ${tool.border}`,
+                fontSize: '14px',
+                fontWeight: 600,
+                color: 'rgba(238,237,232,0.55)',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
               }}
             >
-              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: tool.dot }} />
-              <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', fontWeight: '500' }}>
-                {tool.label}
-              </span>
+              <div style={{ width: '8px', height: '8px', background: '#FFB020' }} />
+              Open source · 5 ISOs · 60s refresh
             </div>
-          ))}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                fontSize: '52px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                color: '#EEEDE8',
+                lineHeight: 1.05,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              <span>Grid data the way&nbsp;</span>
+              <span style={{ color: '#FFB020' }}>operators</span>
+              <span>&nbsp;see it.</span>
+            </div>
+          </div>
         </div>
       </div>
     ),

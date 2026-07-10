@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import GitHubIcon from '@/components/GitHubIcon';
+import LiveTicker from '@/components/LiveTicker';
 import { GITHUB_URL } from '@/lib/site';
 
 const Hero = () => {
@@ -11,154 +11,81 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[100dvh] flex items-center justify-center px-4 overflow-hidden">
-      {/* Hero background */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <Image
-          src="/images/hero-energy-grid.webp"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center opacity-45"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/80 via-[#030712]/50 to-[#030712]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/70 via-transparent to-transparent" />
+    <section className="relative flex flex-col">
+      <div className="relative px-4 pt-28 pb-20 md:pt-36 md:pb-28">
+        <div className="relative z-10 w-full max-w-6xl mx-auto text-left">
+          {/* Eyebrow — a status line, not a badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/45"
+          >
+            <span className="h-1.5 w-1.5 bg-primary animate-pulse-slow" />
+            Open source · 5 ISOs · 60s refresh
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="max-w-3xl text-[clamp(2.4rem,5.6vw,4.25rem)] font-bold uppercase leading-[1.05] tracking-tight text-foreground mb-6"
+          >
+            Grid data the way{' '}
+            <span className="text-primary">operators</span> see it.
+          </motion.h1>
+
+          {/* Sub */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="text-[1.05rem] text-muted-foreground max-w-xl leading-relaxed mb-10"
+          >
+            Open-source infrastructure for real-time grid demand,
+            interconnection queues, wholesale electricity prices, and
+            renewable curtailment — built for the people working the energy
+            transition.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
+          >
+            <button
+              onClick={() => scrollTo('tools')}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-primary-foreground text-sm font-semibold hover:brightness-110 active:scale-[0.98] transition-all duration-200"
+            >
+              Explore live tools
+              <span aria-hidden>→</span>
+            </button>
+
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-foreground border border-white/15 hover:border-white/30 hover:bg-white/5 active:scale-[0.98] transition-all duration-200"
+            >
+              <GitHubIcon className="w-4 h-4" />
+              View on GitHub
+            </a>
+
+            <button
+              onClick={() => scrollTo('vision')}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              Read the vision
+            </button>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Radial orb: blue, top right */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full animate-orb-drift"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(59,130,246,0.13) 0%, transparent 70%)',
-        }}
-      />
-      {/* Radial orb: emerald, bottom left */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(16,185,129,0.08) 0%, transparent 70%)',
-        }}
-      />
-
-      {/* Dot grid */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-dot-grid bg-dot-sm opacity-100"
-        style={{
-          maskImage:
-            'radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)',
-        }}
-      />
-
-      <div className="relative z-10 w-full max-w-6xl mx-auto text-left pt-20 md:pt-0">
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="mb-8"
-        >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/50">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse-slow" />
-            Open Source · Kardashev Type I
-          </span>
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="max-w-4xl text-[clamp(2.4rem,6vw,4.5rem)] font-bold leading-[1.08] tracking-tight text-white mb-6"
-        >
-          Building tools that{' '}
-          <span
-            className="text-transparent bg-clip-text"
-            style={{
-              backgroundImage:
-                'linear-gradient(135deg, #60a5fa 0%, #34d399 100%)',
-            }}
-          >
-            accelerate
-          </span>
-          <br />
-          humanity&apos;s energy future
-        </motion.h1>
-
-        {/* Sub */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.32 }}
-          className="text-[1.1rem] text-white/55 max-w-2xl leading-relaxed mb-12"
-        >
-          Open-source software for real-time grid demand, interconnection
-          queues, wholesale electricity prices, and renewable curtailment,
-          built for the humans working on the energy transition.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.44 }}
-          className="flex flex-col sm:flex-row gap-3 justify-start items-stretch sm:items-center"
-        >
-          {/* Primary */}
-          <button
-            onClick={() => scrollTo('tools')}
-            className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-blue-500 text-white text-sm font-semibold hover:bg-blue-400 active:scale-[0.98] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_0_32px_rgba(59,130,246,0.3)]"
-          >
-            Explore Live Tools
-            <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]">
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M2 8L8 2M8 2H4M8 2V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </button>
-
-          {/* GitHub */}
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold text-white ring-1 ring-white/15 hover:ring-white/30 bg-white/[0.06] hover:bg-white/10 active:scale-[0.98] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
-          >
-            <GitHubIcon className="w-4 h-4" />
-            View on GitHub
-          </a>
-
-          {/* Ghost */}
-          <button
-            onClick={() => scrollTo('vision')}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold text-white/50 hover:text-white/80 ring-1 ring-white/10 hover:ring-white/20 active:scale-[0.98] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
-          >
-            Read the vision
-          </button>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="mt-20 flex justify-start"
-        >
-          <div className="flex flex-col items-center gap-2 text-white/45">
-            <span className="text-[10px] uppercase tracking-widest font-mono">Scroll</span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"
-            />
-          </div>
-        </motion.div>
-      </div>
+      {/* Signature element: the actual live LMP feed, not a decorative graphic */}
+      <LiveTicker />
     </section>
   );
 };

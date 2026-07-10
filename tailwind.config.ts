@@ -45,6 +45,7 @@ const config: Config = {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'orb-drift': 'orbDrift 20s ease-in-out infinite alternate',
+        'ticker-scroll': 'tickerScroll 38s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -54,6 +55,10 @@ const config: Config = {
         orbDrift: {
           '0%': { transform: 'translate(0, 0) scale(1)' },
           '100%': { transform: 'translate(40px, -30px) scale(1.05)' },
+        },
+        tickerScroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
       backgroundImage: {

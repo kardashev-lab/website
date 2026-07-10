@@ -44,84 +44,72 @@ const EmailForm = () => {
   };
 
   return (
-    <section id="notes" className="py-16 lg:py-32 px-4">
+    <section id="notes" className="py-16 lg:py-32 px-4 border-t border-white/10">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="border border-white/10 bg-white/[0.02] p-6 sm:p-10 lg:p-16"
         >
-          {/* Outer shell */}
-          <div className="p-px rounded-[2rem] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]">
-            <div className="rounded-[calc(2rem-1px)] bg-white/[0.02] p-6 sm:p-10 lg:p-16">
-              <div className="max-w-xl">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
-                  Lab Notes
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-                  Stay close to the work.
-                </h2>
-                <p className="text-[0.9rem] text-white/38 mb-10 leading-relaxed">
-                  Occasional notes on what we&apos;re building, what the data
-                  shows, and where we&apos;re going. No spam. Unsubscribe
-                  anytime.
-                </p>
-
-                <form onSubmit={handleSubmit} className="relative">
-                  {/* Honeypot: hidden from users, catches bots */}
-                  <input
-                    type="text"
-                    name="website"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    className="absolute opacity-0 h-0 w-0 pointer-events-none"
-                  />
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    {/* Input outer shell */}
-                    <div className="flex-1 p-px rounded-full bg-white/8">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        autoComplete="email"
-                        disabled={status === 'loading'}
-                        className="w-full px-5 py-3 rounded-full bg-white/[0.04] text-white placeholder:text-white/25 text-base sm:text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300 disabled:opacity-40"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={status === 'loading'}
-                      className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-blue-500 hover:bg-blue-400 text-white text-sm font-semibold active:scale-[0.98] disabled:opacity-40 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_0_24px_rgba(59,130,246,0.25)] whitespace-nowrap"
-                    >
-                      {status === 'loading' ? 'Subscribing…' : 'Get notes'}
-                      {status !== 'loading' && (
-                        <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                            <path d="M2 8L8 2M8 2H4M8 2V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                      )}
-                    </button>
-                  </div>
-
-                  {message && (
-                    <motion.p
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={`mt-4 text-sm ${
-                        status === 'success' ? 'text-emerald-400' : 'text-red-400'
-                      }`}
-                    >
-                      {message}
-                    </motion.p>
-                  )}
-                </form>
-              </div>
+          <div className="max-w-xl">
+            <div className="mb-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/45">
+              <span className="h-1.5 w-1.5 bg-primary" />
+              Lab Notes
             </div>
+            <h2 className="text-3xl lg:text-4xl font-bold uppercase text-foreground mb-4 leading-tight">
+              Stay close to the work.
+            </h2>
+            <p className="text-[0.9rem] text-muted-foreground mb-10 leading-relaxed">
+              Occasional notes on what we&apos;re building, what the data
+              shows, and where we&apos;re going. No spam. Unsubscribe
+              anytime.
+            </p>
+
+            <form onSubmit={handleSubmit} className="relative">
+              {/* Honeypot: hidden from users, catches bots */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute opacity-0 h-0 w-0 pointer-events-none"
+              />
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  autoComplete="email"
+                  disabled={status === 'loading'}
+                  className="flex-1 px-5 py-3 border border-white/15 bg-white/[0.04] text-foreground placeholder:text-white/25 text-base sm:text-sm focus:outline-none focus:ring-1 focus:ring-primary/60 focus:border-primary/40 transition-all duration-300 disabled:opacity-40"
+                />
+
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary hover:brightness-110 text-primary-foreground text-sm font-semibold active:scale-[0.98] disabled:opacity-40 transition-all duration-200 whitespace-nowrap"
+                >
+                  {status === 'loading' ? 'Subscribing…' : 'Get notes'}
+                  {status !== 'loading' && <span aria-hidden>→</span>}
+                </button>
+              </div>
+
+              {message && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mt-4 text-sm ${
+                    status === 'success' ? 'text-emerald-400' : 'text-red-400'
+                  }`}
+                >
+                  {message}
+                </motion.p>
+              )}
+            </form>
           </div>
         </motion.div>
       </div>
