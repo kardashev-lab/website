@@ -12,10 +12,14 @@ Source code and data pipelines live at [github.com/kardashev-lab](https://github
 
 | Tool | URL | Description |
 |------|-----|-------------|
+| Carbon Intensity Dashboard | [carbon-dashboard.kardashevlabs.org](https://carbon-dashboard.kardashevlabs.org) | Real-time CO2 intensity (lbs/MWh) across all 7 primary US ISOs plus 20+ smaller balancing authorities via EIA-930. EPA eGRID 2023 emission factors, 60-second polling. Includes a live glowing-map view with a 7-day scrubbable timelapse. |
 | Interconnection Queue Tracker | [interconnection-queue.kardashevlabs.org](https://interconnection-queue.kardashevlabs.org) | Unified search across all 7 US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE. Daily refresh via GitHub Actions. |
 | Grid Demand Dashboard | [grid-demand.kardashevlabs.org](https://grid-demand.kardashevlabs.org) | Real-time US electricity demand across 15 balancing authorities (~95% CONUS). Microservices pipeline with Redis Streams, Postgres, and Kubernetes. EIA data. |
 | Curtailment Tracker | [curtailment-tracker.kardashevlabs.org](https://curtailment-tracker.kardashevlabs.org/) | Daily solar and wind curtailment across CAISO, SPP, and ERCOT. 90-day rolling history. Data from [kardashev-data](https://github.com/kardashev-lab/kardashev-data), refreshed each morning. |
+| Nodal LMP Price Map | [lmp-map.kardashevlabs.org](https://lmp-map.kardashevlabs.org) | Interactive full-screen map of real-time locational marginal prices across NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded by price, 60-second refresh, RT/DA toggle, 14-day node history. |
 | LMP Dashboard | [lmp.kardashevlabs.org](https://lmp.kardashevlabs.org) | Real-time and day-ahead locational marginal prices across NYISO, PJM, CAISO, and SPP. Energy, congestion, and loss components; fuel mix, gas prices, and market signals. 5-minute RT refresh. |
+
+Also published: [`kardashev`](https://pypi.org/project/kardashev/) — a free Python client for the same underlying data (`pip install kardashev`), with docs at [docs.kardashevlabs.org](https://docs.kardashevlabs.org).
 
 ## Stack
 
@@ -67,29 +71,36 @@ If Git-triggered deploys do not run, trigger a redeploy from the Vercel dashboar
 
 ```
 app/
-  layout.tsx          # Root layout: fonts, metadata
-  page.tsx            # Home page (Hero → Tools → Vision → Approach → Notes)
-  privacy/page.tsx    # Privacy policy
-  api/subscribe/      # POST /api/subscribe: Resend email integration (rate-limited)
-  globals.css         # Dark-only CSS variables and base styles
-  sitemap.ts          # Sitemap generation
-  robots.txt          # Crawler rules
+  layout.tsx            # Root layout: fonts, metadata, JSON-LD
+  page.tsx              # Home page (Hero → Tools → Vision → Approach → Notes)
+  privacy/page.tsx      # Privacy policy
+  api/subscribe/        # POST /api/subscribe: Resend email integration (rate-limited)
+  globals.css           # Dark-only CSS variables and base styles
+  icon.svg              # Favicon: amber K mark on near-black
+  opengraph-image.tsx   # Dynamic OG/social image, composited over network-schematic.png
+  network-schematic.png # Generated transmission-grid artwork used as OG background
+  sitemap.ts            # Sitemap generation
+  robots.txt            # Crawler rules
 components/
-  Header.tsx          # Floating glass pill nav with mobile overlay
-  Hero.tsx            # Full-viewport hero with background image and CTAs
-  ToolsShowcase.tsx   # Asymmetric bento grid of live tools (4 dashboards)
-  ApproachCards.tsx   # Plan / Prove / Scale pillars
-  EmailForm.tsx       # Lab notes subscription form
-  Footer.tsx          # Footer with tools + connect links
-  GitHubIcon.tsx      # GitHub SVG icon component
-  LinkedInIcon.tsx    # LinkedIn SVG icon component
+  Header.tsx           # Hairline-bordered top bar, mono nav labels, mobile overlay
+  Hero.tsx              # Hero with status line, headline, CTAs, and the live ticker below it
+  LiveTicker.tsx         # Signature element: real-time LMP ticker fetched from data.kardashevlabs.org
+  ToolsShowcase.tsx      # Hairline-grid of live tool cards (6 dashboards)
+  ApproachCards.tsx      # Plan / Prove / Scale pillars
+  EmailForm.tsx          # Lab notes subscription form
+  Footer.tsx             # Footer with tools + connect links
+  GitHubIcon.tsx          # GitHub SVG icon component
+  LinkedInIcon.tsx        # LinkedIn SVG icon component
 lib/
   site.ts             # Shared constants (TOOLS, GITHUB_URL, contact, metadata)
   rate-limit.ts       # In-memory rate limiter for /api/subscribe
 public/
-  images/             # Hero, tool screenshots, approach visuals
+  images/             # Tool screenshots, vision/approach visuals
+  og.png              # Static fallback OG image (kept in sync with opengraph-image.tsx)
   llms.txt            # LLM-readable site summary
 ```
+
+**Visual identity:** industrial data-terminal aesthetic — near-black background (`#0A0A0A`), a single amber accent (`#FFB020`), hairline borders, sharp corners, no gradients or glassmorphism. The hero's signature element is `LiveTicker.tsx`, a real (not decorative) scrolling feed of current LMP prices.
 
 ## Contact
 
