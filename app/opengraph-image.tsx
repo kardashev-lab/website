@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { SITE_NAME } from '@/lib/site';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export const runtime = 'edge';
 
@@ -8,10 +8,10 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const bg = await fetch(
-    new URL('./network-schematic.png', import.meta.url)
-  ).then((res) => res.arrayBuffer());
-  const bgSrc = `data:image/png;base64,${Buffer.from(bg).toString('base64')}`;
+  // Fetched by URL rather than colocated + bundled: a colocated asset gets
+  // base64-inlined into the edge function bundle, which blew past Vercel's
+  // 1MB function-size limit. Fetching from /public keeps the bundle tiny.
+  const bgSrc = new URL('/network-schematic.png', SITE_URL).toString();
 
   return new ImageResponse(
     (
