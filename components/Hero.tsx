@@ -11,7 +11,22 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative flex flex-col">
+    <section className="relative flex flex-col overflow-hidden">
+      {/* Hairline grid, faded toward the edges so it reads as ambient texture,
+          not a hard-edged tile */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), ' +
+            'linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
+        }}
+      />
+
       <div className="relative px-4 pt-28 pb-20 md:pt-36 md:pb-28">
         <div className="relative z-10 w-full max-w-6xl mx-auto text-left">
           {/* Eyebrow — a status line, not a badge */}
