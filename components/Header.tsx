@@ -9,6 +9,7 @@ import { GITHUB_URL } from '@/lib/site';
 const navLinks = [
   { label: 'Tools', href: '#tools' },
   { label: 'Forecast', href: '/forecast' },
+  { label: 'Load Forecast', href: '/load-forecast' },
   { label: 'Vision', href: '#vision' },
   { label: 'Approach', href: '#approach' },
   { label: 'Notes', href: '#notes' },
@@ -64,13 +65,15 @@ const Header = () => {
                   {link.label}
                 </a>
               ) : (
-                <Link
+                <a
                   key={link.label}
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
                 >
                   {link.label}
-                </Link>
+                </a>
               )
             )}
           </nav>
@@ -132,21 +135,20 @@ const Header = () => {
                   {link.label}
                 </motion.a>
               ) : (
-                <motion.div
+                <motion.a
                   key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
                 >
-                  <Link
-                    href={link.href}
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
+                  {link.label}
+                </motion.a>
               )
             )}
             <motion.a
