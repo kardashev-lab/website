@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import GitHubIcon from '@/components/GitHubIcon';
 import { GITHUB_URL } from '@/lib/site';
 
@@ -18,6 +19,8 @@ const navLinks = [
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const onHomepage = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -56,14 +59,24 @@ const Header = () => {
           <nav className="hidden md:flex items-center gap-6 ml-auto">
             {navLinks.map((link) =>
               link.href.startsWith('#') ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => scrollTo(e, link.href)}
-                  className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
+                onHomepage ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => scrollTo(e, link.href)}
+                    className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={`/${link.href}`}
+                    className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                )
               ) : (
                 <a
                   key={link.label}
@@ -119,21 +132,39 @@ const Header = () => {
           >
             {navLinks.map((link, i) =>
               link.href.startsWith('#') ? (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    scrollTo(e, link.href);
-                  }}
-                  className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
-                >
-                  {link.label}
-                </motion.a>
+                onHomepage ? (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      scrollTo(e, link.href);
+                    }}
+                    className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
+                  >
+                    {link.label}
+                  </motion.a>
+                ) : (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Link
+                      href={`/${link.href}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                )
               ) : (
                 <motion.a
                   key={link.label}
