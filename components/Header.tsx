@@ -8,6 +8,7 @@ import { GITHUB_URL } from '@/lib/site';
 
 const navLinks = [
   { label: 'Tools', href: '#tools' },
+  { label: 'Forecast', href: '/forecast' },
   { label: 'Vision', href: '#vision' },
   { label: 'Approach', href: '#approach' },
   { label: 'Notes', href: '#notes' },
@@ -52,16 +53,26 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 ml-auto">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => scrollTo(e, link.href)}
-                className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith('#') ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => scrollTo(e, link.href)}
+                  className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <a
@@ -103,23 +114,41 @@ const Header = () => {
             className="fixed inset-0 z-30 bg-black/90 backdrop-blur-2xl flex flex-col items-center justify-center gap-8"
             onClick={() => setMenuOpen(false)}
           >
-            {navLinks.map((link, i) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  scrollTo(e, link.href);
-                }}
-                className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
-              >
-                {link.label}
-              </motion.a>
-            ))}
+            {navLinks.map((link, i) =>
+              link.href.startsWith('#') ? (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    scrollTo(e, link.href);
+                  }}
+                  className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
+                >
+                  {link.label}
+                </motion.a>
+              ) : (
+                <motion.div
+                  key={link.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              )
+            )}
             <motion.a
               href={GITHUB_URL}
               target="_blank"

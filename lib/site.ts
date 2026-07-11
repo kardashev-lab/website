@@ -281,4 +281,46 @@ export const TOOLS: Tool[] = [
       button: 'bg-violet-500 hover:bg-violet-400 shadow-[0_0_24px_rgba(139,92,246,0.25)]',
     },
   },
+  {
+    id: 'forecast',
+    name: 'ERCOT Spread Forecast',
+    url: '/forecast',
+    description:
+      'Live day-ahead RT-DA spread forecast for 15 ERCOT hubs and load zones, scored in public every day. A temporal fusion transformer publishes P10/P50/P90 forecasts before delivery; forecasts are immutable once issued and scored against realized real-time prices.',
+    keywords: [
+      'ERCOT spread forecast',
+      'RT-DA spread',
+      'day-ahead electricity forecast',
+      'temporal fusion transformer',
+      'grid price forecasting',
+      'ERCOT trading signal',
+      'live forward test',
+      'energy forecasting model',
+      'ERCOT hub prices',
+      'Texas electricity forecast',
+    ],
+    features: [
+      'Daily P10/P50/P90 spread forecasts, published before delivery',
+      'Scored in public against realized real-time prices, never revised',
+      '15 ERCOT hubs and load zones, per-model track record (v1, v2, ...)',
+      'Paper-traded DART signal with published, fee-adjusted P&L',
+    ],
+    headline: 'Our model calls the price spread. See if it was right.',
+    blurb:
+      'A temporal fusion transformer publishes day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones every day, before delivery. Forecasts are written once and never revised, then scored in public against realized prices — including a paper-traded trading signal with published, fee-adjusted P&L.',
+    stats: [
+      { value: '15', label: 'ERCOT nodes' },
+      { value: 'Daily', label: 'published before delivery' },
+      { value: 'Public', label: 'immutable scoring' },
+    ],
+    image: '/images/tool-forecast.webp',
+    imageAlt: 'ERCOT spread forecast live track record preview',
+    theme: {
+      accent: 'from-teal-500/20 to-teal-500/0',
+      glow: 'rgba(20,184,166,0.12)',
+      badge: 'bg-teal-500/10 text-teal-400 ring-teal-500/20',
+      dot: 'bg-teal-400',
+      button: 'bg-teal-500 hover:bg-teal-400 shadow-[0_0_24px_rgba(20,184,166,0.25)]',
+    },
+  },
 ];
