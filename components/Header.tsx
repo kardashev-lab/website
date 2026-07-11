@@ -10,7 +10,6 @@ import { GITHUB_URL } from '@/lib/site';
 const navLinks = [
   { label: 'Tools', href: '#tools' },
   { label: 'Forecast', href: '/forecast' },
-  { label: 'Load Forecast', href: '/load-forecast' },
   { label: 'Vision', href: '#vision' },
   { label: 'Approach', href: '#approach' },
   { label: 'Notes', href: '#notes' },

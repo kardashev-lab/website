@@ -323,44 +323,4 @@ export const TOOLS: Tool[] = [
       button: 'bg-teal-500 hover:bg-teal-400 shadow-[0_0_24px_rgba(20,184,166,0.25)]',
     },
   },
-  {
-    id: 'load-forecast',
-    name: 'ERCOT Load Forecast Accuracy',
-    url: '/load-forecast',
-    description:
-      "A public, immutable, daily-scored track record of ERCOT's own day-ahead load forecast (EIA-930 DF series) vs. realized demand (D series), 2019 to today, updated automatically.",
-    keywords: [
-      'ERCOT load forecast',
-      'day-ahead demand forecast',
-      'EIA-930',
-      'load forecast accuracy',
-      'ERCOT MAPE',
-      'grid demand forecast error',
-      'Texas electricity demand forecast',
-      'ERCOT forecast bias',
-    ],
-    features: [
-      "Scores ERCOT's own published day-ahead load forecast, not a model of ours",
-      'History back to 2019, updated automatically every day',
-      'MAPE, bias, and mean absolute error, both all-time and daily',
-      'Immutable once scored — nothing is revised after the fact',
-    ],
-    headline: "How good is ERCOT's own load forecast?",
-    blurb:
-      "ERCOT publishes a day-ahead forecast of Texas electricity demand every hour. This scores the grid operator's own official number against what actually happened — not our model. History back to 2019, updated daily, immutable once scored.",
-    stats: [
-      { value: '65,898', label: 'hours scored' },
-      { value: '2.46%', label: 'all-time MAPE' },
-      { value: 'Daily', label: 'auto-updated' },
-    ],
-    image: '/images/tool-load-forecast.webp',
-    imageAlt: "ERCOT own day-ahead load forecast accuracy tracker preview",
-    theme: {
-      accent: 'from-teal-500/20 to-teal-500/0',
-      glow: 'rgba(20,184,166,0.12)',
-      badge: 'bg-teal-500/10 text-teal-400 ring-teal-500/20',
-      dot: 'bg-teal-400',
-      button: 'bg-teal-500 hover:bg-teal-400 shadow-[0_0_24px_rgba(20,184,166,0.25)]',
-    },
-  },
 ];
