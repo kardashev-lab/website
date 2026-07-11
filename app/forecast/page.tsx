@@ -29,17 +29,6 @@ type ModelSummary = {
 
 type Daily = { day: string; pnl: number | null; hours_traded: number; coverage: number | null };
 
-type ForecastRow = {
-  ts: string;
-  node_id: string;
-  issued_at: string;
-  p10: number;
-  p50: number;
-  p90: number;
-  da: number;
-  model: string;
-};
-
 async function getJSON<T>(path: string): Promise<T | null> {
   try {
     const res = await fetch(`${API}${path}`, { next: { revalidate: 0 } });
@@ -179,24 +168,15 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
 }
 
 export default async function ForecastPage() {
-  const [track, latest] = await Promise.all([
-    getJSON<{ models: ModelSummary[]; overall: ModelSummary | null }>('/forecast/track-record'),
-    getJSON<ForecastRow[]>('/forecast/spread/latest'),
-  ]);
+  const track = await getJSON<{ models: ModelSummary[]; overall: ModelSummary | null }>(
+    '/forecast/track-record'
+  );
 
   const models = (track?.models ?? []).filter((m) => Number(m.node_hours) > 0);
   const hasScores = models.length > 0;
   // newest-first; the API orders by first_hour ascending
   const modelsNewestFirst = [...models].reverse();
   const activeModel = modelsNewestFirst[0]?.model;
-
-  // condense the latest issuance to one row per node
-  const byNode = new Map<string, ForecastRow[]>();
-  for (const r of latest ?? []) {
-    byNode.set(r.node_id, [...(byNode.get(r.node_id) ?? []), r]);
-  }
-  const issuedAt = latest?.[0]?.issued_at;
-  const issuingModel = latest?.[0]?.model;
 
   return (
     <>
@@ -283,54 +263,16 @@ export default async function ForecastPage() {
             </div>
           )}
 
-          {/* Explorer: pick a node, watch the model's call vs. what happened */}
+          {/* Explorer: pick a node, watch the model's call vs. what happened,
+              or see the live unresolved call for the next 24 hours */}
           <h2 className="text-xl font-semibold uppercase text-foreground mt-14 mb-2">
             Explore the calls
           </h2>
           <p className="text-[0.85rem] text-white/35 mb-6 max-w-2xl">
-            Every dot is a real, already-issued forecast. Pick a node, hover any hour.
+            Pick a node. See already-scored history, or the live, unresolved call for the
+            next 24 hours — nothing in Live mode has happened yet.
           </p>
           <ForecastExplorer />
-
-          {/* Latest issuance */}
-          {issuedAt && (
-            <>
-              <div className="flex items-center gap-3 mt-14 mb-2">
-                <h2 className="text-xl font-semibold uppercase text-foreground">Latest issued forecast</h2>
-                {issuingModel && <ModelBadge model={issuingModel} />}
-              </div>
-              <p className="text-[0.82rem] text-white/35 mb-5 font-mono">
-                issued {issuedAt.replace('T', ' ').slice(0, 16)} UTC · next 24 delivery hours ·
-                values are mean RT&minus;DA spread, $/MWh
-              </p>
-              <div className="overflow-x-auto border border-white/10">
-                <table className="w-full text-[0.82rem] font-mono">
-                  <thead>
-                    <tr className="text-white/30 text-left uppercase tracking-wider text-[10px]">
-                      <th className="px-4 py-3">Node</th>
-                      <th className="px-4 py-3 text-right">P10</th>
-                      <th className="px-4 py-3 text-right">P50</th>
-                      <th className="px-4 py-3 text-right">P90</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-white/70">
-                    {Array.from(byNode.entries()).map(([node, rows]) => {
-                      const mean = (k: 'p10' | 'p50' | 'p90') =>
-                        rows.reduce((a, r) => a + Number(r[k]), 0) / rows.length;
-                      return (
-                        <tr key={node} className="border-t border-white/10">
-                          <td className="px-4 py-2.5">{node}</td>
-                          <td className="px-4 py-2.5 text-right text-white/45">{fmt(mean('p10'))}</td>
-                          <td className="px-4 py-2.5 text-right">{fmt(mean('p50'))}</td>
-                          <td className="px-4 py-2.5 text-right text-white/45">{fmt(mean('p90'))}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </>
-          )}
 
           {/* Methodology */}
           <h2 className="text-xl font-semibold uppercase text-foreground mt-14 mb-5">Methodology</h2>
