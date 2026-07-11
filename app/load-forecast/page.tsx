@@ -41,11 +41,11 @@ const day = (s: string) => s.slice(0, 10);
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="p-5 rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06]">
+    <div className="p-5 border border-white/10 bg-white/[0.02]">
       <div className="text-[11px] uppercase tracking-[0.15em] text-white/30 font-medium mb-2">
         {label}
       </div>
-      <div className="font-mono text-2xl font-semibold text-white">{value}</div>
+      <div className="font-mono text-2xl font-semibold text-foreground">{value}</div>
       {sub && <div className="text-[0.78rem] text-white/35 mt-1">{sub}</div>}
     </div>
   );
@@ -64,7 +64,7 @@ function MapeSpark({ daily }: { daily: Daily[] }) {
   const path = vals.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-28 mt-6" preserveAspectRatio="none">
-      <path d={path} fill="none" stroke="#60a5fa" strokeWidth="2" />
+      <path d={path} fill="none" stroke="#FFB020" strokeWidth="2" />
     </svg>
   );
 }
@@ -80,14 +80,14 @@ export default async function LoadForecastPage() {
       <Header />
       <main className="pt-28 pb-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.18em] font-medium bg-white/5 ring-1 ring-white/10 text-white/40 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+          <div className="mb-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/45">
+            <span className="h-1.5 w-1.5 bg-primary animate-pulse-slow" />
             Live accuracy tracker
-          </span>
-          <h1 className="text-3xl lg:text-5xl font-bold text-white leading-tight mb-5">
+          </div>
+          <h1 className="text-3xl lg:text-5xl font-bold uppercase text-foreground leading-tight mb-5">
             How good is ERCOT&apos;s own load forecast?
           </h1>
-          <p className="text-[0.95rem] text-white/40 leading-relaxed max-w-2xl mb-10">
+          <p className="text-[0.95rem] text-muted-foreground leading-relaxed max-w-2xl mb-10">
             Every day, ERCOT publishes a day-ahead forecast of how much electricity Texas
             will use, hour by hour. This isn&apos;t our model — it&apos;s the grid
             operator&apos;s own official number, scored automatically against what actually
@@ -96,7 +96,7 @@ export default async function LoadForecastPage() {
             built on — if it&apos;s wrong, everything downstream feels it.
           </p>
 
-          <details className="mb-12 rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06] open:pb-2">
+          <details className="mb-12 border border-white/10 bg-white/[0.02] open:pb-2">
             <summary className="cursor-pointer px-6 py-4 text-[0.9rem] font-medium text-white/70 select-none">
               How to read this page
             </summary>
@@ -125,7 +125,7 @@ export default async function LoadForecastPage() {
             </div>
           </details>
 
-          <h2 className="text-xl font-semibold text-white mb-5">Live track record</h2>
+          <h2 className="text-xl font-semibold uppercase text-foreground mb-5">Live track record</h2>
           {hasScores ? (
             <>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -144,7 +144,7 @@ export default async function LoadForecastPage() {
               </div>
               <MapeSpark daily={track!.daily} />
               {daily.length > 0 && (
-                <div className="mt-8 overflow-x-auto rounded-2xl ring-1 ring-white/[0.06]">
+                <div className="mt-8 overflow-x-auto border border-white/10">
                   <table className="w-full text-[0.82rem] font-mono">
                     <thead>
                       <tr className="text-white/30 text-left uppercase tracking-wider text-[10px]">
@@ -156,10 +156,10 @@ export default async function LoadForecastPage() {
                     </thead>
                     <tbody className="text-white/70">
                       {[...daily].reverse().map((d) => (
-                        <tr key={d.day} className="border-t border-white/[0.05]">
+                        <tr key={d.day} className="border-t border-white/10">
                           <td className="px-4 py-2.5">{day(d.day)}</td>
                           <td className="px-4 py-2.5 text-right">{pct(d.mape)}</td>
-                          <td className={`px-4 py-2.5 text-right ${Number(d.bias) >= 0 ? 'text-sky-400' : 'text-orange-400'}`}>
+                          <td className={`px-4 py-2.5 text-right ${Number(d.bias) >= 0 ? 'text-primary' : 'text-red-400'}`}>
                             {pct(d.bias, 2)}
                           </td>
                           <td className="px-4 py-2.5 text-right">{mw(d.mae_mw)}</td>
@@ -171,12 +171,12 @@ export default async function LoadForecastPage() {
               )}
             </>
           ) : (
-            <div className="p-6 rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06] text-white/40 text-[0.9rem]">
+            <div className="p-6 border border-white/10 bg-white/[0.02] text-white/40 text-[0.9rem]">
               Scoring in progress — check back shortly.
             </div>
           )}
 
-          <h2 className="text-xl font-semibold text-white mt-14 mb-5">Methodology</h2>
+          <h2 className="text-xl font-semibold uppercase text-foreground mt-14 mb-5">Methodology</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-[0.88rem] text-white/40 leading-relaxed">
             <div className="space-y-4">
               <p>
