@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ForecastExplorer from '@/components/ForecastExplorer';
 
 export const dynamic = 'force-dynamic';
 
@@ -281,6 +282,15 @@ export default async function ForecastPage() {
               scores appear here as soon as the first delivery day settles.
             </div>
           )}
+
+          {/* Explorer: pick a node, watch the model's call vs. what happened */}
+          <h2 className="text-xl font-semibold uppercase text-foreground mt-14 mb-2">
+            Explore the calls
+          </h2>
+          <p className="text-[0.85rem] text-white/35 mb-6 max-w-2xl">
+            Every dot is a real, already-issued forecast. Pick a node, hover any hour.
+          </p>
+          <ForecastExplorer />
 
           {/* Latest issuance */}
           {issuedAt && (
