@@ -40,6 +40,36 @@ const PAD_R = 16;
 const PAD_T = 16;
 const PAD_B = 28;
 
+// split a model's rows into contiguous runs, breaking wherever the gap
+// between consecutive hours is much bigger than the normal 1h cadence —
+// otherwise a real data gap (e.g. a model paused and resumed) gets drawn
+// as a straight interpolated line/wedge across hours that were never
+// actually forecast, which looks like a claim we never made.
+function splitByGap(mrows: HistoryRow[]): HistoryRow[][] {
+  const segments: HistoryRow[][] = [];
+  let current: HistoryRow[] = [];
+  for (let i = 0; i < mrows.length; i++) {
+    if (i > 0) {
+      const gapHours = (+new Date(mrows[i].ts) - +new Date(mrows[i - 1].ts)) / 3_600_000;
+      if (gapHours > 2) {
+        if (current.length) segments.push(current);
+        current = [];
+      }
+    }
+    current.push(mrows[i]);
+  }
+  if (current.length) segments.push(current);
+  return segments;
+}
+
+function fmtTick(t: number, spanHours: number): string {
+  const d = new Date(t);
+  const hour = d.toLocaleTimeString('en-US', { hour: 'numeric', hour12: false, timeZone: 'UTC' }) + 'h';
+  if (spanHours <= 30) return hour;
+  const date = d.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', timeZone: 'UTC' });
+  return `${date} ${hour}`;
+}
+
 export default function ForecastExplorer() {
   const [mode, setMode] = useState<'history' | 'live'>('history');
   const [node, setNode] = useState('HB_HOUSTON');
@@ -134,7 +164,14 @@ export default function ForecastExplorer() {
 
     const zeroY = y(0);
 
-    return { x, y, models, minT, maxT, lo, hi, zeroY, transitionT };
+    const spanHours = spanT / 3_600_000;
+    const tickCount = 6;
+    const xTicks = Array.from({ length: tickCount }, (_, i) => {
+      const t = minT + (spanT * i) / (tickCount - 1);
+      return { t, label: fmtTick(t, spanHours) };
+    });
+
+    return { x, y, models, minT, maxT, lo, hi, zeroY, transitionT, xTicks };
   }, [rows, mode]);
 
   const handleMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -242,6 +279,14 @@ export default function ForecastExplorer() {
       )}
       {mode === 'live' && <div className="mb-6" />}
 
+      <p className="mb-3 text-[0.8rem] text-white/35 max-w-2xl leading-relaxed">
+        The shaded area is the range the model claims 80% of outcomes will land in; the
+        thin line inside it is its single best guess.
+        {hasRealized
+          ? ' The dots are what actually happened — amber if it landed inside the claimed range, red if the model missed.'
+          : " Nothing's dotted yet because none of these hours have happened."}
+      </p>
+
       <div className="border border-white/10 bg-white/[0.02] p-4 sm:p-6">
         {failed && (
           <div className="h-[320px] flex items-center justify-center text-white/35 text-[0.85rem] font-mono text-center px-6">
@@ -284,6 +329,29 @@ export default function ForecastExplorer() {
                   {v.toFixed(0)}
                 </text>
               ))}
+              <text
+                x={PAD_L - 8}
+                y={PAD_T - 4}
+                textAnchor="end"
+                className="fill-white/20"
+                style={{ fontSize: 9, fontFamily: 'var(--font-jetbrains-mono), monospace' }}
+              >
+                $/MWh
+              </text>
+
+              {/* x-axis labels */}
+              {chart.xTicks.map((tick, i) => (
+                <text
+                  key={i}
+                  x={chart.x(tick.t)}
+                  y={H - PAD_B + 16}
+                  textAnchor={i === 0 ? 'start' : i === chart.xTicks.length - 1 ? 'end' : 'middle'}
+                  className="fill-white/30"
+                  style={{ fontSize: 10, fontFamily: 'var(--font-jetbrains-mono), monospace' }}
+                >
+                  {tick.label}
+                </text>
+              ))}
 
               {/* model transition marker (history mode only) */}
               {chart.transitionT && (
@@ -304,22 +372,32 @@ export default function ForecastExplorer() {
                 </>
               )}
 
-              {/* per-model band + p50 line */}
+              {/* per-model band + p50 line, split at real data gaps so a
+                  paused-then-resumed model doesn't draw a fake interpolated
+                  wedge across hours it never actually forecast */}
               {chart.models.map(([model, mrows], mi) => {
                 const color = mi === chart.models.length - 1 ? '#FFB020' : 'rgba(255,255,255,0.4)';
-                const upper = mrows.map((r) => `${chart.x(+new Date(r.ts))},${chart.y(r.p90)}`);
-                const lower = mrows
-                  .slice()
-                  .reverse()
-                  .map((r) => `${chart.x(+new Date(r.ts))},${chart.y(r.p10)}`);
-                const bandPath = `M${upper.join(' L')} L${lower.join(' L')} Z`;
-                const p50Path = mrows
-                  .map((r, i) => `${i ? 'L' : 'M'}${chart.x(+new Date(r.ts))},${chart.y(r.p50)}`)
-                  .join(' ');
+                const segments = splitByGap(mrows);
                 return (
                   <g key={model}>
-                    <path d={bandPath} fill={color} fillOpacity={0.12} />
-                    <path d={p50Path} fill="none" stroke={color} strokeWidth={1.5} />
+                    {segments.map((seg, si) => {
+                      if (seg.length < 2) return null;
+                      const upper = seg.map((r) => `${chart.x(+new Date(r.ts))},${chart.y(r.p90)}`);
+                      const lower = seg
+                        .slice()
+                        .reverse()
+                        .map((r) => `${chart.x(+new Date(r.ts))},${chart.y(r.p10)}`);
+                      const bandPath = `M${upper.join(' L')} L${lower.join(' L')} Z`;
+                      const p50Path = seg
+                        .map((r, i) => `${i ? 'L' : 'M'}${chart.x(+new Date(r.ts))},${chart.y(r.p50)}`)
+                        .join(' ');
+                      return (
+                        <g key={si}>
+                          <path d={bandPath} fill={color} fillOpacity={0.12} />
+                          <path d={p50Path} fill="none" stroke={color} strokeWidth={1.5} />
+                        </g>
+                      );
+                    })}
                   </g>
                 );
               })}
