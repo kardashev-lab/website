@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BatteryExplorer from '@/components/BatteryExplorer';
+import BatteryDayExplorer from '@/components/BatteryDayExplorer';
 
 export const metadata: Metadata = {
   title: 'Battery Dispatch Simulator | Kardashev Labs',
@@ -75,11 +76,20 @@ export default function BatteryPage() {
           </details>
 
           <h2 className="text-xl font-semibold uppercase text-foreground mb-2">
+            Watch the battery trade, hour by hour
+          </h2>
+          <p className="text-[0.85rem] text-white/35 mb-6 max-w-2xl">
+            Pick a node and scrub through any day of the last 12 months. Blue bars are the
+            battery charging, amber bars discharging, the dashed line is state of charge — for
+            all three modes on the same day, side by side.
+          </p>
+          <BatteryDayExplorer />
+
+          <h2 className="text-xl font-semibold uppercase text-foreground mt-14 mb-2">
             Twelve months, real prices
           </h2>
           <p className="text-[0.85rem] text-white/35 mb-6 max-w-2xl">
-            Pick a node. Every bar below is solved against real ERCOT settlement history —
-            nothing simulated or synthetic.
+            Same three modes, zoomed out to monthly totals.
           </p>
           <BatteryExplorer />
 
