@@ -323,46 +323,4 @@ export const TOOLS: Tool[] = [
       button: 'bg-teal-500 hover:bg-teal-400 shadow-[0_0_24px_rgba(20,184,166,0.25)]',
     },
   },
-  {
-    id: 'battery-dispatch',
-    name: 'Battery Dispatch Simulator',
-    url: '/battery',
-    description:
-      'Turns the ERCOT spread forecast into a dollar figure: a linear-programming battery dispatch optimizer plans daily charge/discharge against the forecast, settles at realized prices, and compares against a perfect-foresight ceiling and a naive fixed-schedule baseline.',
-    keywords: [
-      'battery arbitrage',
-      'battery dispatch optimization',
-      'energy storage arbitrage',
-      'ERCOT battery storage',
-      'linear programming dispatch',
-      'grid-scale battery revenue',
-      'time-of-use arbitrage',
-      'battery storage backtest',
-      'energy storage forecast value',
-      'ERCOT price arbitrage',
-    ],
-    features: [
-      'Linear-programming dispatch solver (OR-Tools GLOP)',
-      'Hindsight ceiling vs. naive TOU vs. forecast-driven modes',
-      '15 ERCOT hubs and load zones, 12 months of real settlement prices',
-      'Built directly on the live TFT spread forecast',
-    ],
-    headline: 'What our forecast is actually worth. Ask a battery.',
-    blurb:
-      'A battery only earns what it knows about future prices. This optimizer plans a daily charge/discharge schedule against our published TFT forecast, settles at what actually happened, and compares the result against a perfect-foresight ceiling and a naive fixed-schedule baseline — on real ERCOT settlement prices.',
-    stats: [
-      { value: '15', label: 'ERCOT nodes' },
-      { value: '12mo', label: 'real price history' },
-      { value: 'LP', label: 'dispatch solver' },
-    ],
-    image: '/images/tool-forecast.webp',
-    imageAlt: 'Battery dispatch simulator preview',
-    theme: {
-      accent: 'from-lime-500/20 to-lime-500/0',
-      glow: 'rgba(132,204,22,0.12)',
-      badge: 'bg-lime-500/10 text-lime-400 ring-lime-500/20',
-      dot: 'bg-lime-400',
-      button: 'bg-lime-500 hover:bg-lime-400 shadow-[0_0_24px_rgba(132,204,22,0.25)]',
-    },
-  },
 ];
