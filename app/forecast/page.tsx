@@ -6,7 +6,7 @@ import ForecastExplorer from '@/components/ForecastExplorer';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'ERCOT Spread Forecast — Live Track Record | Kardashev Labs',
+  title: 'ERCOT Spread Forecast: Live Track Record | Kardashev Labs',
   description:
     'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices. Every forecast is immutable once issued.',
 };
@@ -119,19 +119,19 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
         <Stat
           label="Our miss vs market's miss"
           value={`${fmt(m.mae_model)} / ${fmt(m.mae_da)}`}
-          sub="avg error in $/MWh — ours first. Smaller than the market's number = we forecast better than the price the market locked in"
+          sub="avg error in $/MWh, ours first. Smaller than the market's number = we forecast better than the price the market locked in"
         />
         <Stat
           label="Promise kept?"
           value={pct(m.coverage)}
-          sub="every forecast is a range we claim catches the real outcome 80% of the time — this is how often it actually did"
+          sub="every forecast is a range we claim catches the real outcome 80% of the time. This is how often it actually did"
         />
         <Stat
           label="Paper trading P&L"
           value={Number(m.hours_traded) === 0 ? 'no trades yet' : usd(m.total_pnl)}
           sub={
             Number(m.hours_traded) === 0
-              ? 'the model only bets when its entire range clears zero — calm days = no bet, by design'
+              ? 'the model only bets when its entire range clears zero, so calm days = no bet, by design'
               : `${Number(m.hours_traded).toLocaleString()} hours traded · ${pct(m.hit_rate)} winners · after $0.75/MWh fees`
           }
         />
@@ -198,7 +198,7 @@ export default async function ForecastPage() {
             zones. Forecasts are written once and never revised. After the hours settle,
             they are scored against realized real-time prices. Everything below is
             computed from that immutable log. When the model changes, the old model&apos;s
-            scored history stays exactly as it was — nothing is ever merged or hidden.
+            scored history stays exactly as it was. Nothing is ever merged or hidden.
           </p>
 
           {/* Plain-language explainer */}
@@ -211,7 +211,7 @@ export default async function ForecastPage() {
                 <span className="text-white/60 font-medium">What&apos;s being predicted.</span>{' '}
                 Texas electricity is priced twice: a price locked the day before
                 (day-ahead) and the live price during the actual hour (real-time).
-                They never quite match. We predict the gap — will the live price come
+                They never quite match. We predict the gap: will the live price come
                 in above or below the locked one, and by how much, for every hour,
                 at 15 locations.
               </div>
@@ -233,7 +233,7 @@ export default async function ForecastPage() {
               <div>
                 <span className="text-white/60 font-medium">Paper trading.</span>{' '}
                 A simulated bet, only placed when the model&apos;s entire range clears
-                zero — i.e., even its pessimistic case agrees on direction. Most calm
+                zero, i.e., even its pessimistic case agrees on direction. Most calm
                 days that never happens and no bet is placed; that discipline is a
                 feature. Results shown are after estimated fees, with no real money
                 at stake.
@@ -241,7 +241,7 @@ export default async function ForecastPage() {
               <div className="lg:col-span-2">
                 <span className="text-white/60 font-medium">Model versions.</span>{' '}
                 The model is retrained periodically as we add better data. Each version
-                gets its own scored track record below, tagged v1, v2, etc — an older
+                gets its own scored track record below, tagged v1, v2, etc, an older
                 version&apos;s numbers are never revised or folded into the new one, so
                 you can see exactly how each version performed on its own.
               </div>
@@ -258,7 +258,7 @@ export default async function ForecastPage() {
             </div>
           ) : (
             <div className="p-6 border border-white/10 bg-white/[0.02] text-white/40 text-[0.9rem]">
-              The forward test is live. The first issued forecasts are maturing now —
+              The forward test is live. The first issued forecasts are maturing now;
               scores appear here as soon as the first delivery day settles.
             </div>
           )}
@@ -270,7 +270,7 @@ export default async function ForecastPage() {
           </h2>
           <p className="text-[0.85rem] text-white/35 mb-6 max-w-2xl">
             Pick a node. See already-scored history, or the live, unresolved call for the
-            next 24 hours — nothing in Live mode has happened yet.
+            next 24 hours. Nothing in Live mode has happened yet.
           </p>
           <ForecastExplorer />
 
@@ -289,7 +289,7 @@ export default async function ForecastPage() {
               </p>
               <p>
                 The setup is leak-free: at issuance the model sees only information available
-                before delivery — the cleared day-ahead price, published forecasts, and
+                before delivery, the cleared day-ahead price, published forecasts, and
                 real-time history through the last settled hour.
               </p>
             </div>

@@ -41,8 +41,8 @@ const PAD_T = 16;
 const PAD_B = 28;
 
 // split a model's rows into contiguous runs, breaking wherever the gap
-// between consecutive hours is much bigger than the normal 1h cadence —
-// otherwise a real data gap (e.g. a model paused and resumed) gets drawn
+// between consecutive hours is much bigger than the normal 1h cadence.
+// Otherwise a real data gap (e.g. a model paused and resumed) gets drawn
 // as a straight interpolated line/wedge across hours that were never
 // actually forecast, which looks like a claim we never made.
 function splitByGap(mrows: HistoryRow[]): HistoryRow[][] {
@@ -101,7 +101,7 @@ export default function ForecastExplorer() {
           return;
         }
         // /spread/latest doesn't carry realized-outcome fields at all (nothing
-        // has happened yet) — normalize to the same shape as history rows.
+        // has happened yet), so normalize to the same shape as history rows.
         const normalized: HistoryRow[] = data.map((r) => ({
           ts: r.ts!,
           p10: r.p10!,
@@ -156,7 +156,7 @@ export default function ForecastExplorer() {
       (a, b) => +new Date(a[1][0].ts) - +new Date(b[1][0].ts)
     );
 
-    // vertical marker where the active model switches — only meaningful in
+    // vertical marker where the active model switches, only meaningful in
     // history mode. In live mode both models forecast the same upcoming
     // window concurrently, so there's no real "switch" to point at.
     const transitionT =
@@ -228,7 +228,7 @@ export default function ForecastExplorer() {
           </button>
         ))}
         <span className="self-center text-[0.78rem] text-white/30 font-mono ml-1">
-          {mode === 'history' ? 'already scored against reality' : "hasn't happened yet — pure forecast"}
+          {mode === 'history' ? 'already scored against reality' : "hasn't happened yet, pure forecast"}
         </span>
       </div>
 
@@ -283,7 +283,7 @@ export default function ForecastExplorer() {
         The shaded area is the range the model claims 80% of outcomes will land in; the
         thin line inside it is its single best guess.
         {hasRealized
-          ? ' The dots are what actually happened — amber if it landed inside the claimed range, red if the model missed.'
+          ? ' The dots are what actually happened: amber if it landed inside the claimed range, red if the model missed.'
           : " Nothing's dotted yet because none of these hours have happened."}
       </p>
 

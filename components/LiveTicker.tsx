@@ -108,7 +108,7 @@ const LiveTicker = () => {
               rel="noopener noreferrer"
               className="font-mono text-[13px] text-white/40 hover:text-white/70 transition-colors"
             >
-              Feed unavailable right now — view the live dashboard →
+              Feed unavailable right now. View the live dashboard →
             </a>
           )}
 

@@ -24,7 +24,7 @@ export default function NotFound() {
             existed at this address.
           </p>
 
-          {/* status readout — small on-brand touch, not a generic error card */}
+          {/* status readout, small on-brand touch, not a generic error card */}
           <div className="mb-12 border border-white/10 bg-white/[0.02] font-mono text-[12px] text-white/45">
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10">
               <span>REQUEST</span>

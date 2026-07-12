@@ -307,7 +307,7 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Our model calls the price spread. See if it was right.',
     blurb:
-      'A temporal fusion transformer publishes day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones every day, before delivery. Forecasts are written once and never revised, then scored in public against realized prices — including a paper-traded trading signal with published, fee-adjusted P&L.',
+      'A temporal fusion transformer publishes day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones every day, before delivery. Forecasts are written once and never revised, then scored in public against realized prices, including a paper-traded trading signal with published, fee-adjusted P&L.',
     stats: [
       { value: '15', label: 'ERCOT nodes' },
       { value: 'Daily', label: 'published before delivery' },

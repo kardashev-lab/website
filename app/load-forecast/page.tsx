@@ -5,9 +5,9 @@ import Footer from '@/components/Footer';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'ERCOT Load Forecast Accuracy — Live Tracker | Kardashev Labs',
+  title: 'ERCOT Load Forecast Accuracy: Live Tracker | Kardashev Labs',
   description:
-    "How accurate is ERCOT's own day-ahead load forecast? A public, immutable, daily-scored track record — 2019 to today, updated automatically.",
+    "How accurate is ERCOT's own day-ahead load forecast? A public, immutable, daily-scored track record, 2019 to today, updated automatically.",
 };
 
 const API = (process.env.KARDASHEV_API_URL ?? 'https://data.kardashevlabs.org').replace(/\/$/, '');
@@ -89,11 +89,11 @@ export default async function LoadForecastPage() {
           </h1>
           <p className="text-[0.95rem] text-muted-foreground leading-relaxed max-w-2xl mb-10">
             Every day, ERCOT publishes a day-ahead forecast of how much electricity Texas
-            will use, hour by hour. This isn&apos;t our model — it&apos;s the grid
+            will use, hour by hour. This isn&apos;t our model, it&apos;s the grid
             operator&apos;s own official number, scored automatically against what actually
             happened. History goes back to 2019 and updates daily, immutably. This is the
             forecast that transmission planning, reserve margins, and market prices are
-            built on — if it&apos;s wrong, everything downstream feels it.
+            built on: if it&apos;s wrong, everything downstream feels it.
           </p>
 
           <details className="mb-12 border border-white/10 bg-white/[0.02] open:pb-2">
@@ -111,7 +111,7 @@ export default async function LoadForecastPage() {
                 <span className="text-white/60 font-medium">Bias.</span>{' '}
                 Whether the forecast consistently runs high or low. Positive means ERCOT
                 systematically under-forecasts (actual load comes in higher than predicted);
-                negative means it over-forecasts. Near zero is best — a small nonzero bias
+                negative means it over-forecasts. Near zero is best; a small nonzero bias
                 that&apos;s stable is normal and not necessarily a flaw.
               </div>
               <div className="lg:col-span-2">
@@ -172,7 +172,7 @@ export default async function LoadForecastPage() {
             </>
           ) : (
             <div className="p-6 border border-white/10 bg-white/[0.02] text-white/40 text-[0.9rem]">
-              Scoring in progress — check back shortly.
+              Scoring in progress, check back shortly.
             </div>
           )}
 
@@ -183,7 +183,7 @@ export default async function LoadForecastPage() {
                 Forecast and actual load come from EIA-930 (respondent ERCO): the DF series
                 is ERCOT&apos;s published day-ahead demand forecast, the D series is realized
                 demand. Both are hourly, system-wide. Every hour is scored exactly once,
-                permanently — nothing here is revised after the fact.
+                permanently: nothing here is revised after the fact.
               </p>
             </div>
             <div className="space-y-4">
@@ -192,7 +192,7 @@ export default async function LoadForecastPage() {
                 <a href="/forecast" className="text-white/60 underline decoration-white/20 hover:decoration-white/50">
                   RT-DA spread forecast
                 </a>
-                {' '}— that page scores our own model&apos;s price predictions; this one
+                : that page scores our own model&apos;s price predictions; this one
                 scores ERCOT&apos;s own load forecast. Same discipline: public, immutable,
                 updated daily.
               </p>

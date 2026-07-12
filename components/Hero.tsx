@@ -29,7 +29,7 @@ const Hero = () => {
 
       <div className="relative px-4 pt-28 pb-20 md:pt-36 md:pb-28">
         <div className="relative z-10 w-full max-w-6xl mx-auto text-left">
-          {/* Eyebrow — a status line, not a badge */}
+          {/* Eyebrow, a status line, not a badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -60,7 +60,7 @@ const Hero = () => {
           >
             Open-source infrastructure for real-time grid demand,
             interconnection queues, wholesale electricity prices, and
-            renewable curtailment — built for the people working the energy
+            renewable curtailment. Built for the people working the energy
             transition.
           </motion.p>
 
