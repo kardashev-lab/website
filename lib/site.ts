@@ -147,7 +147,7 @@ export const TOOLS: Tool[] = [
       { value: '3', label: 'ERCOT zones scored' },
       { value: 'Monthly', label: 'data refresh' },
     ],
-    image: '',
+    image: '/images/tool-large-load.webp',
     imageAlt: 'ERCOT large-load interconnection queue tracker preview',
     theme: {
       accent: 'from-orange-500/20 to-orange-500/0',
