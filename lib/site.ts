@@ -6,7 +6,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Open-source software for US energy grid intelligence: real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
+  'Open-source software for US energy grid intelligence: real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, ERCOT large-load interconnection tracking, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
 
 export type Tool = {
   id: string;
@@ -113,6 +113,48 @@ export const TOOLS: Tool[] = [
       badge: 'bg-blue-500/10 text-blue-400 ring-blue-500/20',
       dot: 'bg-blue-400',
       button: 'bg-blue-500 hover:bg-blue-400 shadow-[0_0_24px_rgba(59,130,246,0.25)]',
+    },
+  },
+  {
+    id: 'large-load-tracker',
+    name: 'Large Load Tracker',
+    url: 'https://large-load-tracker.kardashevlabs.org',
+    description:
+      'ERCOT large-load (data center, crypto, industrial) interconnection queue history extracted from monthly LLWG/LFLTF committee decks. Zone scorecards combining queue depth, generator interconnection timelines, and price stress. A project timeline estimator, and a plain-language explainer of Batch Zero (PGRR145, NPRR1325, Senate Bill 6).',
+    keywords: [
+      'ERCOT large load queue',
+      'ERCOT data center interconnection',
+      'large load interconnection Texas',
+      'Batch Zero ERCOT',
+      'PGRR145',
+      'NPRR1325',
+      'Senate Bill 6 Texas grid',
+      'ERCOT LLWG',
+      'ERCOT LFLTF',
+      'data center power Texas',
+    ],
+    features: [
+      'Monthly ERCOT large-load queue history from LLWG/LFLTF committee decks',
+      'Zone scorecards: queue depth, interconnection timelines, and price stress in one grade',
+      'Project timeline estimator based on real ERCOT approval pace',
+      'Batch Zero (PGRR145, NPRR1325, Senate Bill 6) explained with sourced dates',
+    ],
+    headline: 'How long until your data center gets power in ERCOT.',
+    blurb:
+      "ERCOT large-load queue history straight from the LLWG/LFLTF committee decks. Zone scorecards grade where new load can actually get built. A timeline estimator runs the real math on your project. Plus Batch Zero, ERCOT's first large-load approval batch, explained in plain language.",
+    stats: [
+      { value: '438K+', label: 'MW in queue' },
+      { value: '3', label: 'ERCOT zones scored' },
+      { value: 'Monthly', label: 'data refresh' },
+    ],
+    image: '',
+    imageAlt: 'ERCOT large-load interconnection queue tracker preview',
+    theme: {
+      accent: 'from-orange-500/20 to-orange-500/0',
+      glow: 'rgba(249,115,22,0.12)',
+      badge: 'bg-orange-500/10 text-orange-400 ring-orange-500/20',
+      dot: 'bg-orange-400',
+      button: 'bg-orange-500 hover:bg-orange-400 shadow-[0_0_24px_rgba(249,115,22,0.25)]',
     },
   },
   {

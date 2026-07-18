@@ -22,6 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: 'https://large-load-tracker.kardashevlabs.org',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
       url: 'https://carbon-dashboard.kardashevlabs.org',
       lastModified: new Date(),
       changeFrequency: 'daily',

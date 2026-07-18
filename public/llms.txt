@@ -10,6 +10,8 @@ Kardashev Labs builds free, open-source tools that give energy professionals acc
 
 - [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily.
 
+- [Large Load Tracker](https://large-load-tracker.kardashevlabs.org): ERCOT large-load (data center, crypto, industrial) interconnection queue history extracted from monthly LLWG/LFLTF committee decks. Zone scorecards combining queue depth, generator interconnection timelines, and price stress. A project timeline estimator, and a plain-language explainer of Batch Zero (PGRR145, NPRR1325, Senate Bill 6). Data refreshed monthly.
+
 - [Carbon Intensity Dashboard](https://carbon-dashboard.kardashevlabs.org): Real-time CO2 intensity for all 7 US ISOs and 20+ balancing authorities, computed from live fuel mix and EPA eGRID emission factors. Updates every 5 minutes.
 
 - [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Real-time US electricity demand monitoring across 15 balancing authorities, covering approximately 95% of the continental United States (CONUS). EIA and ISO data served via the kardashev-data platform.
@@ -57,6 +59,7 @@ carbon = kl.carbon(iso="ERCOT")
 - Python package for direct ISO data access: `pip install kardashev` (https://pypi.org/project/kardashev/)
 - Nodal LMP Map covers NYISO, ERCOT, MISO, SPP, CAISO with 60-second refresh
 - Interconnection Queue Tracker covers: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE (7 ISO/RTOs)
+- Large Load Tracker covers ERCOT large-load (data center, crypto, industrial) interconnection, with monthly data refresh
 - Grid Demand Dashboard covers 15 US balancing authorities, ~95% CONUS electricity
 - Curtailment Tracker covers CAISO, SPP, and ERCOT with daily refresh
 - LMP Dashboard covers NYISO, PJM, CAISO, and SPP with 5-minute real-time prices

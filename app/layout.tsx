@@ -44,6 +44,12 @@ export const metadata: Metadata = {
     'ISO-NE interconnection queue',
     'ISO RTO tracker',
     'grid interconnection data',
+    // Large load / ERCOT Batch Zero
+    'ERCOT large load queue',
+    'ERCOT data center interconnection',
+    'large load interconnection Texas',
+    'Batch Zero ERCOT',
+    'data center power Texas',
     // Grid demand
     'real-time grid demand',
     'US electricity demand',
@@ -183,7 +189,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs, a real-time grid demand dashboard covering 95% of the continental US, a daily renewable curtailment tracker, and a wholesale electricity price (LMP) dashboard.',
+            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs, an ERCOT large-load interconnection queue tracker, a real-time grid demand dashboard covering 95% of the continental US, a daily renewable curtailment tracker, and a wholesale electricity price (LMP) dashboard.',
           },
         },
         {
@@ -192,6 +198,22 @@ const jsonLd = {
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'The Interconnection Queue Tracker is a free web tool that provides unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. It tracks every power project waiting to connect to the US grid, with data refreshed daily via GitHub Actions.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the Large Load Tracker?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "The Large Load Tracker is a free web tool tracking ERCOT's large-load (data center, crypto, industrial) interconnection queue, extracted from monthly LLWG/LFLTF committee decks. It grades ERCOT zones by queue depth, interconnection timelines, and price stress, estimates project timelines from real approval data, and explains Batch Zero, ERCOT's first large-load approval batch under Senate Bill 6.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is Batch Zero in ERCOT?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "Batch Zero is the first group of large loads ERCOT is studying together under its new batch interconnection process (PGRR145, NPRR1325), created under Texas Senate Bill 6. Instead of studying each large-load request one at a time, ERCOT studies all eligible projects in a batch together and builds one transmission plan for what the grid can actually support.",
           },
         },
         {
