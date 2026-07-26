@@ -24,10 +24,17 @@ type ModelSummary = {
   hours_traded: number;
   hit_rate: number | null;
   total_pnl: number | null;
+  hours_in_cooldown: number;
   daily: Daily[];
 };
 
-type Daily = { day: string; pnl: number | null; hours_traded: number; coverage: number | null };
+type Daily = {
+  day: string;
+  pnl: number | null;
+  hours_traded: number;
+  coverage: number | null;
+  hours_in_cooldown: number;
+};
 
 async function getJSON<T>(path: string): Promise<T | null> {
   try {
@@ -110,7 +117,7 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
           </span>
         )}
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <Stat
           label="Predictions scored"
           value={Number(m.node_hours).toLocaleString()}
@@ -135,6 +142,11 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
               : `${Number(m.hours_traded).toLocaleString()} hours traded · ${pct(m.hit_rate)} winners · after $0.75/MWh fees`
           }
         />
+        <Stat
+          label="Cooldown skips"
+          value={Number(m.hours_in_cooldown).toLocaleString()}
+          sub="hours we stayed flat after a >$40/MWh swing in the prior 2h, even when the model wanted to trade — added 2026-07-25 after a reversal event cost real P&L"
+        />
       </div>
       <PnlSpark daily={daily} />
       {daily.length > 0 && (
@@ -146,6 +158,7 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
                 <th className="px-4 py-3 text-right">Node-hours traded</th>
                 <th className="px-4 py-3 text-right">Net P&L</th>
                 <th className="px-4 py-3 text-right">Coverage</th>
+                <th className="px-4 py-3 text-right">Cooldown skips</th>
               </tr>
             </thead>
             <tbody className="text-white/70">
@@ -157,6 +170,9 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
                     {usd(d.pnl)}
                   </td>
                   <td className="px-4 py-2.5 text-right">{pct(d.coverage)}</td>
+                  <td className="px-4 py-2.5 text-right text-white/40">
+                    {d.hours_in_cooldown > 0 ? d.hours_in_cooldown : '—'}
+                  </td>
                 </tr>
               ))}
             </tbody>
