@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import GitHubIcon from '@/components/GitHubIcon';
-import { GITHUB_URL } from '@/lib/site';
+import { CAL_URL, GITHUB_URL } from '@/lib/site';
 
 const navLinks = [
   { label: 'Tools', href: '#tools' },
@@ -13,6 +13,7 @@ const navLinks = [
   { label: 'Vision', href: '#vision' },
   { label: 'Approach', href: '#approach' },
   { label: 'Notes', href: '#notes' },
+  { label: 'Contact', href: CAL_URL, external: true },
 ];
 
 const Header = () => {
@@ -76,7 +77,7 @@ const Header = () => {
                     {link.label}
                   </Link>
                 )
-              ) : (
+              ) : link.external ? (
                 <a
                   key={link.label}
                   href={link.href}
@@ -86,6 +87,14 @@ const Header = () => {
                 >
                   {link.label}
                 </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50 hover:text-foreground transition-colors duration-300"
+                >
+                  {link.label}
+                </Link>
               )
             )}
           </nav>
@@ -164,7 +173,7 @@ const Header = () => {
                     </Link>
                   </motion.div>
                 )
-              ) : (
+              ) : link.external ? (
                 <motion.a
                   key={link.label}
                   href={link.href}
@@ -179,6 +188,22 @@ const Header = () => {
                 >
                   {link.label}
                 </motion.a>
+              ) : (
+                <motion.div
+                  key={link.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-3xl font-semibold text-white/80 hover:text-white transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               )
             )}
             <motion.a

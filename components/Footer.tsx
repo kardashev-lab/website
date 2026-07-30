@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import GitHubIcon from '@/components/GitHubIcon';
 import LinkedInIcon from '@/components/LinkedInIcon';
-import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL, TOOLS } from '@/lib/site';
+import { CAL_URL, CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL, TOOLS } from '@/lib/site';
 
 const Footer = () => (
   <footer className="border-t border-white/10 px-4 py-12">
@@ -70,6 +70,14 @@ const Footer = () => (
             >
               <LinkedInIcon className="w-3.5 h-3.5" />
               LinkedIn
+            </a>
+            <a
+              href={CAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Book a call
             </a>
             <a
               href={`mailto:${CONTACT_EMAIL}`}

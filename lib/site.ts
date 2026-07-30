@@ -1,6 +1,8 @@
 export const GITHUB_URL = 'https://github.com/kardashev-lab';
 export const CONTACT_EMAIL = 'ashutosh@kardashevlabs.org';
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/kardashev-labs';
+/** Cal.com 30-min booking (profile: https://cal.com/llms-full.txt) */
+export const CAL_URL = 'https://cal.com/llms-full.txt/30min';
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
