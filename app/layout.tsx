@@ -189,7 +189,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs, an ERCOT large-load interconnection queue tracker, a real-time grid demand dashboard covering 95% of the continental US, a daily renewable curtailment tracker, and a wholesale electricity price (LMP) dashboard.',
+            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs, an ERCOT large-load interconnection queue tracker, ERCOT Site Clearance (draw a search area for a county-level clearance estimate), a real-time grid demand dashboard covering 95% of the continental US, a daily renewable curtailment tracker, and a wholesale electricity price (LMP) dashboard.',
           },
         },
         {
@@ -206,6 +206,14 @@ const jsonLd = {
           acceptedAnswer: {
             '@type': 'Answer',
             text: "The Large Load Tracker is a free web tool tracking ERCOT's large-load (data center, crypto, industrial) interconnection queue, extracted from monthly LLWG/LFLTF committee decks. It grades ERCOT zones by queue depth, interconnection timelines, and price stress, estimates project timelines from real approval data, and explains Batch Zero, ERCOT's first large-load approval batch under Senate Bill 6.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is Site Clearance?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Site Clearance is a free ERCOT tool at clearance.kardashevlabs.org. You draw a search area on a map, choose generation or large-load MW (and fuel if gen), and get a strong / mixed / weak county-level estimate from public GIS queue pressure, measured interconnection timelines, and LMP market stress. It is not an official ERCOT interconnection study.',
           },
         },
         {

@@ -8,7 +8,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Open-source software for US energy grid intelligence: real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, ERCOT large-load interconnection tracking, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
+  'Open-source software for US energy grid intelligence: real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, ERCOT large-load and site clearance tools, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
 
 export type Tool = {
   id: string;
@@ -157,6 +157,48 @@ export const TOOLS: Tool[] = [
       badge: 'bg-orange-500/10 text-orange-400 ring-orange-500/20',
       dot: 'bg-orange-400',
       button: 'bg-orange-500 hover:bg-orange-400 shadow-[0_0_24px_rgba(249,115,22,0.25)]',
+    },
+  },
+  {
+    id: 'site-clearance',
+    name: 'Site Clearance',
+    url: 'https://clearance.kardashevlabs.org',
+    description:
+      'Draw a search area in ERCOT and get a county-level strong / mixed / weak clearance estimate from GIS queue pressure, measured interconnection timelines, and LMP market stress. Public data only — not an official interconnection study.',
+    keywords: [
+      'ERCOT site clearance',
+      'ERCOT interconnection screening',
+      'Texas generation site selection',
+      'GIS queue map',
+      'ERCOT peer timelines',
+      'LMP stress',
+      'polygon site screening',
+      'ERCOT solar queue',
+      'county interconnection capacity',
+      'public interconnection study alternative',
+    ],
+    features: [
+      'Draw a search polygon on an ERCOT map (Texas-only)',
+      'County-resolution queue pressure from the public GIS Report',
+      'Measured peer timelines by zone and fuel from GIS history',
+      'Load-zone LMP stress (negative hours, volatility) in the grade',
+    ],
+    headline: 'Draw a search area. See if that MW can clear.',
+    blurb:
+      'County-level ERCOT clearance estimate from public GIS queue history, measured screening→energization timelines, and LMP stress. Strong / mixed / weak with transparent drivers. Not an official interconnection study.',
+    stats: [
+      { value: 'County', label: 'GIS resolution' },
+      { value: '~97mo', label: 'timeline history' },
+      { value: 'Free', label: 'public tool' },
+    ],
+    image: '/images/tool-site-clearance.webp',
+    imageAlt: 'ERCOT Site Clearance map with drawn search area and county overlays',
+    theme: {
+      accent: 'from-yellow-500/20 to-yellow-500/0',
+      glow: 'rgba(234,179,8,0.12)',
+      badge: 'bg-yellow-500/10 text-yellow-400 ring-yellow-500/20',
+      dot: 'bg-yellow-400',
+      button: 'bg-yellow-500 hover:bg-yellow-400 text-neutral-950 shadow-[0_0_24px_rgba(234,179,8,0.25)]',
     },
   },
   {

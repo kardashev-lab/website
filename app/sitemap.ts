@@ -28,6 +28,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: 'https://clearance.kardashevlabs.org',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://clearance.kardashevlabs.org/methodology',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: 'https://carbon-dashboard.kardashevlabs.org',
       lastModified: new Date(),
       changeFrequency: 'daily',
