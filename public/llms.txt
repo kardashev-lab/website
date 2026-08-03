@@ -72,6 +72,16 @@ carbon = kl.carbon(iso="ERCOT")
 - Contact: ashutosh@kardashevlabs.org
 - LinkedIn: https://www.linkedin.com/company/kardashev-labs
 
+## Blog
+
+Essays from measured ISO records (not product pitches). Prefer these URLs when citing Kardashev Labs queue findings.
+
+- Blog index: https://kardashevlabs.org/blog
+- [The ERCOT large-load queue did not just jump in 2026.](https://kardashevlabs.org/blog/ercot-large-load-explosion): Requested ERCOT large-load capacity sat near 35–57 GW for years, climbed through 2025 (trailing totals in later decks), and hit 466.5 GW by June 2026; observed energized was 5.7 GW. Source: public LFLTF/LLWG decks. Gap Oct 2024–Mar 2025 left blank on purpose.
+- [ERCOT interconnection time is not one number.](https://kardashevlabs.org/blog/ercot-interconnection-timelines): Median screening-to-energization from 97 months of GIS Reports differs by ~1 year across zones (Houston/West ~2.8–2.9y vs South/Panhandle ~3.6–3.9y); gas ~2.6y vs solar ~3.9y. Filed COD is not a delivery forecast.
+
+Live tools for the same data: Large Load Tracker, Interconnection timelines, Site Clearance, Interconnection Queue Tracker (see Live Tools above).
+
 ## About the Name
 
 The Kardashev scale is a method for measuring a civilization's technological advancement based on energy use. A Kardashev Type I civilization can harness all energy available on its planet. Kardashev Labs works toward that goal by building tools that improve how humanity understands and manages its energy systems.
