@@ -71,6 +71,14 @@ const Footer = () => (
             >
               Python package
             </a>
+            <a
+              href="https://www.npmjs.com/package/kardashev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              JS/TS package
+            </a>
           </div>
         </div>
 

@@ -187,7 +187,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs builds free open-source tools for US grid data: carbon intensity, interconnection queues across 7 ISO/RTOs, ERCOT large-load and site clearance, demand, curtailment, LMP dashboards and maps, a scored ERCOT spread forecast, docs at docs.kardashevlabs.org, and the kardashev Python package on PyPI.',
+            text: 'Kardashev Labs builds free open-source tools for US grid data: carbon intensity, interconnection queues across 7 ISO/RTOs, ERCOT large-load and site clearance, demand, curtailment, LMP dashboards and maps, a scored ERCOT spread forecast, docs at docs.kardashevlabs.org, the kardashev Python package on PyPI, and the kardashev JS/TS package on npm.',
           },
         },
         {

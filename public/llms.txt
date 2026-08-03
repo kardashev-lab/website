@@ -59,12 +59,32 @@ carbon = kl.carbon(iso="ERCOT")
 - ISOs: CAISO, ERCOT, ISONE, MISO, NYISO, PJM, SPP
 - License: MIT
 
+## JavaScript / TypeScript Library
+
+`npm install kardashev`: free JS/TS client for the hosted Kardashev Labs API. No API key. Works in Node 18+, browsers, and edge runtimes.
+
+```ts
+import { Client } from "kardashev";
+
+const kl = new Client();
+const fuel = await kl.fuelMix("CAISO");
+const carbon = await kl.carbonLatest();
+const prices = await kl.lmp("PJM", { market: "RT", limit: 50 });
+const queue = await kl.queue({ iso: "ERCOT" });
+```
+
+- npm: https://www.npmjs.com/package/kardashev
+- Source: https://github.com/kardashev-lab/kardashev-js
+- Same markets as the Python client via the hosted API
+- License: MIT
+
 ## Key Facts
 
 - Free and open source (MIT)
 - Code: https://github.com/kardashev-lab
 - Data: https://data.kardashevlabs.org ([kardashev-data](https://github.com/kardashev-lab/kardashev-data))
 - Python: `pip install kardashev`
+- JavaScript/TypeScript: `npm install kardashev`
 - Site: https://kardashevlabs.org
 - Contact: ashutosh@kardashevlabs.org
 - LinkedIn: https://www.linkedin.com/company/kardashev-labs
