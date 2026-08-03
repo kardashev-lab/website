@@ -58,10 +58,8 @@ const Hero = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="text-[1.05rem] text-muted-foreground max-w-xl leading-relaxed mb-10"
           >
-            Open-source infrastructure for real-time grid demand,
-            interconnection queues, wholesale electricity prices, and
-            renewable curtailment. Built for the people working the energy
-            transition.
+            Live demand, queues, wholesale prices, and curtailment in one place.
+            Sourced from public ISO and EIA feeds. Free to use, code on GitHub.
           </motion.p>
 
           {/* CTAs */}

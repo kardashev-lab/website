@@ -3,8 +3,17 @@ import Link from 'next/link';
 import { CONTACT_EMAIL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - Kardashev Labs',
-  description: 'Privacy policy for Kardashev Labs website and services.',
+  title: 'Privacy Policy',
+  description: 'What Kardashev Labs collects when you subscribe to lab notes, and how we use it.',
+  alternates: {
+    canonical: '/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | Kardashev Labs',
+    description: 'What Kardashev Labs collects when you subscribe to lab notes, and how we use it.',
+    url: '/privacy',
+    type: 'website',
+  },
 };
 
 export default function PrivacyPage() {
@@ -28,57 +37,59 @@ export default function PrivacyPage() {
 
           <div className="prose prose-lg max-w-none">
             <p className="text-muted-foreground mb-8">
-              Last updated: {new Date().toLocaleDateString()}
+              Last updated: July 11, 2026
             </p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Information We Collect
+                What we collect
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                We collect information you provide directly to us, such as when you subscribe to our lab notes. 
-                This may include your email address and any other information you choose to provide.
+                If you subscribe to lab notes, we store the email address you
+                type in. That is it, unless you email us something else on your
+                own.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                How We Use Your Information
+                How we use it
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                We use the information we collect to send you lab notes and updates about our work. 
-                We do not sell, trade, or otherwise transfer your information to third parties without your consent.
+                We use that address to send lab notes and occasional updates
+                about the tools. We do not sell it. We do not hand it to
+                advertisers.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Data Security
+                Security
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                We implement appropriate security measures to protect your personal information. 
-                However, no method of transmission over the internet is 100% secure.
+                We keep the list on a normal email provider with standard
+                access controls. Email over the public internet is never
+                perfectly private; we treat the list carefully anyway.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Your Rights
+                Leaving the list
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                You have the right to unsubscribe from our communications at any time. 
-                You can do this by clicking the unsubscribe link in any email we send you, 
-                or by contacting us directly.
+                Every note has an unsubscribe link. You can also email us and
+                ask to be removed.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Contact Us
+                Contact
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                If you have any questions about this privacy policy, please contact us at{' '}
-                <a 
+                Questions about this policy:{' '}
+                <a
                   href={`mailto:${CONTACT_EMAIL}`}
                   className="text-primary hover:text-primary/80 transition-colors"
                 >

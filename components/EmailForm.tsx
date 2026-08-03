@@ -62,9 +62,8 @@ const EmailForm = () => {
               Stay close to the work.
             </h2>
             <p className="text-[0.9rem] text-muted-foreground mb-10 leading-relaxed">
-              Occasional notes on what we&apos;re building, what the data
-              shows, and where we&apos;re going. No spam. Unsubscribe
-              anytime.
+              Occasional notes on what we are building and what the data shows.
+              Unsubscribe anytime.
             </p>
 
             <form onSubmit={handleSubmit} className="relative">
@@ -78,7 +77,11 @@ const EmailForm = () => {
                 className="absolute opacity-0 h-0 w-0 pointer-events-none"
               />
               <div className="flex flex-col sm:flex-row gap-3">
+                <label className="sr-only" htmlFor="lab-notes-email">
+                  Email address
+                </label>
                 <input
+                  id="lab-notes-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

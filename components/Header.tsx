@@ -28,6 +28,19 @@ const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
+
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMenuOpen(false);
@@ -110,9 +123,12 @@ const Header = () => {
           </a>
 
           <button
+            type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden ml-auto min-w-11 min-h-11 flex flex-col items-center justify-center gap-[5px] relative"
-            aria-label="Toggle menu"
+            className="md:hidden ml-auto min-w-11 min-h-11 flex flex-col items-center justify-center gap-[5px] relative z-50"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
           >
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
@@ -131,11 +147,15 @@ const Header = () => {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-30 bg-black/90 backdrop-blur-2xl flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex flex-col items-center justify-center gap-8"
             onClick={() => setMenuOpen(false)}
           >
             {navLinks.map((link, i) =>

@@ -8,7 +8,7 @@ const approaches = [
     number: '01',
     title: 'Plan',
     description:
-      'Concrete schedules and policies. Evidence first, assumptions labeled, advisory before automation.',
+      'Write the schedule and the assumptions down first. Advisory mode before anything auto-dispatches.',
     image: '/images/approach-plan.webp',
     imageAlt: 'Abstract planning and routing visualization',
   },
@@ -16,7 +16,7 @@ const approaches = [
     number: '02',
     title: 'Prove',
     description:
-      'Baselines, assumptions, and measured deltas. If we can\'t explain it, we don\'t deploy it.',
+      'Keep a baseline. Measure the delta. If we cannot explain the number, it does not ship.',
     image: '/images/approach-prove.webp',
     imageAlt: 'Abstract metrics and validation visualization',
   },
@@ -24,7 +24,7 @@ const approaches = [
     number: '03',
     title: 'Scale',
     description:
-      'Automation only where data supports it. Systems that compound without compounding risk.',
+      'Automate the parts the data already supports. Leave the rest alone until it does.',
     image: '/images/approach-scale.webp',
     imageAlt: 'Abstract scaling and modular growth visualization',
   },
@@ -45,7 +45,7 @@ const ApproachCards = () => (
           How we build
         </div>
         <h2 className="text-3xl lg:text-4xl font-bold uppercase text-foreground leading-tight">
-          Three pillars.
+          Plan, prove, then scale.
         </h2>
       </motion.div>
 

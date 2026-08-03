@@ -17,6 +17,12 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/blog`,
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Blog | ${SITE_NAME}`,
+    description:
+      'Essays from measured ISO records: interconnection queues, curtailment, prices, and the operating regimes around them.',
+  },
 };
 
 export default function BlogPage() {

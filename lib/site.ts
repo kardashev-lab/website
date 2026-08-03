@@ -8,7 +8,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Open-source software for US energy grid intelligence: real-time CO2 carbon intensity, grid demand monitoring, interconnection queue tracking across all 7 major US ISO/RTOs, ERCOT large-load and site clearance tools, wholesale electricity prices (LMP), and daily solar & wind curtailment data. Built for the energy transition.';
+  'Free open-source tools for US grid data: carbon intensity, demand, interconnection queues, ERCOT large-load and site clearance, LMP prices, and solar/wind curtailment.';
 
 export type Tool = {
   id: string;
@@ -101,7 +101,7 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Every US power project waiting to connect to the grid.',
     blurb:
-      'Unified search across all 7 major ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE. Daily refresh via GitHub Actions. One interface for the data that used to require 7 browser tabs.',
+      'Unified search across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Daily refresh. One page instead of seven portals.',
     stats: [
       { value: '7', label: 'ISOs covered' },
       { value: 'Daily', label: 'data refresh' },
@@ -164,7 +164,7 @@ export const TOOLS: Tool[] = [
     name: 'Site Clearance',
     url: 'https://clearance.kardashevlabs.org',
     description:
-      'Draw a search area in ERCOT and get a county-level strong / mixed / weak clearance estimate from GIS queue pressure, measured interconnection timelines, and LMP market stress. Public data only — not an official interconnection study.',
+      'Draw a search area in ERCOT and get a county-level strong / mixed / weak clearance estimate from GIS queue pressure, measured interconnection timelines, and LMP market stress. Public data only; not an official interconnection study.',
     keywords: [
       'ERCOT site clearance',
       'ERCOT interconnection screening',
@@ -185,7 +185,7 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Draw a search area. See if that MW can clear.',
     blurb:
-      'County-level ERCOT clearance estimate from public GIS queue history, measured screening→energization timelines, and LMP stress. Strong / mixed / weak with transparent drivers. Not an official interconnection study.',
+      'County-level ERCOT grade from public GIS queue history, measured screening-to-energization timelines, and LMP stress. Strong / mixed / weak with the drivers shown. Not an official study.',
     stats: [
       { value: 'County', label: 'GIS resolution' },
       { value: '~97mo', label: 'timeline history' },
@@ -225,11 +225,11 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Real-time US electricity demand across 15 balancing authorities.',
     blurb:
-      'Microservices pipeline: Redis Streams, Postgres, Kubernetes with 17 HPAs. 95% CONUS coverage. 23ms chaos recovery, 215 req/s under load.',
+      'Hourly demand from EIA across 15 balancing authorities (~95% of CONUS). Map, treemap, and recent trends in one view.',
     stats: [
       { value: '15', label: 'balancing authorities' },
       { value: '95%', label: 'CONUS coverage' },
-      { value: '23ms', label: 'chaos recovery' },
+      { value: 'Hourly', label: 'EIA cadence' },
     ],
     image: '/images/tool-grid-demand.webp',
     imageAlt: 'Real-time grid demand dashboard preview',
@@ -246,7 +246,7 @@ export const TOOLS: Tool[] = [
     name: 'Curtailment Tracker',
     url: 'https://curtailment-tracker.kardashevlabs.org',
     description:
-      'Daily solar and wind curtailment across CAISO (California), SPP (Southwest Power Pool), and ERCOT (Texas). 90-day rolling history. Shows where the grid is congested and where storage is needed most.',
+      'Daily solar and wind curtailment across CAISO, SPP, and ERCOT. 90-day rolling history.',
     keywords: [
       'solar curtailment',
       'wind curtailment',
@@ -265,9 +265,9 @@ export const TOOLS: Tool[] = [
       '90-day rolling history with trend charts',
       'Duck curve and congestion context',
     ],
-    headline: 'How much clean energy gets thrown away. Every day, by ISO.',
+    headline: 'Daily solar and wind curtailment, by ISO.',
     blurb:
-      'Daily solar and wind curtailment across CAISO (California), SPP (Great Plains), and ERCOT (Texas). 90-day rolling history. Reveals where the grid is congested and where storage is needed most. Refreshed each morning.',
+      'CAISO, SPP, and ERCOT. 90-day history. Useful when you want the actual curtailed MWh, not another duck-curve essay.',
     stats: [
       { value: '3', label: 'ISOs tracked' },
       { value: '90d', label: 'rolling history' },
@@ -393,7 +393,7 @@ export const TOOLS: Tool[] = [
     ],
     headline: 'Our model calls the price spread. See if it was right.',
     blurb:
-      'A temporal fusion transformer publishes day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones every day, before delivery. Forecasts are written once and never revised, then scored in public against realized prices, including a paper-traded trading signal with published, fee-adjusted P&L.',
+      'A temporal fusion transformer posts day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones before delivery. Rows are immutable. After settlement we score them in public, including a paper DART signal with fees.',
     stats: [
       { value: '15', label: 'ERCOT nodes' },
       { value: 'Daily', label: 'published before delivery' },

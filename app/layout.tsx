@@ -77,13 +77,9 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   category: 'Energy & Technology',
-  alternates: {
-    canonical: SITE_URL,
-  },
   openGraph: {
     title: `${SITE_NAME} | Energy & Grid Intelligence Tools`,
     description: SITE_DESCRIPTION,
-    url: SITE_URL,
     siteName: SITE_NAME,
     images: [
       {
@@ -141,6 +137,8 @@ const jsonLd = {
       },
       sameAs: [
         'https://github.com/kardashev-lab',
+        'https://www.linkedin.com/company/kardashev-labs',
+        'https://pypi.org/project/kardashev/',
       ],
       description: SITE_DESCRIPTION,
       knowsAbout: [
@@ -189,7 +187,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs is an open-source organization building free software tools for US energy grid intelligence. Their tools include a unified interconnection queue tracker covering all 7 major ISO/RTOs, an ERCOT large-load interconnection queue tracker, ERCOT Site Clearance (draw a search area for a county-level clearance estimate), a real-time grid demand dashboard covering 95% of the continental US, a daily renewable curtailment tracker, and a wholesale electricity price (LMP) dashboard.',
+            text: 'Kardashev Labs builds free open-source tools for US grid data: carbon intensity, interconnection queues across 7 ISO/RTOs, ERCOT large-load and site clearance, demand, curtailment, LMP dashboards and maps, a scored ERCOT spread forecast, docs at docs.kardashevlabs.org, and the kardashev Python package on PyPI.',
           },
         },
         {
@@ -197,7 +195,7 @@ const jsonLd = {
           name: 'What is the US Interconnection Queue Tracker?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The Interconnection Queue Tracker is a free web tool that provides unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. It tracks every power project waiting to connect to the US grid, with data refreshed daily via GitHub Actions.',
+            text: 'Search ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE interconnection queues in one place. Daily refresh from public ISO reports.',
           },
         },
         {
@@ -205,7 +203,7 @@ const jsonLd = {
           name: 'What is the Large Load Tracker?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: "The Large Load Tracker is a free web tool tracking ERCOT's large-load (data center, crypto, industrial) interconnection queue, extracted from monthly LLWG/LFLTF committee decks. It grades ERCOT zones by queue depth, interconnection timelines, and price stress, estimates project timelines from real approval data, and explains Batch Zero, ERCOT's first large-load approval batch under Senate Bill 6.",
+            text: "Tracks ERCOT's large-load queue (data center, crypto, industrial) from LLWG/LFLTF decks. Zone grades from queue depth, gen-side timelines, and price stress. Includes a timeline estimator and a Batch Zero explainer.",
           },
         },
         {
@@ -213,7 +211,7 @@ const jsonLd = {
           name: 'What is Site Clearance?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Site Clearance is a free ERCOT tool at clearance.kardashevlabs.org. You draw a search area on a map, choose generation or large-load MW (and fuel if gen), and get a strong / mixed / weak county-level estimate from public GIS queue pressure, measured interconnection timelines, and LMP market stress. It is not an official ERCOT interconnection study.',
+            text: 'At clearance.kardashevlabs.org you draw an ERCOT search area, pick gen or large-load MW, and get a strong / mixed / weak county-level grade from public GIS queue, measured timelines, and LMP stress. Not an official interconnection study.',
           },
         },
         {
@@ -221,7 +219,7 @@ const jsonLd = {
           name: 'What is Batch Zero in ERCOT?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: "Batch Zero is the first group of large loads ERCOT is studying together under its new batch interconnection process (PGRR145, NPRR1325), created under Texas Senate Bill 6. Instead of studying each large-load request one at a time, ERCOT studies all eligible projects in a batch together and builds one transmission plan for what the grid can actually support.",
+            text: "Under Senate Bill 6, ERCOT studies eligible large loads together (PGRR145, NPRR1325) instead of one at a time, then builds one transmission plan for what the grid can support. Batch Zero is the first batch.",
           },
         },
         {
@@ -229,7 +227,7 @@ const jsonLd = {
           name: 'What is the Grid Demand Dashboard?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The Grid Demand Dashboard is a free real-time electricity demand monitoring tool covering 15 balancing authorities and 95% of the continental United States (CONUS). It sources data from the EIA (US Energy Information Administration) via a microservices pipeline.',
+            text: 'Live electricity demand across 15 balancing authorities (~95% of CONUS), from EIA Open Data via kardashev-data.',
           },
         },
         {
@@ -245,7 +243,7 @@ const jsonLd = {
           name: 'What is the Curtailment Tracker?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The Curtailment Tracker is a free web tool showing how much solar and wind energy is curtailed (wasted) every day across CAISO, SPP, and ERCOT, with a 90-day rolling history. High curtailment signals grid congestion and where battery storage is needed most.',
+            text: 'Daily solar and wind curtailment for CAISO, SPP, and ERCOT, with a 90-day history. High curtailment usually means congestion or missing storage.',
           },
         },
         {
@@ -253,7 +251,7 @@ const jsonLd = {
           name: 'What is the LMP Dashboard?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The LMP Dashboard is a free real-time view of wholesale electricity prices: locational marginal prices across NYISO, PJM, CAISO, and SPP, broken into energy, congestion, and loss components, alongside fuel mix, natural gas prices, weather, and battery storage data.',
+            text: 'Real-time and day-ahead locational marginal prices for NYISO, PJM, CAISO, and SPP, with energy / congestion / loss components plus fuel mix, gas, weather, and storage context.',
           },
         },
         {
@@ -261,7 +259,7 @@ const jsonLd = {
           name: 'Are Kardashev Labs tools free and open source?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. All Kardashev Labs tools are free to use and the source code is publicly available on GitHub at github.com/kardashev-lab under open-source licenses.',
+            text: 'Yes. Free to use; source is on GitHub at github.com/kardashev-lab under open-source licenses.',
           },
         },
       ],

@@ -13,8 +13,8 @@ const Footer = () => (
             Kardashev<span className="text-primary">Labs</span>
           </div>
           <p className="text-[13px] text-white/50 leading-relaxed max-w-xs">
-            Open-source tools for the energy transition. Accelerating humanity
-            toward Kardashev Type I.
+            Free tools for US grid data: queues, prices, demand, curtailment,
+            and scored forecasts.
           </p>
           <a
             href={GITHUB_URL}
@@ -33,17 +33,44 @@ const Footer = () => (
             Tools
           </h4>
           <div className="space-y-2">
-            {TOOLS.map((tool) => (
-              <a
-                key={tool.id}
-                href={tool.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
-              >
-                {tool.name}
-              </a>
-            ))}
+            {TOOLS.map((tool) => {
+              const external = tool.url.startsWith('http');
+              return external ? (
+                <a
+                  key={tool.id}
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+                >
+                  {tool.name}
+                </a>
+              ) : (
+                <Link
+                  key={tool.id}
+                  href={tool.url}
+                  className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+                >
+                  {tool.name}
+                </Link>
+              );
+            })}
+            <a
+              href="https://docs.kardashevlabs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Docs
+            </a>
+            <a
+              href="https://pypi.org/project/kardashev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Python package
+            </a>
           </div>
         </div>
 

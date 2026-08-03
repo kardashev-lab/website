@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ForecastExplorer from '@/components/ForecastExplorer';
@@ -6,9 +7,25 @@ import ForecastExplorer from '@/components/ForecastExplorer';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'ERCOT Spread Forecast: Live Track Record | Kardashev Labs',
+  title: 'ERCOT Spread Forecast: Live Track Record',
   description:
     'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices. Every forecast is immutable once issued.',
+  alternates: {
+    canonical: '/forecast',
+  },
+  openGraph: {
+    title: 'ERCOT Spread Forecast: Live Track Record | Kardashev Labs',
+    description:
+      'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices.',
+    url: '/forecast',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ERCOT Spread Forecast: Live Track Record | Kardashev Labs',
+    description:
+      'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices.',
+  },
 };
 
 const API = (process.env.KARDASHEV_API_URL ?? 'https://data.kardashevlabs.org').replace(/\/$/, '');
@@ -145,7 +162,7 @@ function ModelTrackRecord({ m, isActive }: { m: ModelSummary; isActive: boolean 
         <Stat
           label="Cooldown skips"
           value={Number(m.hours_in_cooldown).toLocaleString()}
-          sub="hours we stayed flat after a >$40/MWh swing in the prior 2h, even when the model wanted to trade — added 2026-07-25 after a reversal event cost real P&L"
+          sub="hours we stayed flat after a >$40/MWh swing in the prior 2h, even when the model wanted to trade (added 2026-07-25 after a reversal event cost real P&L)"
         />
       </div>
       <PnlSpark daily={daily} />
@@ -196,8 +213,14 @@ export default async function ForecastPage() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="fixed left-4 top-4 z-50 -translate-y-24 focus:translate-y-0 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform duration-200"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="pt-28 pb-24 px-4">
+      <main id="main-content" className="pt-28 pb-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/45">
             <span className="h-1.5 w-1.5 bg-primary animate-pulse-slow" />
@@ -208,13 +231,19 @@ export default async function ForecastPage() {
             <br />
             Scored in public, every day.
           </h1>
-          <p className="text-[0.95rem] text-muted-foreground leading-relaxed max-w-2xl mb-10">
-            Each day, before delivery, our model publishes P10/P50/P90 forecasts of the
-            RT&minus;DA price spread for the next 24 hours across 15 ERCOT hubs and load
-            zones. Forecasts are written once and never revised. After the hours settle,
-            they are scored against realized real-time prices. Everything below is
-            computed from that immutable log. When the model changes, the old model&apos;s
-            scored history stays exactly as it was. Nothing is ever merged or hidden.
+          <p className="text-[0.95rem] text-muted-foreground leading-relaxed max-w-2xl mb-4">
+            Before delivery each day, the model posts P10/P50/P90 forecasts of the
+            next 24 hours of RT&minus;DA spread at 15 ERCOT hubs and load zones.
+            Those rows are written once. After the hours settle, we score them
+            against realized real-time prices. Old model versions keep their own
+            scored history; we do not rewrite or fold them into a newer run.
+          </p>
+          <p className="text-[0.85rem] text-white/40 mb-10">
+            Companion:{' '}
+            <Link href="/load-forecast" className="text-white/60 underline hover:text-white/80">
+              ERCOT&apos;s own day-ahead load forecast accuracy
+            </Link>
+            , scored the same way.
           </p>
 
           {/* Plain-language explainer */}

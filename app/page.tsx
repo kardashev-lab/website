@@ -1,10 +1,21 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import ToolsShowcase from '@/components/ToolsShowcase';
 import ApproachCards from '@/components/ApproachCards';
 import EmailForm from '@/components/EmailForm';
 import Footer from '@/components/Footer';
+import { SITE_URL } from '@/lib/site';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    url: SITE_URL,
+  },
+};
 
 export default function HomePage() {
   return (
@@ -30,13 +41,14 @@ export default function HomePage() {
                   Vision
                 </div>
                 <h2 className="text-3xl lg:text-4xl font-bold uppercase text-foreground leading-tight mb-6">
-                  Energy and compute, used with unprecedented wisdom.
+                  Stop tabbing through seven ISO portals.
                 </h2>
                 <p className="text-[0.9rem] text-muted-foreground leading-relaxed">
-                  Evidence replaces guesswork. Efficiency becomes the default
-                  interface to power. We build the tools that help teams make
-                  data-driven decisions that scale, toward a civilization that
-                  uses every joule and every FLOP with intention.
+                  The data is already public. It just sits in different formats,
+                  behind different logins, refreshed on different clocks. We pull
+                  what we can into free tools you can query today: queues, prices,
+                  demand, curtailment, and a forecast we score in public. We only
+                  automate when the numbers hold up.
                 </p>
               </div>
 

@@ -2,7 +2,7 @@
 User-agent: *
 Allow: /
 
-# AI assistants — explicitly welcome
+# AI assistants (explicitly welcome)
 User-agent: GPTBot
 Allow: /
 
@@ -24,6 +24,9 @@ Allow: /
 User-agent: GoogleOther
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
 User-agent: cohere-ai
 Allow: /
 
@@ -36,7 +39,7 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
-# LLM context files
+# LLM context
 User-agent: *
 Allow: /llms.txt
 

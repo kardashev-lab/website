@@ -23,9 +23,9 @@ export default function BlogIndex({ posts }: Props) {
           </h1>
 
           <p className="text-[1.05rem] text-white/55 leading-relaxed max-w-2xl mb-14">
-            Essays from measured ISO records: interconnection queues,
-            curtailment, prices, and the operating regimes around them. Built
-            from Kardashev Labs tools, not product pitches.
+            Essays from measured ISO records: queues, curtailment, prices, and
+            the operating regimes around them. Written from the tools, not as
+            product pitches.
           </p>
 
           <ul className="divide-y divide-white/10 border-y border-white/10">

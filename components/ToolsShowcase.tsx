@@ -55,11 +55,12 @@ const ToolCard = ({
       {/* CTA */}
       <a
         href={tool.url}
-        target="_blank"
-        rel="noopener noreferrer"
+        {...(tool.url.startsWith('http')
+          ? { target: '_blank', rel: 'noopener noreferrer' }
+          : {})}
         className="group self-start inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-foreground border border-white/15 hover:border-white/30 hover:bg-white/5 active:scale-[0.98] transition-all duration-200"
       >
-        Open dashboard
+        {tool.url.startsWith('http') ? 'Open dashboard' : 'Open track record'}
         <span
           aria-hidden
           className="group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300"

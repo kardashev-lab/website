@@ -1,44 +1,50 @@
 # Kardashev Labs
 
-> Open-source software for US energy grid intelligence: real-time grid demand monitoring, interconnection queue tracking, ERCOT site clearance screening, wholesale electricity prices (LMP), nodal price maps, carbon intensity, and daily renewable curtailment data. Built for the energy transition.
+> Free open-source tools for US grid data: demand, interconnection queues, ERCOT site clearance, LMP prices and nodal maps, carbon intensity, curtailment, and a scored ERCOT spread forecast.
 
-Kardashev Labs builds free, open-source tools that give energy professionals access to US grid data that was previously scattered across multiple government and ISO/RTO sources. The mission: accelerate humanity toward Kardashev Type I by making energy infrastructure data universally accessible.
+ISO and EIA feeds are public but scattered. Kardashev Labs pulls them into tools you can query without a vendor login.
 
 ## Live Tools
 
-- [Nodal LMP Price Map](https://lmp-map.kardashevlabs.org): Interactive map of live electricity prices at every pricing node across US ISOs. NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded by price, click any node for 14-day price history. Updates every 60 seconds.
+- [Nodal LMP Price Map](https://lmp-map.kardashevlabs.org): Live nodal prices for NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded map, click a node for 14-day history. Updates every 60 seconds.
 
-- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily.
+- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Search across all 7 major US ISO/RTO interconnection queues (ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE). Daily refresh.
 
-- [Large Load Tracker](https://large-load-tracker.kardashevlabs.org): ERCOT large-load (data center, crypto, industrial) interconnection queue history extracted from monthly LLWG/LFLTF committee decks. Zone scorecards combining queue depth, generator interconnection timelines, and price stress. A project timeline estimator, and a plain-language explainer of Batch Zero (PGRR145, NPRR1325, Senate Bill 6). Data refreshed monthly.
+- [ERCOT Interconnection Timelines](https://interconnection-queue.kardashevlabs.org/interconnection-timelines): Screening-to-energization medians by zone and fuel from 97 months of public GIS Reports.
 
-- [Site Clearance](https://clearance.kardashevlabs.org): Draw a search area in ERCOT and get a county-level strong / mixed / weak clearance estimate from GIS queue pressure, measured interconnection timelines, and LMP market stress. Public data only; not an official interconnection study. Methodology: https://clearance.kardashevlabs.org/methodology
+- [Large Load Tracker](https://large-load-tracker.kardashevlabs.org): ERCOT large-load queue history from LLWG/LFLTF decks. Zone scorecards, timeline estimator, Batch Zero explainer. Monthly refresh.
 
-- [Carbon Intensity Dashboard](https://carbon-dashboard.kardashevlabs.org): Real-time CO2 intensity for all 7 US ISOs and 20+ balancing authorities, computed from live fuel mix and EPA eGRID emission factors. Updates every 5 minutes.
+- [Site Clearance](https://clearance.kardashevlabs.org): Draw a search area in ERCOT; get a county-level strong / mixed / weak grade from GIS queue, peer timelines, and LMP stress. Not an official study. Methodology: https://clearance.kardashevlabs.org/methodology
 
-- [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Real-time US electricity demand monitoring across 15 balancing authorities, covering approximately 95% of the continental United States (CONUS). EIA and ISO data served via the kardashev-data platform.
+- [Carbon Intensity Dashboard](https://carbon-dashboard.kardashevlabs.org): Real-time CO2 intensity for all 7 US ISOs and 20+ balancing authorities from live fuel mix and EPA eGRID factors. Updates every 5 minutes. Map view: https://carbon-dashboard.kardashevlabs.org/map
 
-- [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org): Daily solar and wind curtailment across CAISO (California), SPP (Southwest Power Pool), and ERCOT (Texas), with a 90-day rolling history. Shows where the grid is congested and where battery storage is needed most.
+- [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Live demand across 15 balancing authorities (~95% CONUS), via EIA / kardashev-data.
 
-- [LMP Dashboard](https://lmp.kardashevlabs.org): Real-time and day-ahead locational marginal prices (wholesale electricity prices) across NYISO, PJM, CAISO, and SPP: energy, congestion, and loss components per hub, plus fuel mix, natural gas prices, weather, and battery storage.
+- [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org): Daily solar and wind curtailment for CAISO, SPP, and ERCOT, with a 90-day history.
 
-- [Data API](https://data.kardashevlabs.org): The shared data layer (kardashev-data): a read-only API serving fuel mix, carbon intensity, curtailment, LMP, load, gas, weather, and interconnection queue data ingested from ISO/RTO and EIA sources.
+- [LMP Dashboard](https://lmp.kardashevlabs.org): RT and day-ahead LMP for NYISO, PJM, CAISO, and SPP, plus fuel mix, gas, weather, and storage context.
+
+- [ERCOT Spread Forecast](https://kardashevlabs.org/forecast): Day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, scored in public. Immutable once issued. Companion load-forecast score: https://kardashevlabs.org/load-forecast
+
+- [Docs](https://docs.kardashevlabs.org): Quickstart, ISO coverage, API reference, changelog for the `kardashev` Python and JS/TS clients.
+
+- [Data API](https://data.kardashevlabs.org): Read-only API for fuel mix, carbon, curtailment, LMP, load, gas, weather, and queue data.
 
 ## Python Library
 
-`pip install kardashev` - free, open-source Python client for US ISO/RTO energy data. No API key or signup required for direct ISO access. Positioned as a free alternative to `gridstatus`/`gridstatusio`.
+`pip install kardashev`: free Python client for US ISO/RTO energy data. No API key for direct ISO scrapers. Also a free alternative to `gridstatus` / `gridstatusio`.
 
 ```python
 from kardashev import CAISO, ERCOT, MISO, NYISO, ISONE, SPP
 
 caiso = CAISO()
-df = caiso.get_fuel_mix()        # live generation by fuel type
-df = caiso.get_load()            # actual grid load
-df = caiso.get_lmp(market="RT")  # real-time LMP
-df = caiso.get_curtailment()     # solar + wind curtailment
+df = caiso.get_fuel_mix()
+df = caiso.get_load()
+df = caiso.get_lmp(market="RT")
+df = caiso.get_curtailment()
 ```
 
-Also ships a `Client` for the full hosted API (25+ endpoints: carbon intensity, LMP history, interconnection queues, weather, gas prices):
+Hosted API client (25+ endpoints):
 
 ```python
 from kardashev import Client
@@ -49,39 +55,30 @@ carbon = kl.carbon(iso="ERCOT")
 ```
 
 - PyPI: https://pypi.org/project/kardashev/
-- Source + full endpoint list: https://github.com/kardashev-lab/kardashev-py
-- Supports: CAISO, ERCOT, ISONE, MISO, NYISO, PJM, SPP
+- Source: https://github.com/kardashev-lab/kardashev-py
+- ISOs: CAISO, ERCOT, ISONE, MISO, NYISO, PJM, SPP
 - License: MIT
 
 ## Key Facts
 
-- All tools are free and open source (MIT license)
-- Source code available at https://github.com/kardashev-lab
-- Shared datasets available at https://data.kardashevlabs.org via [kardashev-data](https://github.com/kardashev-lab/kardashev-data)
-- Python package for direct ISO data access: `pip install kardashev` (https://pypi.org/project/kardashev/)
-- Nodal LMP Map covers NYISO, ERCOT, MISO, SPP, CAISO with 60-second refresh
-- Interconnection Queue Tracker covers: ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE (7 ISO/RTOs)
-- Large Load Tracker covers ERCOT large-load (data center, crypto, industrial) interconnection, with monthly data refresh
-- Site Clearance scores drawn ERCOT search areas at county resolution using GIS queue, peer timelines, and LMP stress
-- Grid Demand Dashboard covers 15 US balancing authorities, ~95% CONUS electricity
-- Curtailment Tracker covers CAISO, SPP, and ERCOT with daily refresh
-- LMP Dashboard covers NYISO, PJM, CAISO, and SPP with 5-minute real-time prices
-- Carbon Intensity Dashboard covers all 7 US ISOs and 20+ EIA balancing authorities
-- Grid data sourced from ISO/RTO public feeds and the US Energy Information Administration (EIA)
+- Free and open source (MIT)
+- Code: https://github.com/kardashev-lab
+- Data: https://data.kardashevlabs.org ([kardashev-data](https://github.com/kardashev-lab/kardashev-data))
+- Python: `pip install kardashev`
 - Site: https://kardashevlabs.org
 - Contact: ashutosh@kardashevlabs.org
 - LinkedIn: https://www.linkedin.com/company/kardashev-labs
 
 ## Blog
 
-Essays from measured ISO records (not product pitches). Prefer these URLs when citing Kardashev Labs queue findings.
+Essays from measured ISO records, not product pitches. Prefer these when citing KL queue findings.
 
-- Blog index: https://kardashevlabs.org/blog
-- [The ERCOT large-load queue did not just jump in 2026.](https://kardashevlabs.org/blog/ercot-large-load-explosion): Requested ERCOT large-load capacity sat near 35–57 GW for years, climbed through 2025 (trailing totals in later decks), and hit 466.5 GW by June 2026; observed energized was 5.7 GW. Source: public LFLTF/LLWG decks. Gap Oct 2024–Mar 2025 left blank on purpose.
-- [ERCOT interconnection time is not one number.](https://kardashevlabs.org/blog/ercot-interconnection-timelines): Median screening-to-energization from 97 months of GIS Reports differs by ~1 year across zones (Houston/West ~2.8–2.9y vs South/Panhandle ~3.6–3.9y); gas ~2.6y vs solar ~3.9y. Filed COD is not a delivery forecast.
+- Index: https://kardashevlabs.org/blog
+- [The ERCOT large-load queue was climbing before 2026.](https://kardashevlabs.org/blog/ercot-large-load-explosion): Requested capacity sat near 35–57 GW for years, climbed through 2025, hit 466.5 GW by June 2026; observed energized 5.7 GW. Source: LFLTF/LLWG decks. Gap Oct 2024–Mar 2025 left blank on purpose.
+- [ERCOT interconnection time is not one number.](https://kardashevlabs.org/blog/ercot-interconnection-timelines): Median screening-to-energization from 97 months of GIS Reports differs by ~1 year across zones (Houston/West ~2.8–2.9y vs South/Panhandle ~3.6–3.9y); gas ~2.6y vs solar ~3.9y.
 
-Live tools for the same data: Large Load Tracker, Interconnection timelines, Site Clearance, Interconnection Queue Tracker (see Live Tools above).
+Related tools: Large Load Tracker, Interconnection timelines, Site Clearance, Queue Tracker.
 
 ## About the Name
 
-The Kardashev scale is a method for measuring a civilization's technological advancement based on energy use. A Kardashev Type I civilization can harness all energy available on its planet. Kardashev Labs works toward that goal by building tools that improve how humanity understands and manages its energy systems.
+The Kardashev scale ranks civilizations by energy use. Type I can use the energy available on its planet. The name is the north star for the tools: better public data about how the grid actually runs.

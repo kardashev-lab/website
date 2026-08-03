@@ -25,6 +25,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...posts,
     {
+      url: `${SITE_URL}/forecast`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
+      url: `${SITE_URL}/load-forecast`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.7,
+    },
+    {
+      url: 'https://docs.kardashevlabs.org',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: 'https://interconnection-queue.kardashevlabs.org/interconnection-timelines',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: 'https://lmp-map.kardashevlabs.org',
       lastModified: new Date(),
       changeFrequency: 'daily',

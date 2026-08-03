@@ -1,5 +1,5 @@
 ---
-title: "The ERCOT large-load queue did not just jump in 2026."
+title: "The ERCOT large-load queue was climbing before 2026."
 description: "Requested large-load capacity sat near 35–57 GW for years, then climbed through 2025 and hit 466.5 GW by June 2026. Online load is still basically the x-axis."
 date: "2026-08-02"
 category: "Queues"
@@ -7,7 +7,7 @@ image: "/blog/ercot-large-load-explosion.png"
 imageAlt: "ERCOT requested large-load capacity from 2022 to mid-2026, peaking at 466.5 GW"
 ---
 
-The ERCOT large-load queue did not just jump in 2026. It was already climbing through 2025.
+The ERCOT large-load queue was climbing before the 2026 headlines. The decks show it.
 
 Data-center and industrial load requests get compressed into a single headline number. That number is almost always the latest deck total. The public LFLTF and LLWG status decks tell a longer story: years of relative flatness, a gap with no standalone monthly totals, a 2025 climb that only appears inside later reports' trailing charts, then a 2026 primary series that ends at 466.5 GW.
 

@@ -5,9 +5,25 @@ import Footer from '@/components/Footer';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'ERCOT Load Forecast Accuracy: Live Tracker | Kardashev Labs',
+  title: 'ERCOT Load Forecast Accuracy: Live Tracker',
   description:
     "How accurate is ERCOT's own day-ahead load forecast? A public, immutable, daily-scored track record, 2019 to today, updated automatically.",
+  alternates: {
+    canonical: '/load-forecast',
+  },
+  openGraph: {
+    title: 'ERCOT Load Forecast Accuracy: Live Tracker | Kardashev Labs',
+    description:
+      "How accurate is ERCOT's own day-ahead load forecast? Public, immutable, daily-scored track record.",
+    url: '/load-forecast',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ERCOT Load Forecast Accuracy: Live Tracker | Kardashev Labs',
+    description:
+      "How accurate is ERCOT's own day-ahead load forecast? Public, immutable, daily-scored track record.",
+  },
 };
 
 const API = (process.env.KARDASHEV_API_URL ?? 'https://data.kardashevlabs.org').replace(/\/$/, '');
@@ -77,8 +93,14 @@ export default async function LoadForecastPage() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="fixed left-4 top-4 z-50 -translate-y-24 focus:translate-y-0 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform duration-200"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="pt-28 pb-24 px-4">
+      <main id="main-content" className="pt-28 pb-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/45">
             <span className="h-1.5 w-1.5 bg-primary animate-pulse-slow" />
@@ -88,12 +110,11 @@ export default async function LoadForecastPage() {
             How good is ERCOT&apos;s own load forecast?
           </h1>
           <p className="text-[0.95rem] text-muted-foreground leading-relaxed max-w-2xl mb-10">
-            Every day, ERCOT publishes a day-ahead forecast of how much electricity Texas
-            will use, hour by hour. This isn&apos;t our model, it&apos;s the grid
-            operator&apos;s own official number, scored automatically against what actually
-            happened. History goes back to 2019 and updates daily, immutably. This is the
-            forecast that transmission planning, reserve margins, and market prices are
-            built on: if it&apos;s wrong, everything downstream feels it.
+            Every day ERCOT publishes a day-ahead forecast of Texas load, hour by
+            hour. This page is not our model. It is ERCOT&apos;s own number, scored
+            against what actually happened. History runs back to 2019 and updates
+            daily. Transmission planning, reserve margins, and market prices lean
+            on this forecast; when it misses, the miss shows up downstream.
           </p>
 
           <details className="mb-12 border border-white/10 bg-white/[0.02] open:pb-2">
