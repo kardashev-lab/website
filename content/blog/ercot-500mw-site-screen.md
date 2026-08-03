@@ -4,7 +4,7 @@ description: "Five Texas footprints run through Site Clearance at 500 MW large l
 date: "2026-08-02"
 category: "Methods"
 image: "/blog/ercot-500mw-site-screen.png"
-imageAlt: "Bar charts comparing peer timelines, negative price hours, and DC local impact across five Texas counties for a 500 MW load screen"
+imageAlt: "Ranked bars of DC local impact from a 500 MW withdrawal across five Texas pads; Brewster is about 6× higher than urban pads"
 ---
 
 I wanted a concrete answer to a boring question: for a handful of Texas land pads, which ones look less bad on public grid data if you assume a 500 MW large load?
