@@ -12,7 +12,7 @@ const navLinks = [
   { label: 'Forecast', href: '/forecast' },
   { label: 'Vision', href: '#vision' },
   { label: 'Approach', href: '#approach' },
-  { label: 'Notes', href: '#notes' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: CAL_URL, external: true },
 ];
 
