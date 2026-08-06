@@ -15,6 +15,7 @@
     "@vercel/analytics": "^1.5.0",
     "framer-motion": "^11.0.0",
     "gray-matter": "^4.0.3",
+    "kardashev-charts": "github:kardashev-lab/kardashev-charts#main",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",

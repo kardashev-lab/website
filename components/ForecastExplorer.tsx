@@ -1,6 +1,18 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import {
+  Axis,
+  BandSeries,
+  LineSeries,
+  createTimeLinearScales,
+  padDomain,
+  splitByGap,
+  toMs,
+  clientToViewBoxX,
+  closestIndex,
+  substationTheme,
+} from 'kardashev-charts';
 
 const API = 'https://data.kardashevlabs.org';
 
@@ -26,7 +38,6 @@ type HistoryRow = {
   pnl: number | null;
 };
 
-// short human label for a model tag, e.g. "tft-v2-2026q3" -> "v2"
 function modelLabel(model: string): string {
   const m = model.match(/-v(\d+)-/);
   if (m) return `v${m[1]}`;
@@ -35,32 +46,7 @@ function modelLabel(model: string): string {
 
 const W = 920;
 const H = 320;
-const PAD_L = 52;
-const PAD_R = 16;
-const PAD_T = 16;
-const PAD_B = 28;
-
-// split a model's rows into contiguous runs, breaking wherever the gap
-// between consecutive hours is much bigger than the normal 1h cadence.
-// Otherwise a real data gap (e.g. a model paused and resumed) gets drawn
-// as a straight interpolated line/wedge across hours that were never
-// actually forecast, which looks like a claim we never made.
-function splitByGap(mrows: HistoryRow[]): HistoryRow[][] {
-  const segments: HistoryRow[][] = [];
-  let current: HistoryRow[] = [];
-  for (let i = 0; i < mrows.length; i++) {
-    if (i > 0) {
-      const gapHours = (+new Date(mrows[i].ts) - +new Date(mrows[i - 1].ts)) / 3_600_000;
-      if (gapHours > 2) {
-        if (current.length) segments.push(current);
-        current = [];
-      }
-    }
-    current.push(mrows[i]);
-  }
-  if (current.length) segments.push(current);
-  return segments;
-}
+const PAD = { top: 16, right: 16, bottom: 28, left: 52 };
 
 function fmtTick(t: number, spanHours: number): string {
   const d = new Date(t);
@@ -100,8 +86,6 @@ export default function ForecastExplorer() {
           setFailed(true);
           return;
         }
-        // /spread/latest doesn't carry realized-outcome fields at all (nothing
-        // has happened yet), so normalize to the same shape as history rows.
         const normalized: HistoryRow[] = data.map((r) => ({
           ts: r.ts!,
           p10: r.p10!,
@@ -116,7 +100,7 @@ export default function ForecastExplorer() {
           side: r.side ?? null,
           pnl: r.pnl ?? null,
         }));
-        setRows(normalized.sort((a, b) => +new Date(a.ts) - +new Date(b.ts)));
+        setRows(normalized.sort((a, b) => toMs(a.ts) - toMs(b.ts)));
       })
       .catch(() => {
         if (!cancelled) setFailed(true);
@@ -129,7 +113,7 @@ export default function ForecastExplorer() {
   const chart = useMemo(() => {
     if (!rows || rows.length === 0) return null;
 
-    const times = rows.map((r) => +new Date(r.ts));
+    const times = rows.map((r) => toMs(r.ts));
     const minT = Math.min(...times);
     const maxT = Math.max(...times);
     const spanT = maxT - minT || 1;
@@ -139,72 +123,60 @@ export default function ForecastExplorer() {
       values.push(r.p10, r.p90);
       if (r.spread != null) values.push(r.spread);
     }
-    const minV = Math.min(...values);
-    const maxV = Math.max(...values);
-    const padV = (maxV - minV) * 0.1 || 1;
-    const lo = minV - padV;
-    const hi = maxV + padV;
+    const [lo, hi] = padDomain(Math.min(...values), Math.max(...values), 0.1);
 
-    const x = (t: number) => PAD_L + ((t - minT) / spanT) * (W - PAD_L - PAD_R);
-    const y = (v: number) => PAD_T + (1 - (v - lo) / (hi - lo)) * (H - PAD_T - PAD_B);
+    const scales = createTimeLinearScales({
+      width: W,
+      height: H,
+      xDomain: [minT, maxT],
+      yDomain: [lo, hi],
+      padding: PAD,
+    });
 
     const byModel = new Map<string, HistoryRow[]>();
     for (const r of rows) {
       byModel.set(r.model, [...(byModel.get(r.model) ?? []), r]);
     }
     const models = Array.from(byModel.entries()).sort(
-      (a, b) => +new Date(a[1][0].ts) - +new Date(b[1][0].ts)
+      (a, b) => toMs(a[1][0].ts) - toMs(b[1][0].ts)
     );
 
-    // vertical marker where the active model switches, only meaningful in
-    // history mode. In live mode both models forecast the same upcoming
-    // window concurrently, so there's no real "switch" to point at.
     const transitionT =
-      mode === 'history' && models.length > 1 ? +new Date(models[1][1][0].ts) : null;
+      mode === 'history' && models.length > 1 ? toMs(models[1][1][0].ts) : null;
 
-    const zeroY = y(0);
-
+    const zeroY = scales.y(0);
     const spanHours = spanT / 3_600_000;
     const tickCount = 6;
     const xTicks = Array.from({ length: tickCount }, (_, i) => {
       const t = minT + (spanT * i) / (tickCount - 1);
-      return { t, label: fmtTick(t, spanHours) };
+      return { value: new Date(t), label: fmtTick(t, spanHours) };
     });
+    const yTicks = [lo, (lo + hi) / 2, hi].map((v) => ({
+      value: v,
+      label: v.toFixed(0),
+    }));
 
-    return { x, y, models, minT, maxT, lo, hi, zeroY, transitionT, xTicks };
+    return { scales, models, lo, hi, zeroY, transitionT, xTicks, yTicks };
   }, [rows, mode]);
 
   const handleMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!rows || rows.length === 0) return;
-    const svg = e.currentTarget;
-    const rect = svg.getBoundingClientRect();
-    const px = ((e.clientX - rect.left) / rect.width) * W;
-    let closestTs = rows[0].ts;
-    let closestDist = Infinity;
-    rows.forEach((r) => {
-      const t = +new Date(r.ts);
-      const rx = chart ? chart.x(t) : 0;
-      const d = Math.abs(rx - px);
-      if (d < closestDist) {
-        closestDist = d;
-        closestTs = r.ts;
-      }
-    });
-    setHoverTs(closestTs);
+    if (!rows || rows.length === 0 || !chart) return;
+    const px = clientToViewBoxX(e.currentTarget, e.clientX, W);
+    const xs = rows.map((r) => chart.scales.x(new Date(r.ts)));
+    const idx = closestIndex(xs, px);
+    if (idx >= 0) setHoverTs(rows[idx].ts);
   };
 
-  // both models can hold a forecast for the same hour now, so show every
-  // call for the hovered timestamp rather than picking one arbitrarily
   const hoveredRows = useMemo(
     () => (hoverTs && rows ? rows.filter((r) => r.ts === hoverTs) : []),
     [hoverTs, rows]
   );
 
   const hasRealized = mode === 'history';
+  const theme = substationTheme;
 
   return (
     <div>
-      {/* Mode toggle */}
       <div className="mb-5 flex gap-2">
         {(
           [
@@ -232,7 +204,6 @@ export default function ForecastExplorer() {
         </span>
       </div>
 
-      {/* Node picker */}
       <div className="mb-4">
         <div className="text-[11px] uppercase tracking-[0.15em] text-white/30 font-medium mb-2">
           Pick a node
@@ -254,7 +225,6 @@ export default function ForecastExplorer() {
         </div>
       </div>
 
-      {/* Day range picker (history mode only — live is always "next 24h") */}
       {mode === 'history' && (
         <div className="mb-6 flex items-center gap-4">
           <div className="text-[11px] uppercase tracking-[0.15em] text-white/30 font-medium">
@@ -310,60 +280,41 @@ export default function ForecastExplorer() {
               onMouseMove={handleMove}
               onMouseLeave={() => setHoverTs(null)}
             >
-              {/* zero line */}
               <line
-                x1={PAD_L} x2={W - PAD_R} y1={chart.zeroY} y2={chart.zeroY}
-                stroke="rgba(255,255,255,0.15)" strokeDasharray="4 4"
+                x1={PAD.left}
+                x2={W - PAD.right}
+                y1={chart.zeroY}
+                y2={chart.zeroY}
+                stroke={theme.faint}
+                strokeDasharray="4 4"
               />
-              {/* y-axis labels */}
-              {[chart.lo, (chart.lo + chart.hi) / 2, chart.hi].map((v, i) => (
-                <text
-                  key={i}
-                  x={PAD_L - 8}
-                  y={chart.y(v)}
-                  textAnchor="end"
-                  dominantBaseline="middle"
-                  className="fill-white/30"
-                  style={{ fontSize: 10, fontFamily: 'var(--font-jetbrains-mono), monospace' }}
-                >
-                  {v.toFixed(0)}
-                </text>
-              ))}
-              <text
-                x={PAD_L - 8}
-                y={PAD_T - 4}
-                textAnchor="end"
-                className="fill-white/20"
-                style={{ fontSize: 9, fontFamily: 'var(--font-jetbrains-mono), monospace' }}
-              >
-                $/MWh
-              </text>
 
-              {/* x-axis labels */}
-              {chart.xTicks.map((tick, i) => (
-                <text
-                  key={i}
-                  x={chart.x(tick.t)}
-                  y={H - PAD_B + 16}
-                  textAnchor={i === 0 ? 'start' : i === chart.xTicks.length - 1 ? 'end' : 'middle'}
-                  className="fill-white/30"
-                  style={{ fontSize: 10, fontFamily: 'var(--font-jetbrains-mono), monospace' }}
-                >
-                  {tick.label}
-                </text>
-              ))}
+              <Axis
+                x={chart.scales.x}
+                y={chart.scales.y}
+                width={W}
+                height={H}
+                padding={PAD}
+                theme="substation"
+                xTicks={chart.xTicks}
+                yTicks={chart.yTicks}
+                yLabel="$/MWh"
+                showGrid={false}
+              />
 
-              {/* model transition marker (history mode only) */}
               {chart.transitionT && (
                 <>
                   <line
-                    x1={chart.x(chart.transitionT)} x2={chart.x(chart.transitionT)}
-                    y1={PAD_T} y2={H - PAD_B}
-                    stroke="rgba(255,255,255,0.2)" strokeDasharray="2 3"
+                    x1={chart.scales.x(new Date(chart.transitionT))}
+                    x2={chart.scales.x(new Date(chart.transitionT))}
+                    y1={PAD.top}
+                    y2={H - PAD.bottom}
+                    stroke="rgba(255,255,255,0.2)"
+                    strokeDasharray="2 3"
                   />
                   <text
-                    x={chart.x(chart.transitionT) + 4}
-                    y={PAD_T + 10}
+                    x={chart.scales.x(new Date(chart.transitionT)) + 4}
+                    y={PAD.top + 10}
                     className="fill-white/35"
                     style={{ fontSize: 9, fontFamily: 'var(--font-jetbrains-mono), monospace' }}
                   >
@@ -372,29 +323,26 @@ export default function ForecastExplorer() {
                 </>
               )}
 
-              {/* per-model band + p50 line, split at real data gaps so a
-                  paused-then-resumed model doesn't draw a fake interpolated
-                  wedge across hours it never actually forecast */}
               {chart.models.map(([model, mrows], mi) => {
-                const color = mi === chart.models.length - 1 ? '#FFB020' : 'rgba(255,255,255,0.4)';
+                const color = mi === chart.models.length - 1 ? theme.accent : 'rgba(255,255,255,0.4)';
                 const segments = splitByGap(mrows);
                 return (
                   <g key={model}>
                     {segments.map((seg, si) => {
                       if (seg.length < 2) return null;
-                      const upper = seg.map((r) => `${chart.x(+new Date(r.ts))},${chart.y(r.p90)}`);
-                      const lower = seg
-                        .slice()
-                        .reverse()
-                        .map((r) => `${chart.x(+new Date(r.ts))},${chart.y(r.p10)}`);
-                      const bandPath = `M${upper.join(' L')} L${lower.join(' L')} Z`;
-                      const p50Path = seg
-                        .map((r, i) => `${i ? 'L' : 'M'}${chart.x(+new Date(r.ts))},${chart.y(r.p50)}`)
-                        .join(' ');
+                      const bandPts = seg.map((r) => ({
+                        x: chart.scales.x(new Date(r.ts)),
+                        y0: chart.scales.y(r.p10),
+                        y1: chart.scales.y(r.p90),
+                      }));
+                      const p50Pts = seg.map((r) => ({
+                        x: chart.scales.x(new Date(r.ts)),
+                        y: chart.scales.y(r.p50),
+                      }));
                       return (
                         <g key={si}>
-                          <path d={bandPath} fill={color} fillOpacity={0.12} />
-                          <path d={p50Path} fill="none" stroke={color} strokeWidth={1.5} />
+                          <BandSeries points={bandPts} fill={color} fillOpacity={0.12} curve="linear" />
+                          <LineSeries points={p50Pts} stroke={color} strokeWidth={1.5} curve="linear" />
                         </g>
                       );
                     })}
@@ -402,31 +350,30 @@ export default function ForecastExplorer() {
                 );
               })}
 
-              {/* realized spread markers (history mode only) */}
               {hasRealized &&
                 rows
                   .filter((r) => r.spread != null)
                   .map((r, i) => (
                     <circle
                       key={i}
-                      cx={chart.x(+new Date(r.ts))}
-                      cy={chart.y(r.spread!)}
+                      cx={chart.scales.x(new Date(r.ts))}
+                      cy={chart.scales.y(r.spread!)}
                       r={2.5}
-                      fill={r.covered ? '#FFB020' : '#f87171'}
+                      fill={r.covered ? theme.accent : theme.danger}
                     />
                   ))}
 
-              {/* hover guideline */}
               {hoveredRows.length > 0 && (
                 <line
-                  x1={chart.x(+new Date(hoveredRows[0].ts))} x2={chart.x(+new Date(hoveredRows[0].ts))}
-                  y1={PAD_T} y2={H - PAD_B}
+                  x1={chart.scales.x(new Date(hoveredRows[0].ts))}
+                  x2={chart.scales.x(new Date(hoveredRows[0].ts))}
+                  y1={PAD.top}
+                  y2={H - PAD.bottom}
                   stroke="rgba(255,255,255,0.25)"
                 />
               )}
             </svg>
 
-            {/* legend + tooltip */}
             <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] font-mono text-white/40">
               <span className="flex items-center gap-1.5">
                 <span className="inline-block w-3 h-px bg-primary" /> current model band / median
