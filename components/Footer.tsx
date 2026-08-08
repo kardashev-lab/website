@@ -88,12 +88,6 @@ const Footer = () => (
             Connect
           </h4>
           <div className="space-y-2">
-            <Link
-              href="/blog"
-              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
-            >
-              Blog
-            </Link>
             <a
               href={GITHUB_URL}
               target="_blank"
@@ -112,6 +106,12 @@ const Footer = () => (
               <LinkedInIcon className="w-3.5 h-3.5" />
               LinkedIn
             </a>
+            <Link
+              href="/blog"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              Blog
+            </Link>
             <a
               href={CAL_URL}
               target="_blank"
