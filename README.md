@@ -51,8 +51,9 @@ Copy `env.example` to `.env` and fill in:
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `RESEND_API_KEY` | Yes | API key from [resend.com](https://resend.com) |
-| `RESEND_NOTIFY_TO` | Yes | Email that receives new subscriber notifications |
-| `RESEND_AUDIENCE_ID` | No | Resend audience ID for contact list management |
+| `RESEND_NOTIFY_TO` | Yes | Email that receives new subscriber notifications (includes the address) |
+| `RESEND_SEGMENT_ID` | No | Resend segment ID for Lab Notes. If unset, finds or creates a segment named `Lab Notes`. |
+| `RESEND_AUDIENCE_ID` | No | Legacy alias for `RESEND_SEGMENT_ID` (Audiences are deprecated). |
 | `RESEND_FROM_EMAIL` | No | Verified sender domain email (e.g. `hello@kardashevlabs.org`). Defaults to `onboarding@resend.dev` if unset. |
 | `NEXT_PUBLIC_SITE_URL` | No | Canonical site URL for metadata (default: `https://kardashevlabs.org`) |
 
