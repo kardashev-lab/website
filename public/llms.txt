@@ -78,6 +78,26 @@ const queue = await kl.queue({ iso: "ERCOT" });
 - Same markets as the Python client via the hosted API
 - License: MIT
 
+## MCP Server (AI agents)
+
+`npx -y kardashev-mcp`: Model Context Protocol server for Cursor, Claude Code, and other MCP clients. No API key. Tools for LMP, carbon, load, curtailment, interconnection queues, ERCOT large loads, and the live ERCOT RT−DA spread forecast + public track record.
+
+```json
+{
+  "mcpServers": {
+    "kardashev": {
+      "command": "npx",
+      "args": ["-y", "kardashev-mcp"]
+    }
+  }
+}
+```
+
+- npm: https://www.npmjs.com/package/kardashev-mcp
+- Source: https://github.com/kardashev-lab/kardashev-mcp
+- MCP Registry: `io.github.kardashev-lab/kardashev-mcp`
+- License: MIT
+
 ## Key Facts
 
 - Free and open source (MIT)
@@ -85,6 +105,7 @@ const queue = await kl.queue({ iso: "ERCOT" });
 - Data: https://data.kardashevlabs.org ([kardashev-data](https://github.com/kardashev-lab/kardashev-data))
 - Python: `pip install kardashev`
 - JavaScript/TypeScript: `npm install kardashev`
+- MCP: `npx -y kardashev-mcp`
 - Site: https://kardashevlabs.org
 - Contact: ashutosh@kardashevlabs.org
 - LinkedIn: https://www.linkedin.com/company/kardashev-labs

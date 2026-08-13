@@ -79,6 +79,14 @@ const Footer = () => (
             >
               JS/TS package
             </a>
+            <a
+              href="https://www.npmjs.com/package/kardashev-mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] text-white/38 hover:text-white/70 transition-colors duration-200"
+            >
+              MCP server
+            </a>
           </div>
         </div>
 

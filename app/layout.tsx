@@ -139,6 +139,9 @@ const jsonLd = {
         'https://github.com/kardashev-lab',
         'https://www.linkedin.com/company/kardashev-labs',
         'https://pypi.org/project/kardashev/',
+        'https://www.npmjs.com/package/kardashev',
+        'https://www.npmjs.com/package/kardashev-mcp',
+        'https://github.com/kardashev-lab/kardashev-mcp',
       ],
       description: SITE_DESCRIPTION,
       knowsAbout: [
@@ -187,7 +190,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs builds free open-source tools for US grid data: carbon intensity, interconnection queues across 7 ISO/RTOs, ERCOT large-load and site clearance, demand, curtailment, LMP dashboards and maps, a scored ERCOT spread forecast, docs at docs.kardashevlabs.org, the kardashev Python package on PyPI, and the kardashev JS/TS package on npm.',
+            text: 'Kardashev Labs builds free open-source tools for US grid data: carbon intensity, interconnection queues across 7 ISO/RTOs, ERCOT large-load and site clearance, demand, curtailment, LMP dashboards and maps, a scored ERCOT spread forecast, docs at docs.kardashevlabs.org, the kardashev Python package on PyPI, the kardashev JS/TS package on npm, and kardashev-mcp for AI agents (npx -y kardashev-mcp).',
           },
         },
         {
