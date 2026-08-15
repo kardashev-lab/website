@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'open source energy tools',
     // Interconnection queue
     'US interconnection queue',
-    'power project interconnection',
+    'interconnection project',
     'ERCOT interconnection queue',
     'MISO interconnection queue',
     'PJM interconnection queue',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     'balancing authority data',
     'EIA electricity data',
     'CONUS grid monitoring',
-    'grid load monitoring',
+    'Demand monitoring',
     'electricity consumption dashboard',
     // Curtailment
     'solar curtailment',
@@ -190,7 +190,7 @@ const jsonLd = {
           name: 'What is Kardashev Labs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Kardashev Labs builds free open-source tools for US grid data: carbon intensity, interconnection queues across 7 ISO/RTOs, ERCOT large-load and site clearance, demand, curtailment, LMP dashboards and maps, a scored ERCOT spread forecast, docs at docs.kardashevlabs.org, the kardashev Python package on PyPI, the kardashev JS/TS package on npm, and kardashev-mcp for AI agents (npx -y kardashev-mcp).',
+            text: 'Kardashev Labs builds free open-source tools for US grid data: Carbon Intensity, Generation Queue Current Observation across 7 ISO/RTOs, ERCOT Large-Load Queue and Site Clearance, Demand, Published Curtailment, LMP dashboards and maps, scored ERCOT Spread Issuances, docs at docs.kardashevlabs.org, the kardashev Python package on PyPI, the kardashev JS/TS package on npm, and kardashev-mcp for AI agents (npx -y kardashev-mcp).',
           },
         },
         {
@@ -198,7 +198,7 @@ const jsonLd = {
           name: 'What is the US Interconnection Queue Tracker?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Search ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE interconnection queues in one place. Daily refresh from public ISO reports.',
+            text: 'Current Observation of Interconnection Projects across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Daily refresh from public ISO reports. GIS Film is ERCOT-only.',
           },
         },
         {

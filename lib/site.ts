@@ -8,7 +8,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kardashevlabs.org';
 export const SITE_NAME = 'Kardashev Labs';
 export const SITE_DESCRIPTION =
-  'Free open-source tools for US grid data: carbon intensity, demand, interconnection queues, ERCOT large-load and site clearance, LMP prices, and solar/wind curtailment.';
+  'Free open-source tools for US grid data: Carbon Intensity, Demand, Generation Queue, ERCOT Large-Load Queue and Site Clearance, LMP, and Published Curtailment.';
 
 export type Tool = {
   id: string;
@@ -80,7 +80,7 @@ export const TOOLS: Tool[] = [
     name: 'Interconnection Queue Tracker',
     url: 'https://interconnection-queue.kardashevlabs.org',
     description:
-      'Unified search across all 7 major US ISO/RTO interconnection queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Tracks every power project waiting to connect to the US grid. Data refreshed daily via GitHub Actions.',
+      'Current Observation across all 7 major US ISO/RTO Generation Queues: ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Interconnection Projects identified by ISO Request ID (INR at ERCOT). Daily refresh. GIS Film is ERCOT-only.',
     keywords: [
       'interconnection queue',
       'ERCOT queue',
@@ -90,11 +90,11 @@ export const TOOLS: Tool[] = [
       'SPP queue',
       'NYISO interconnection',
       'ISO-NE queue',
-      'power project interconnection',
+      'interconnection project',
       'US grid interconnection',
     ],
     features: [
-      'Search across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE queues',
+      'Search Current Observation across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE',
       'Daily data refresh via GitHub Actions',
       'Filter by fuel type, capacity, and project status',
       'Download queue data as CSV',
@@ -145,8 +145,8 @@ export const TOOLS: Tool[] = [
     blurb:
       "ERCOT Large-Load Queue history from LLWG/LFLTF Filing Observations. Zone Scorecards carry a Mark, not a Clearance Band. Line Ahead is arithmetic, not a forecast. Batch Zero is the first Large-Load Integration instance.",
     stats: [
-      { value: '438K+', label: 'MW in queue' },
-      { value: '3', label: 'ERCOT zones scored' },
+      { value: '438K+', label: 'MW in Large-Load Queue' },
+      { value: '3', label: 'CDR Zones with Marks' },
       { value: 'Monthly', label: 'data refresh' },
     ],
     image: '/images/tool-large-load.webp',
@@ -215,7 +215,7 @@ export const TOOLS: Tool[] = [
       'CONUS electricity',
       'US power grid monitoring',
       'electricity consumption',
-      'grid load',
+      'electricity Demand',
     ],
     features: [
       'Real-time demand across 15 balancing authorities',
@@ -372,9 +372,9 @@ export const TOOLS: Tool[] = [
     name: 'ERCOT Spread Forecast',
     url: '/forecast',
     description:
-      'Live day-ahead RT-DA spread forecast for 15 ERCOT hubs and load zones, scored in public every day. A temporal fusion transformer publishes P10/P50/P90 forecasts before delivery; forecasts are immutable once issued and scored against realized real-time prices.',
+      'Live day-ahead RT minus DA Spread Issuances for 15 ERCOT hubs and Settlement Zones, scored in public every day. A temporal fusion transformer publishes P10/P50/P90 before delivery. A Spread Issuance is never revised after Issue Time. Scores may update when realized RT lands.',
     keywords: [
-      'ERCOT spread forecast',
+      'ERCOT Spread Issuance',
       'RT-DA spread',
       'day-ahead electricity forecast',
       'temporal fusion transformer',
@@ -386,21 +386,21 @@ export const TOOLS: Tool[] = [
       'Texas electricity forecast',
     ],
     features: [
-      'Daily P10/P50/P90 spread forecasts, published before delivery',
-      'Scored in public against realized real-time prices, never revised',
-      '15 ERCOT hubs and load zones, per-model track record (v1, v2, ...)',
+      'Daily P10/P50/P90 Spread Issuances, published before delivery',
+      'Scored in public against realized real-time prices. Issuances never revised; scores may update',
+      '15 ERCOT hubs and Settlement Zones, Track Record per Forecast Model (v1, v2, ...)',
       'Paper-traded DART signal with published, fee-adjusted P&L',
     ],
-    headline: 'Our model calls the price spread. See if it was right.',
+    headline: 'Each Forecast Model calls the spread. See if it was right.',
     blurb:
-      'A temporal fusion transformer posts day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones before delivery. Rows are immutable. After settlement we score them in public, including a paper DART signal with fees.',
+      'A temporal fusion transformer posts day-ahead RT minus DA Spread Issuances for 15 ERCOT hubs and Settlement Zones before delivery. A Spread Issuance is never revised after Issue Time. After settlement we score them in public, including a Paper DART Rule with fees.',
     stats: [
       { value: '15', label: 'ERCOT nodes' },
       { value: 'Daily', label: 'published before delivery' },
-      { value: 'Public', label: 'immutable scoring' },
+      { value: 'Public', label: 'Track Record per Forecast Model' },
     ],
     image: '/images/tool-forecast.webp',
-    imageAlt: 'ERCOT spread forecast live track record preview',
+    imageAlt: 'ERCOT Spread Issuance live Track Record preview',
     theme: {
       accent: 'from-teal-500/20 to-teal-500/0',
       glow: 'rgba(20,184,166,0.12)',

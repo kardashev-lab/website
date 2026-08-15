@@ -1,6 +1,6 @@
 ---
 title: "The ERCOT large-load queue was climbing before 2026."
-description: "Requested large-load capacity sat near 35–57 GW for years, then climbed through 2025 and hit 466.5 GW by June 2026. Online load is still basically the x-axis."
+description: "Requested Large-Load capacity sat near 35–57 GW for years, then climbed through 2025 and hit 466.5 GW by June 2026. Observed Energized MW is still basically the x-axis."
 date: "2026-08-02"
 category: "Queues"
 image: "/blog/ercot-large-load-explosion.png"
@@ -11,7 +11,7 @@ The ERCOT large-load queue was climbing before the 2026 headlines. The decks sho
 
 Data-center and industrial load requests get compressed into a single headline number. That number is almost always the latest deck total. The public LFLTF and LLWG status decks tell a longer story: years of relative flatness, a gap with no standalone monthly totals, a 2025 climb that only appears inside later reports' trailing charts, then a 2026 primary series that ends at 466.5 GW.
 
-Online load is still basically the x-axis.
+Observed Energized MW is still basically the x-axis.
 
 ## Read the decks as a publication history
 
@@ -35,7 +35,7 @@ Do not interpolate the months with no public total. Oct 2024 through Mar 2025 ha
 | Jun 2026 primary | **466.5 GW** |
 | Observed energized (Jun 2026) | **5.7 GW** |
 
-For years the queue sat in a band that fit on a chart under 100 GW. Through 2025 the trailing totals already show a steep climb. By mid-2026 the primary deck prints 466.5 GW of requested capacity. Observed energized load in the same window is 5.7 GW.
+For years the queue sat in a band that fit on a chart under 100 GW. Through 2025 the trailing totals already show a steep climb. By mid-2026 the primary deck prints 466.5 GW of requested capacity. Observed Energized MW in the same window is 5.7 GW.
 
 > Queue megawatts are interest. Energized megawatts are the operating fact.
 

@@ -1,6 +1,6 @@
 # Kardashev Labs
 
-> Free open-source tools for US grid data: demand, interconnection queues, ERCOT site clearance, LMP prices and nodal maps, carbon intensity, curtailment, and a scored ERCOT spread forecast.
+> Free open-source tools for US grid data: Demand, Generation Queue, ERCOT Site Clearance, LMP, Carbon Intensity, Published Curtailment, and scored ERCOT Spread Issuances.
 
 ISO and EIA feeds are public but scattered. Kardashev Labs pulls them into tools you can query without a vendor login.
 
@@ -28,7 +28,7 @@ ISO and EIA feeds are public but scattered. Kardashev Labs pulls them into tools
 
 - [Docs](https://docs.kardashevlabs.org): Quickstart, ISO coverage, API reference, changelog for the `kardashev` Python and JS/TS clients.
 
-- [Data API](https://data.kardashevlabs.org): Read-only API for fuel mix, carbon, curtailment, LMP, load, gas, weather, and queue data.
+- [Data API](https://data.kardashevlabs.org): Read-only API for fuel mix, Carbon Intensity, Published Curtailment, LMP, Demand, gas, weather, and Generation Queue data.
 
 ## Python Library
 
@@ -80,7 +80,7 @@ const queue = await kl.queue({ iso: "ERCOT" });
 
 ## MCP Server (AI agents)
 
-`npx -y kardashev-mcp`: Model Context Protocol server for Cursor, Claude Code, and other MCP clients. No API key. Tools for LMP, carbon, load, curtailment, interconnection queues, ERCOT large loads, and the live ERCOT RT−DA spread forecast + public track record.
+`npx -y kardashev-mcp`: Model Context Protocol server for Cursor, Claude Code, and other MCP clients. No API key. Tools for LMP, Carbon Intensity, Demand, Published Curtailment, Generation Queue Current Observation, ERCOT Large-Load Queue, and live ERCOT Spread Issuances plus Track Record.
 
 ```json
 {

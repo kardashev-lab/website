@@ -1,10 +1,10 @@
 ---
-title: "ERCOT interconnection time is not one number."
-description: "People quote one ERCOT interconnection timeline like it applies everywhere. Measured screening-to-energization from 97 months of GIS Reports shows zone and fuel gaps of nearly a year."
+title: "ERCOT Full Process is not one number."
+description: "People quote one ERCOT interconnection timeline like it applies everywhere. Measured Full Process from 97 months of GIS Film shows CDR Zone and fuel gaps of nearly a year."
 date: "2026-07-29"
 category: "Queues"
 image: "/blog/ercot-queue-speed-by-zone.png"
-imageAlt: "ERCOT median interconnection timeline by weather zone, screening study to energization"
+imageAlt: "ERCOT median Full Process by CDR Zone, Screening Start to Approved for Energization"
 ---
 
 People quote one ERCOT interconnection timeline like it applies everywhere. It doesn't.
@@ -19,7 +19,7 @@ The interval that matters for site selection is screening study to approved-for-
 
 ## Zone medians diverge by almost a year
 
-Median screening-to-energization, by ERCOT weather zone:
+Median Full Process, by ERCOT CDR Zone:
 
 | Zone | Median years |
 | --- | --- |
@@ -30,7 +30,7 @@ Median screening-to-energization, by ERCOT weather zone:
 | Coastal | ~3.6–3.9 |
 | Panhandle | ~3.6–3.9 |
 
-Same market. Nearly a year of difference between the faster zones and the slower ones. If you are picking sites on schedule, not just $/MWh, zone is not a footnote.
+Same market. Nearly a year of difference between the faster CDR Zones and the slower ones. If you are picking Footprints on schedule, not just $/MWh, CDR Zone is not a footnote.
 
 ## Fuel splits the same film
 

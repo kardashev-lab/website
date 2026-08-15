@@ -9,14 +9,14 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'ERCOT Spread Forecast: Live Track Record',
   description:
-    'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices. Every forecast is immutable once issued.',
+    'Daily day-ahead RT minus DA Spread Issuances for 15 ERCOT hubs and Settlement Zones, published before delivery and scored against realized prices. A Spread Issuance is never revised after Issue Time.',
   alternates: {
     canonical: '/forecast',
   },
   openGraph: {
     title: 'ERCOT Spread Forecast: Live Track Record | Kardashev Labs',
     description:
-      'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices.',
+      'Daily day-ahead RT minus DA Spread Issuances for 15 ERCOT hubs and Settlement Zones, published before delivery and scored against realized prices.',
     url: '/forecast',
     type: 'website',
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ERCOT Spread Forecast: Live Track Record | Kardashev Labs',
     description:
-      'Daily day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, published before delivery and scored against realized prices.',
+      'Daily day-ahead RT minus DA Spread Issuances for 15 ERCOT hubs and Settlement Zones, published before delivery and scored against realized prices.',
   },
 };
 
@@ -227,23 +227,23 @@ export default async function ForecastPage() {
             Live forward test
           </div>
           <h1 className="text-3xl lg:text-5xl font-bold uppercase text-foreground leading-tight mb-5">
-            ERCOT day-ahead spread forecast.
+            ERCOT day-ahead Spread Issuance.
             <br />
             Scored in public, every day.
           </h1>
           <p className="text-[0.95rem] text-muted-foreground leading-relaxed max-w-2xl mb-4">
-            Before delivery each day, the model posts P10/P50/P90 forecasts of the
-            next 24 hours of RT&minus;DA spread at 15 ERCOT hubs and load zones.
-            Those rows are written once. After the hours settle, we score them
-            against realized real-time prices. Old model versions keep their own
+            Before delivery each day, each Forecast Model posts P10/P50/P90 of the
+            next 24 hours of RT minus DA spread at 15 ERCOT hubs and Settlement Zones.
+            A Spread Issuance is written once. After the hours settle, we score them
+            against realized real-time prices. Old Forecast Models keep their own
             scored history; we do not rewrite or fold them into a newer run.
           </p>
           <p className="text-[0.85rem] text-white/40 mb-10">
             Companion:{' '}
             <Link href="/load-forecast" className="text-white/60 underline hover:text-white/80">
-              ERCOT&apos;s own day-ahead load forecast accuracy
+              ERCOT&apos;s own day-ahead Demand forecast accuracy
             </Link>
-            , scored the same way.
+            , scored separately. That is operator scoring, not a Kardashev Spread Issuance.
           </p>
 
           {/* Plain-language explainer */}
