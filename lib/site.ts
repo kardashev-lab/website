@@ -99,9 +99,9 @@ export const TOOLS: Tool[] = [
       'Filter by fuel type, capacity, and project status',
       'Download queue data as CSV',
     ],
-    headline: 'Every US power project waiting to connect to the grid.',
+    headline: 'Current Observation of Interconnection Projects across 7 ISOs.',
     blurb:
-      'Unified search across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Daily refresh. One page instead of seven portals.',
+      'Unified search across ERCOT, MISO, PJM, CAISO, SPP, NYISO, and ISO-NE. Request ID is ISO-native (INR at ERCOT). GIS Film is ERCOT-only. Daily refresh.',
     stats: [
       { value: '7', label: 'ISOs covered' },
       { value: 'Daily', label: 'data refresh' },
@@ -122,7 +122,7 @@ export const TOOLS: Tool[] = [
     name: 'Large Load Tracker',
     url: 'https://large-load-tracker.kardashevlabs.org',
     description:
-      'ERCOT large-load (data center, crypto, industrial) interconnection queue history extracted from monthly LLWG/LFLTF committee decks. Zone scorecards combining queue depth, generator interconnection timelines, and price stress. A project timeline estimator, and a plain-language explainer of Batch Zero (PGRR145, NPRR1325, Senate Bill 6).',
+      'ERCOT Large-Load Queue history extracted from monthly LLWG/LFLTF Filing Observations. Zone Scorecards combining queue depth, generation-side Full Process, and Settlement Zone stress. Line Ahead arithmetic, and a plain-language explainer of Batch Zero (PGRR145, NPRR1325, Senate Bill 6).',
     keywords: [
       'ERCOT large load queue',
       'ERCOT data center interconnection',
@@ -137,13 +137,13 @@ export const TOOLS: Tool[] = [
     ],
     features: [
       'Monthly ERCOT large-load queue history from LLWG/LFLTF committee decks',
-      'Zone scorecards: queue depth, interconnection timelines, and price stress in one grade',
-      'Project timeline estimator based on real ERCOT approval pace',
+      'Zone Scorecards: queue depth, Full Process, and price stress in one Mark (A–D)',
+      'Line Ahead arithmetic from Filing Observations and measured Full Process',
       'Batch Zero (PGRR145, NPRR1325, Senate Bill 6) explained with sourced dates',
     ],
-    headline: 'How long until your data center gets power in ERCOT.',
+    headline: 'How much Large Load is in the ERCOT queue, and what the decks actually show.',
     blurb:
-      "ERCOT large-load queue history straight from the LLWG/LFLTF committee decks. Zone scorecards grade where new load can actually get built. A timeline estimator runs the real math on your project. Plus Batch Zero, ERCOT's first large-load approval batch, explained in plain language.",
+      "ERCOT Large-Load Queue history from LLWG/LFLTF Filing Observations. Zone Scorecards carry a Mark, not a Clearance Band. Line Ahead is arithmetic, not a forecast. Batch Zero is the first Large-Load Integration instance.",
     stats: [
       { value: '438K+', label: 'MW in queue' },
       { value: '3', label: 'ERCOT zones scored' },
@@ -164,7 +164,7 @@ export const TOOLS: Tool[] = [
     name: 'Site Clearance',
     url: 'https://clearance.kardashevlabs.org',
     description:
-      'Draw a search area in ERCOT and get a county-level strong / mixed / weak clearance estimate from GIS queue pressure, measured interconnection timelines, and LMP market stress. Public data only; not an official interconnection study.',
+      'Draw a Footprint in ERCOT. Generation Mode returns a county-level Clearance Band (strong / mixed / weak) from GIS Film pressure, measured Full Process, and Settlement Zone stress. Public data only; not an official interconnection study. Load Mode is Attached Evidence, not a Clearance.',
     keywords: [
       'ERCOT site clearance',
       'ERCOT interconnection screening',
@@ -178,21 +178,21 @@ export const TOOLS: Tool[] = [
       'public interconnection study alternative',
     ],
     features: [
-      'Draw a search polygon on an ERCOT map (Texas-only)',
-      'County-resolution queue pressure from the public GIS Report',
-      'Measured peer timelines by zone and fuel from GIS history',
-      'Load-zone LMP stress (negative hours, volatility) in the grade',
+      'Draw a Footprint on an ERCOT map (Texas-only)',
+      'County-resolution Generation Queue pressure from the public GIS Report',
+      'Measured Full Process by CDR Zone and fuel from GIS Film',
+      'Settlement Zone LMP stress (negative hours, volatility) in the Band',
     ],
-    headline: 'Draw a search area. See if that MW can clear.',
+    headline: 'Draw a Footprint. See the Clearance Band for that MW.',
     blurb:
-      'County-level ERCOT grade from public GIS queue history, measured screening-to-energization timelines, and LMP stress. Strong / mixed / weak with the drivers shown. Not an official study.',
+      'County-level ERCOT Clearance Band from public GIS Film, measured Full Process, and Settlement Zone stress. Strong / mixed / weak with the drivers shown. Not an official study.',
     stats: [
       { value: 'County', label: 'GIS resolution' },
       { value: '~97mo', label: 'timeline history' },
       { value: 'Free', label: 'public tool' },
     ],
     image: '/images/tool-site-clearance.webp',
-    imageAlt: 'ERCOT Site Clearance map with drawn search area and county overlays',
+    imageAlt: 'ERCOT Site Clearance map with drawn Footprint and county overlays',
     theme: {
       accent: 'from-yellow-500/20 to-yellow-500/0',
       glow: 'rgba(234,179,8,0.12)',

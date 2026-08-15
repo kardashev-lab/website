@@ -8,23 +8,23 @@ ISO and EIA feeds are public but scattered. Kardashev Labs pulls them into tools
 
 - [Nodal LMP Price Map](https://lmp-map.kardashevlabs.org): Live nodal prices for NYISO, ERCOT, MISO, SPP, and CAISO. Color-coded map, click a node for 14-day history. Updates every 60 seconds.
 
-- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Search across all 7 major US ISO/RTO interconnection queues (ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE). Daily refresh.
+- [Interconnection Queue Tracker](https://interconnection-queue.kardashevlabs.org): Current Observation across all 7 major US ISO/RTO queues (ERCOT, MISO, PJM, CAISO, SPP, NYISO, ISO-NE). Request ID is ISO-native (INR at ERCOT). GIS Film is ERCOT-only. Daily refresh.
 
-- [ERCOT Interconnection Timelines](https://interconnection-queue.kardashevlabs.org/interconnection-timelines): Screening-to-energization medians by zone and fuel from 97 months of public GIS Reports.
+- [ERCOT Interconnection Timelines](https://interconnection-queue.kardashevlabs.org/interconnection-timelines): GIS Film Full Process and Build Phase by CDR Zone and fuel from 97 months of public GIS Reports. Clocks end at Approved for Energization; COD Slip is Commercial Operation.
 
-- [Large Load Tracker](https://large-load-tracker.kardashevlabs.org): ERCOT large-load queue history from LLWG/LFLTF decks. Zone scorecards, timeline estimator, Batch Zero explainer. Monthly refresh.
+- [Large Load Tracker](https://large-load-tracker.kardashevlabs.org): ERCOT Large-Load Queue history from LLWG/LFLTF Filing Observations. Zone Scorecard Marks, Line Ahead arithmetic, Batch Zero as a Large-Load Integration instance. Monthly refresh.
 
-- [Site Clearance](https://clearance.kardashevlabs.org): Draw a search area in ERCOT; get a county-level strong / mixed / weak grade from GIS queue, peer timelines, and LMP stress. Not an official study. Methodology: https://clearance.kardashevlabs.org/methodology
+- [Site Clearance](https://clearance.kardashevlabs.org): Draw a Footprint in ERCOT; Generation Mode returns a county-level Clearance Band (strong / mixed / weak) from GIS Film, Full Process, and Settlement Zone stress. Load Mode is Attached Evidence, not a Clearance. Not an official study. Methodology: https://clearance.kardashevlabs.org/methodology
 
 - [Carbon Intensity Dashboard](https://carbon-dashboard.kardashevlabs.org): Real-time CO2 intensity for all 7 US ISOs and 20+ balancing authorities from live fuel mix and EPA eGRID factors. Updates every 5 minutes. Map view: https://carbon-dashboard.kardashevlabs.org/map
 
-- [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Live demand across 15 balancing authorities (~95% CONUS), via EIA / kardashev-data.
+- [Grid Demand Dashboard](https://grid-demand.kardashevlabs.org): Live Demand across 15 Balancing Authorities (~95% CONUS), via EIA / kardashev-data.
 
-- [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org): Daily solar and wind curtailment for CAISO, SPP, and ERCOT, with a 90-day history.
+- [Curtailment Tracker](https://curtailment-tracker.kardashevlabs.org): Daily Published Curtailment (ISO/fuel grain) for CAISO, SPP, and ERCOT, with a 90-day history.
 
 - [LMP Dashboard](https://lmp.kardashevlabs.org): RT and day-ahead LMP for NYISO, PJM, CAISO, and SPP, plus fuel mix, gas, weather, and storage context.
 
-- [ERCOT Spread Forecast](https://kardashevlabs.org/forecast): Day-ahead RT-DA spread forecasts for 15 ERCOT hubs and load zones, scored in public. Immutable once issued. Companion load-forecast score: https://kardashevlabs.org/load-forecast
+- [ERCOT Spread Forecast](https://kardashevlabs.org/forecast): Day-ahead RT-DA Spread Issuances for 15 ERCOT hubs and Settlement Zones, scored in public. Identity is Target Hour, Node, and Forecast Model. Never revised after Issue Time. Companion ISO Demand-forecast score: https://kardashevlabs.org/load-forecast
 
 - [Docs](https://docs.kardashevlabs.org): Quickstart, ISO coverage, API reference, changelog for the `kardashev` Python and JS/TS clients.
 

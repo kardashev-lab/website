@@ -206,7 +206,7 @@ const jsonLd = {
           name: 'What is the Large Load Tracker?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: "Tracks ERCOT's large-load queue (data center, crypto, industrial) from LLWG/LFLTF decks. Zone grades from queue depth, gen-side timelines, and price stress. Includes a timeline estimator and a Batch Zero explainer.",
+            text: "Tracks ERCOT's Large-Load Queue (data center, crypto, industrial) from LLWG/LFLTF Filing Observations. Zone Scorecard Marks from queue depth, generation-side Full Process, and price stress. Includes Line Ahead arithmetic and a Batch Zero explainer.",
           },
         },
         {
@@ -214,7 +214,7 @@ const jsonLd = {
           name: 'What is Site Clearance?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'At clearance.kardashevlabs.org you draw an ERCOT search area, pick gen or large-load MW, and get a strong / mixed / weak county-level grade from public GIS queue, measured timelines, and LMP stress. Not an official interconnection study.',
+            text: 'At clearance.kardashevlabs.org you draw an ERCOT Footprint. Generation Mode returns a strong / mixed / weak county-level Clearance Band from public GIS Film, measured Full Process, and Settlement Zone stress. Load Mode is Attached Evidence, not a Clearance. Not an official interconnection study.',
           },
         },
         {
