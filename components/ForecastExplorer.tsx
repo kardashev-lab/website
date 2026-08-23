@@ -16,9 +16,17 @@ import {
 
 const API = 'https://data.kardashevlabs.org';
 
-const NODES = [
+const HUB_NODES = [
   'HB_HOUSTON', 'HB_BUSAVG', 'HB_HUBAVG', 'HB_NORTH', 'HB_PAN', 'HB_SOUTH', 'HB_WEST',
   'LZ_AEN', 'LZ_CPS', 'LZ_HOUSTON', 'LZ_LCRA', 'LZ_NORTH', 'LZ_RAYBN', 'LZ_SOUTH', 'LZ_WEST',
+];
+
+const RESOURCE_NODES = [
+  'POTEETS_RN', 'PANDA_T1_CC1', 'BELM_SLR_RN', 'BLVN_RN', 'CHIL_SLR', 'LIGSW_RN',
+  'RHESS2_ESS1', 'NF_BRP_RN', 'BYNM_SLR_RN', 'POTSVIL_RN', 'MCSES_UNIT6', 'DECKER_GT',
+  'SPARTA_ALL', 'NRTN_SLR_RN', 'ELSAUZ_ALL', 'PENA_ALL', 'KARAKAW1_1', 'LV1A_LV1B',
+  'BUCHAN_ALL', 'INKS_INKS_G1', 'WIR_WIRTZ_G1', 'MARBFA', 'FERGCC_GT1_1', 'FERGCC_CC1',
+  'LMWD_SLR_RN', 'PITSDD_UNIT1', 'GOLINDA_UN1', 'GODY_SLR_RN', 'AQUI_ALL', 'SUNVASLR_ALL',
 ];
 
 const DAY_OPTIONS = [3, 7, 14] as const;
@@ -39,6 +47,7 @@ type HistoryRow = {
 };
 
 function modelLabel(model: string): string {
+  if (model.startsWith('basis')) return 'basis';
   const m = model.match(/-v(\d+)-/);
   if (m) return `v${m[1]}`;
   return 'v1';
@@ -209,7 +218,7 @@ export default function ForecastExplorer() {
           Pick a node
         </div>
         <div className="flex flex-wrap gap-2">
-          {NODES.map((n) => (
+          {HUB_NODES.map((n) => (
             <button
               key={n}
               onClick={() => setNode(n)}
@@ -222,6 +231,29 @@ export default function ForecastExplorer() {
               {n}
             </button>
           ))}
+        </div>
+        <div className="mt-3 flex items-center gap-3">
+          <label
+            htmlFor="resource-node"
+            className="text-[11px] uppercase tracking-[0.15em] text-white/30 font-medium"
+          >
+            Resource node
+          </label>
+          <select
+            id="resource-node"
+            value={RESOURCE_NODES.includes(node) ? node : ''}
+            onChange={(e) => {
+              if (e.target.value) setNode(e.target.value);
+            }}
+            className="bg-[#0A0A0A] border border-white/15 text-white/70 font-mono text-[12px] px-3 py-1.5"
+          >
+            <option value="">Hubs above, or pick one…</option>
+            {RESOURCE_NODES.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 

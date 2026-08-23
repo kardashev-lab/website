@@ -71,8 +71,17 @@ const usd = (v: number | null | undefined) =>
   v == null ? '—' : `${v < 0 ? '-' : ''}$${Math.abs(Number(v)).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 const day = (s: string) => s.slice(0, 10);
 
+function isTft(model: string): boolean {
+  return model.startsWith('tft-');
+}
+
+function isBasis(model: string): boolean {
+  return model.startsWith('basis-');
+}
+
 // short human label for a model tag, e.g. "tft-v2-2026q3" -> "v2"
 function modelLabel(model: string): string {
+  if (isBasis(model)) return 'basis';
   const m = model.match(/-v(\d+)-/);
   if (m) return `v${m[1]}`;
   return model.includes('-v2-') ? 'v2' : 'v1';
@@ -206,10 +215,11 @@ export default async function ForecastPage() {
   );
 
   const models = (track?.models ?? []).filter((m) => Number(m.node_hours) > 0);
-  const hasScores = models.length > 0;
-  // newest-first; the API orders by first_hour ascending
-  const modelsNewestFirst = [...models].reverse();
-  const activeModel = modelsNewestFirst[0]?.model;
+  const tftModels = [...models.filter((m) => isTft(m.model))].reverse();
+  const basisModels = [...models.filter((m) => isBasis(m.model))].reverse();
+  const hasScores = tftModels.length > 0 || basisModels.length > 0;
+  const activeModel =
+    tftModels.find((m) => m.model.includes('-v2-'))?.model ?? tftModels[0]?.model;
 
   return (
     <>
@@ -297,9 +307,25 @@ export default async function ForecastPage() {
           <h2 className="text-xl font-semibold uppercase text-foreground mb-5">Live track record</h2>
           {hasScores ? (
             <div className="space-y-14">
-              {modelsNewestFirst.map((m) => (
+              {tftModels.map((m) => (
                 <ModelTrackRecord key={m.model} m={m} isActive={m.model === activeModel} />
               ))}
+              {basisModels.length > 0 && (
+                <div className="pt-4 border-t border-white/10">
+                  <h3 className="text-lg font-semibold uppercase text-foreground mb-2">
+                    Nodal basis track
+                  </h3>
+                  <p className="text-[0.85rem] text-white/40 mb-8 max-w-2xl leading-relaxed">
+                    Separate from the hub TFTs. 30 resource settlement points, each
+                    the v1 hub issuance plus hour-of-day quantiles of that node&apos;s
+                    realized basis versus its hub. Not a new Forecast Model architecture.
+                    Hubs above stay the public demo.
+                  </p>
+                  {basisModels.map((m) => (
+                    <ModelTrackRecord key={m.model} m={m} isActive={false} />
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <div className="p-6 border border-white/10 bg-white/[0.02] text-white/40 text-[0.9rem]">
@@ -335,7 +361,8 @@ export default async function ForecastPage() {
               <p>
                 The setup is leak-free: at issuance the model sees only information available
                 before delivery, the cleared day-ahead price, published forecasts, and
-                real-time history through the last settled hour.
+                real-time history through the last settled hour. The nodal basis track uses
+                the same rule: its hour-of-day quantiles are fit only on hours already settled.
               </p>
             </div>
             <div className="space-y-4">
