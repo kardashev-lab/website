@@ -1,13 +1,13 @@
 ---
 title: "LBNL's ERCOT queue data has real gaps. Here's how many our filing history can close."
-description: "LBNL's Queued Up is the reference dataset most of the industry builds on. Cross-referenced against our own ERCOT GIS filing history, some of its ERCOT gaps are fillable, some aren't, and one class of value shouldn't be trusted at all."
+description: "LBNL's Queued Up is the standard reference dataset for US interconnection queues. Cross-referenced against our own ERCOT GIS filing history, some of its ERCOT gaps are fillable, some aren't, and one class of value shouldn't be trusted at all."
 date: "2026-09-04"
 category: "Methods"
 image: "/blog/lbnl-queued-up-substation.webp"
 imageAlt: "Aerial view of an electrical substation surrounded by farmland"
 ---
 
-Lawrence Berkeley National Lab's [Queued Up](https://emp.lbl.gov/queues) is the closest thing the US interconnection-queue world has to a reference dataset. GridStatus, Yes Energy, LandGate, and GridTracker all build on it or cite it. It's also, by LBNL's own documentation, incomplete: a meaningful share of records are missing an interconnection agreement (IA) date, a withdrawal date, or a valid commercial operation date (COD).
+Lawrence Berkeley National Lab's [Queued Up](https://emp.lbl.gov/queues) is the closest thing the US interconnection-queue world has to a reference dataset: compiled by LBNL in partnership with [GridTracker](https://interconnection.fyi/), cited widely in industry and research coverage of interconnection queues. It's also, by LBNL's own documentation, incomplete: a meaningful share of records are missing an interconnection agreement (IA) date, a withdrawal date, or a valid commercial operation date (COD).
 
 We track ERCOT's own monthly GIS Report filings back to December 2018 — the same milestone-level history behind [our ERCOT timeline work](/blog/ercot-interconnection-timelines). That's a plausible source to close some of LBNL's ERCOT gaps directly from the filings themselves. We ran the cross-reference to find out how much of that is actually true, not assumed.
 
@@ -28,9 +28,9 @@ Join LBNL's ERCOT rows to our `ercot_gis_snapshots` table on queue ID (`q_id` / 
 
 ## The anomaly the sanity floor caught
 
-Of 167 IA-date candidates, 56 failed the floor check outright. Example: queue ID `17INR0053` shows `ia_signed = 2009-06-26` consistently across a dozen consecutive monthly ERCOT filings — but LBNL records that project's own interconnection request as filed in 2016. The agreement can't predate the request by seven years. That's not a parsing error on our end; ERCOT's own filing is internally consistent on this bad value across dozens of months, which points to legacy queue-ID reuse in ERCOT's own systems, not a one-off typo. We excluded all 56 rather than guess.
+Of 167 IA-date candidates, 56 failed the floor check outright. Example: queue ID `17INR0053` shows `ia_signed = 2009-06-26` in ERCOT's own GIS Report — but LBNL records that project's own interconnection request as filed on 2016-10-03. The agreement can't predate the request by over seven years. This isn't a one-off blip: the value first appears in ERCOT's June 2019 filing, the project then drops out of ERCOT's monthly report entirely for about two years, and once it reappears in July 2021 the same wrong date has held in every single monthly filing since, straight through August 2026, the most recent one available as of this post. That's not a parsing error on our end; it's ERCOT's own filing, unchanged for 62 consecutive months, which points to legacy queue-ID reuse in ERCOT's own systems, not a typo that got fixed. We excluded all 56 candidates that failed this check rather than guess.
 
-This is the actual value of cross-referencing two independent sources: neither dataset alone would have surfaced this. LBNL has no reason to doubt a date ERCOT filed. We wouldn't have doubted it either, without a second dataset's request date to check it against.
+This is the actual value of cross-referencing two independent sources: neither dataset alone would have surfaced this. LBNL has no reason to doubt a date ERCOT filed. We wouldn't have doubted it either, without a second dataset's request date to check it against — this kind of error is only visible at the seam between two independently-sourced datasets, not from inside either one.
 
 ## What this can and cannot claim
 
