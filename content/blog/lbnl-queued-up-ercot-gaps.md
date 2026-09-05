@@ -3,8 +3,8 @@ title: "LBNL's ERCOT queue data has real gaps. Here's how many our filing histor
 description: "LBNL's Queued Up is the reference dataset most of the industry builds on. Cross-referenced against our own ERCOT GIS filing history, some of its ERCOT gaps are fillable, some aren't, and one class of value shouldn't be trusted at all."
 date: "2026-09-04"
 category: "Methods"
-image: "/blog/lbnl-queued-up-anomaly.png"
-imageAlt: "Timeline showing ERCOT queue ID 17INR0053's interconnection agreement dated 2009-06-26, seven years before its 2016-10-03 queue-request date per LBNL Queued Up"
+image: "/blog/lbnl-queued-up-substation.webp"
+imageAlt: "Aerial view of an electrical substation surrounded by farmland"
 ---
 
 Lawrence Berkeley National Lab's [Queued Up](https://emp.lbl.gov/queues) is the closest thing the US interconnection-queue world has to a reference dataset. GridStatus, Yes Energy, LandGate, and GridTracker all build on it or cite it. It's also, by LBNL's own documentation, incomplete: a meaningful share of records are missing an interconnection agreement (IA) date, a withdrawal date, or a valid commercial operation date (COD).
